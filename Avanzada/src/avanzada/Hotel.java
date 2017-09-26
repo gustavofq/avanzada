@@ -9,7 +9,7 @@ package avanzada;
  *
  * @author maquinola
  */
-public class Avanzada {
+public class Hotel {
 
     /**
      * @param args the command line arguments
@@ -18,7 +18,7 @@ public class Avanzada {
         // TODO code application logic here
         System.out.print("facu se la come a reee");
     }
-    //hola soy gustavo
     
-    //gustavo se la come
+    
+    
 }
