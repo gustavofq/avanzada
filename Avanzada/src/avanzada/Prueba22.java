@@ -7,8 +7,8 @@ package avanzada;
 
 /**
  *
- * @author maquinola
+ * @author Facu
  */
-public class prueba {
-    //facundo
+public class Prueba22 {
+    
 }
