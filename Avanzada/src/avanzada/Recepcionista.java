@@ -9,6 +9,14 @@ package avanzada;
  *
  * @author Facu
  */
-public class Recepcionista {
+public class Recepcionista extends Empleado{
+
+    public Recepcionista() {
+    }
+
+    public Recepcionista(int DNI, String nombre, String apellido) {
+        super(DNI, nombre, apellido);
+    }
+    
     
 }

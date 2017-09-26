@@ -5,10 +5,19 @@
  */
 package avanzada;
 
+import java.util.Calendar;
+
 /**
  *
  * @author Facu
  */
-public class RMesas {
+public class RMesas extends Reservas{
+    
+    private int ID;
+    private int numeroMesa;
+    private Calendar fecha;
+    private Cliente unCliente;
+    
+    
     
 }

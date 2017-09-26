@@ -9,6 +9,15 @@ package avanzada;
  *
  * @author Facu
  */
-public class Camarero {
+public class Camarero extends Empleado{
+
+    public Camarero() {
+    }
+
+    public Camarero(int DNI, String nombre, String apellido) {
+        super(DNI, nombre, apellido);
+    }
+    
+    
     
 }
