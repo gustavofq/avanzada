@@ -11,4 +11,7 @@ package avanzada;
  */
 public class Mesa {
     
+    private int ID;
+    private String Estado;
+    
 }

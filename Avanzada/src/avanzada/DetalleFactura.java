@@ -11,4 +11,6 @@ package avanzada;
  */
 public class DetalleFactura {
     
+    
+    
 }

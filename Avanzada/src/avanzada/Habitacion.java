@@ -11,4 +11,9 @@ package avanzada;
  */
 public class Habitacion {
     
+    private int ID;
+    private String Estado;
+    
+    
+    
 }
