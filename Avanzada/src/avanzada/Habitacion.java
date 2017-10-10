@@ -5,15 +5,24 @@
  */
 package avanzada;
 
+import javax.persistence.Basic;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
 /**
  *
  * @author Facu
  */
 public class Habitacion {
     
+    @GeneratedValue
+    @Id
     private int ID;
+    @Basic
     private String Estado;
-    
+    @OneToOne
+    private Tipo unTipo;
     
     
 }

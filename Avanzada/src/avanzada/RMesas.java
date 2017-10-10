@@ -6,6 +6,10 @@
 package avanzada;
 
 import java.util.Calendar;
+import javax.persistence.Basic;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -13,9 +17,14 @@ import java.util.Calendar;
  */
 public class RMesas extends Reservas{
     
+    @GeneratedValue
+    @Id
     private int ID;
+    @Basic
     private int numeroMesa;
+    @Basic
     private Calendar fecha;
+    @OneToOne
     private Cliente unCliente;
     
     

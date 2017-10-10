@@ -5,14 +5,22 @@
  */
 package avanzada;
 
+import javax.persistence.Basic;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 /**
  *
  * @author Facu
  */
 public class Empleado {
     
+    @GeneratedValue
+    @Id
     private int DNI;
+    @Basic
     private String nombre;
+    @Basic
     private String apellido;
 
     public Empleado() {

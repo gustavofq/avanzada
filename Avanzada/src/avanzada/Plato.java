@@ -5,23 +5,34 @@
  */
 package avanzada;
 
+import javax.persistence.Basic;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 /**
  *
  * @author Facu
  */
 public class Plato {
     
+    @GeneratedValue
+    @Id
     private int ID;
+    @Basic
     private String nombre;
+    @Basic
     private String descripcion;
+    @Basic
+    private int precio;
 
     public Plato() {
     }
 
-    public Plato(int ID, String nombre, String descripcion) {
+    public Plato(int ID, String nombre, String descripcion, int precio) {
         this.ID = ID;
         this.nombre = nombre;
         this.descripcion = descripcion;
+        this.precio = precio;
     }
 
     public int getID() {
@@ -36,6 +47,10 @@ public class Plato {
         return descripcion;
     }
 
+    public int getPrecio() {
+        return precio;
+    }
+
     public void setID(int ID) {
         this.ID = ID;
     }
@@ -47,6 +62,12 @@ public class Plato {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+
+    public void setPrecio(int precio) {
+        this.precio = precio;
+    }
+
+    
     
     
 }

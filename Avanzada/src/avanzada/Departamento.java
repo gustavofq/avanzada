@@ -5,13 +5,20 @@
  */
 package avanzada;
 
+import javax.persistence.Basic;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 /**
  *
  * @author Facu
  */
 public class Departamento {
     
+    @GeneratedValue
+    @Id
     private int ID;
+    @Basic
     private String nombre;
 
     public Departamento() {
