@@ -20,9 +20,54 @@ public class Habitacion {
     @Id
     private int ID;
     @Basic
-    private String Estado;
+    private String estado;
+    @Basic
+    private int montoPorNoche;
     @OneToOne
     private Tipo unTipo;
+
+    public Habitacion() {
+    }
+
+    public Habitacion(int ID, String estado, int montoPorNoche, Tipo unTipo) {
+        this.ID = ID;
+        this.estado = estado;
+        this.montoPorNoche = montoPorNoche;
+        this.unTipo = unTipo;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public int getMontoPorNoche() {
+        return montoPorNoche;
+    }
+
+    public Tipo getUnTipo() {
+        return unTipo;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public void setMontoPorNoche(int montoPorNoche) {
+        this.montoPorNoche = montoPorNoche;
+    }
+
+    public void setUnTipo(Tipo unTipo) {
+        this.unTipo = unTipo;
+    }
+    
     
     
 }

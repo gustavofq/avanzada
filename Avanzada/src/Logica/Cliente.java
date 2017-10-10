@@ -14,7 +14,7 @@ import javax.persistence.Id;
  * @author Facu
  */
 public class Cliente {
-    @GeneratedValue
+    
     @Id
     private int DNI;
     @Basic
@@ -23,15 +23,12 @@ public class Cliente {
     private String apellido;
     @Basic
     private Double tarjetaDeCredito;
+    @Basic
+    private String usuario;
+    @Basic
+    private String contraseña;
 
     public Cliente() {
-    }
-
-    public Cliente(int DNI, String nombre, String apellido, Double tarjetaDeCredito) {
-        this.DNI = DNI;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.tarjetaDeCredito = tarjetaDeCredito;
     }
 
     public int getDNI() {
@@ -50,6 +47,14 @@ public class Cliente {
         return tarjetaDeCredito;
     }
 
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public String getContraseña() {
+        return contraseña;
+    }
+
     public void setDNI(int DNI) {
         this.DNI = DNI;
     }
@@ -65,6 +70,16 @@ public class Cliente {
     public void setTarjetaDeCredito(Double tarjetaDeCredito) {
         this.tarjetaDeCredito = tarjetaDeCredito;
     }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
+    }
+
+   
 
     
 }

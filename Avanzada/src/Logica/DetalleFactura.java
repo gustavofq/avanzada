@@ -5,11 +5,52 @@
  */
 package Logica;
 
+import javax.persistence.Basic;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 /**
  *
  * @author Facu
  */
 public class DetalleFactura {
+    
+    @GeneratedValue
+    @Id
+    private int ID;
+    @Basic
+    private String descripcion;
+    @Basic
+    private int cantidad;
+    @Basic
+    private Double Subtotal;
+
+    public DetalleFactura(int ID, String descripcion, int cantidad, Double Subtotal) {
+        this.ID = ID;
+        this.descripcion = descripcion;
+        this.cantidad = cantidad;
+        this.Subtotal = Subtotal;
+    }
+
+    public DetalleFactura() {
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public Double getSubtotal() {
+        return Subtotal;
+    }
+    
     
     
     
