@@ -3,14 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package avanzada;
+package Logica;
 
 /**
  *
  * @author Facu
  */
-public class DetalleFactura {
-    
-    
-    
+public class Tipo {
+    //probando commit
 }

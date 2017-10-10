@@ -3,22 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package avanzada;
-
-import javax.persistence.Basic;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+package Logica;
 
 /**
  *
  * @author Facu
  */
-public class Mesa {
+public class Recepcionista extends Empleado{
+
+    public Recepcionista() {
+    }
+
+    public Recepcionista(int DNI, String nombre, String apellido) {
+        super(DNI, nombre, apellido);
+    }
     
-    @GeneratedValue
-    @Id
-    private int ID;
-    @Basic
-    private String Estado;
     
 }

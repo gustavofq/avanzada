@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package avanzada;
+package Logica;
 
 import javax.persistence.Basic;
 import javax.persistence.GeneratedValue;
@@ -13,7 +13,8 @@ import javax.persistence.Id;
  *
  * @author Facu
  */
-public class Cliente {
+public class Empleado {
+    
     @GeneratedValue
     @Id
     private int DNI;
@@ -21,17 +22,14 @@ public class Cliente {
     private String nombre;
     @Basic
     private String apellido;
-    @Basic
-    private Double tarjetaDeCredito;
 
-    public Cliente() {
+    public Empleado() {
     }
 
-    public Cliente(int DNI, String nombre, String apellido, Double tarjetaDeCredito) {
+    public Empleado(int DNI, String nombre, String apellido) {
         this.DNI = DNI;
         this.nombre = nombre;
         this.apellido = apellido;
-        this.tarjetaDeCredito = tarjetaDeCredito;
     }
 
     public int getDNI() {
@@ -46,10 +44,6 @@ public class Cliente {
         return apellido;
     }
 
-    public Double getTarjetaDeCredito() {
-        return tarjetaDeCredito;
-    }
-
     public void setDNI(int DNI) {
         this.DNI = DNI;
     }
@@ -61,10 +55,7 @@ public class Cliente {
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
-
-    public void setTarjetaDeCredito(Double tarjetaDeCredito) {
-        this.tarjetaDeCredito = tarjetaDeCredito;
-    }
-
+    
+    
     
 }

@@ -3,26 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package avanzada;
+package Logica;
 
 import javax.persistence.Basic;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 
 /**
  *
  * @author Facu
  */
-public class Habitacion {
+public class Mesa {
     
     @GeneratedValue
     @Id
     private int ID;
     @Basic
     private String Estado;
-    @OneToOne
-    private Tipo unTipo;
-    
     
 }

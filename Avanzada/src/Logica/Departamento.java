@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package avanzada;
+package Logica;
 
 import javax.persistence.Basic;
 import javax.persistence.GeneratedValue;
@@ -13,26 +13,20 @@ import javax.persistence.Id;
  *
  * @author Facu
  */
-public class Proveedor {
+public class Departamento {
     
     @GeneratedValue
     @Id
     private int ID;
     @Basic
     private String nombre;
-    @Basic
-    private String direccion;
-    @Basic
-    private int telefono;
 
-    public Proveedor() {
+    public Departamento() {
     }
 
-    public Proveedor(int ID, String nombre, String direccion, int telefono) {
+    public Departamento(int ID, String nombre) {
         this.ID = ID;
         this.nombre = nombre;
-        this.direccion = direccion;
-        this.telefono = telefono;
     }
 
     public int getID() {
@@ -43,28 +37,12 @@ public class Proveedor {
         return nombre;
     }
 
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public int getTelefono() {
-        return telefono;
-    }
-
     public void setID(int ID) {
         this.ID = ID;
     }
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
-    public void setTelefono(int telefono) {
-        this.telefono = telefono;
     }
     
     
