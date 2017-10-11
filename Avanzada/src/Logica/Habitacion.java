@@ -5,6 +5,7 @@
  */
 package Logica;
 
+import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,11 +17,11 @@ import javax.persistence.OneToOne;
  * @author Facu
  */
 @Entity
-public class Habitacion {
+public class Habitacion implements Serializable {
     
     @GeneratedValue
     @Id
-    private int ID;
+    private int id;
     @Basic
     private String estado;
     @Basic
@@ -31,15 +32,15 @@ public class Habitacion {
     public Habitacion() {
     }
 
-    public Habitacion(int ID, String estado, int montoPorNoche, Tipo unTipo) {
-        this.ID = ID;
+    public Habitacion(int id, String estado, int montoPorNoche, Tipo unTipo) {
+        this.id = id;
         this.estado = estado;
         this.montoPorNoche = montoPorNoche;
         this.unTipo = unTipo;
     }
 
-    public int getID() {
-        return ID;
+    public int getId() {
+        return id;
     }
 
     public String getEstado() {
@@ -54,8 +55,8 @@ public class Habitacion {
         return unTipo;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setEstado(String estado) {
@@ -69,6 +70,7 @@ public class Habitacion {
     public void setUnTipo(Tipo unTipo) {
         this.unTipo = unTipo;
     }
+
     
     
     

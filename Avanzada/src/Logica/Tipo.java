@@ -21,7 +21,7 @@ public class Tipo implements Serializable {
     
     @GeneratedValue
     @Id
-    private int ID;
+    private int id;
     @Basic
     private String nombre;
     @ManyToOne
@@ -31,26 +31,37 @@ public class Tipo implements Serializable {
     public Tipo() {
     }
 
-    public Tipo(int ID, String nombre) {
-        this.ID = ID;
+    public Tipo(int id, String nombre, Habitacion unaHabitacion) {
+        this.id = id;
         this.nombre = nombre;
+        this.unaHabitacion = unaHabitacion;
     }
 
-    public int getID() {
-        return ID;
+    public int getId() {
+        return id;
     }
 
     public String getNombre() {
         return nombre;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public Habitacion getUnaHabitacion() {
+        return unaHabitacion;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+    public void setUnaHabitacion(Habitacion unaHabitacion) {
+        this.unaHabitacion = unaHabitacion;
+    }
+
+    
    
     
 }

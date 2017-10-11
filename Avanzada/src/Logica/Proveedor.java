@@ -20,7 +20,7 @@ public class Proveedor implements Serializable {
     
     @GeneratedValue
     @Id
-    private int ID;
+    private int id;
     @Basic
     private String nombre;
     @Basic
@@ -31,15 +31,15 @@ public class Proveedor implements Serializable {
     public Proveedor() {
     }
 
-    public Proveedor(int ID, String nombre, String direccion, int telefono) {
-        this.ID = ID;
+    public Proveedor(int id, String nombre, String direccion, int telefono) {
+        this.id = id;
         this.nombre = nombre;
         this.direccion = direccion;
         this.telefono = telefono;
     }
 
-    public int getID() {
-        return ID;
+    public int getId() {
+        return id;
     }
 
     public String getNombre() {
@@ -54,8 +54,8 @@ public class Proveedor implements Serializable {
         return telefono;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setNombre(String nombre) {
@@ -69,7 +69,7 @@ public class Proveedor implements Serializable {
     public void setTelefono(int telefono) {
         this.telefono = telefono;
     }
-    
+
     
     
 }

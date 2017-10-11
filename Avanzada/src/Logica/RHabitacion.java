@@ -5,26 +5,31 @@
  */
 package Logica;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
 
 /**
  *
  * @author Facu
  */
 @Entity
-public class RHabitacion extends Reservas{
+@Inheritance (strategy = InheritanceType.JOINED)
+public class RHabitacion extends Reservas implements Serializable{
     
     @GeneratedValue
     @Id
-    private int ID;
-    @Basic
+    private int id;
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Calendar fechaEntrada;
-    @Basic
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Calendar fechaSalida;
     @Basic
     private int cantidad;
@@ -35,6 +40,65 @@ public class RHabitacion extends Reservas{
 
     public RHabitacion() {
     }
+
+    public RHabitacion(int id, Calendar fechaEntrada, Calendar fechaSalida, int cantidad, Habitacion unaHabitacion, Cliente unCliente) {
+        this.id = id;
+        this.fechaEntrada = fechaEntrada;
+        this.fechaSalida = fechaSalida;
+        this.cantidad = cantidad;
+        this.unaHabitacion = unaHabitacion;
+        this.unCliente = unCliente;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public Calendar getFechaEntrada() {
+        return fechaEntrada;
+    }
+
+    public Calendar getFechaSalida() {
+        return fechaSalida;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public Habitacion getUnaHabitacion() {
+        return unaHabitacion;
+    }
+
+    public Cliente getUnCliente() {
+        return unCliente;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setFechaEntrada(Calendar fechaEntrada) {
+        this.fechaEntrada = fechaEntrada;
+    }
+
+    public void setFechaSalida(Calendar fechaSalida) {
+        this.fechaSalida = fechaSalida;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public void setUnaHabitacion(Habitacion unaHabitacion) {
+        this.unaHabitacion = unaHabitacion;
+    }
+
+    public void setUnCliente(Cliente unCliente) {
+        this.unCliente = unCliente;
+    }
+    
+    
 
 
 }

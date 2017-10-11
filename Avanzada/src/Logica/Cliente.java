@@ -8,7 +8,6 @@ package Logica;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
@@ -19,7 +18,7 @@ import javax.persistence.Id;
 public class Cliente implements Serializable {
     
     @Id
-    private int DNI;
+    private int dni;
     @Basic
     private String nombre;
     @Basic
@@ -34,8 +33,17 @@ public class Cliente implements Serializable {
     public Cliente() {
     }
 
-    public int getDNI() {
-        return DNI;
+    public Cliente(int dni, String nombre, String apellido, Double tarjetaDeCredito, String usuario, String contraseña) {
+        this.dni = dni;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.tarjetaDeCredito = tarjetaDeCredito;
+        this.usuario = usuario;
+        this.contraseña = contraseña;
+    }
+
+    public int getDni() {
+        return dni;
     }
 
     public String getNombre() {
@@ -58,8 +66,8 @@ public class Cliente implements Serializable {
         return contraseña;
     }
 
-    public void setDNI(int DNI) {
-        this.DNI = DNI;
+    public void setDni(int dni) {
+        this.dni = dni;
     }
 
     public void setNombre(String nombre) {
@@ -82,7 +90,7 @@ public class Cliente implements Serializable {
         this.contraseña = contraseña;
     }
 
-   
+    
 
     
 }

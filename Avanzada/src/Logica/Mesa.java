@@ -20,33 +20,35 @@ public class Mesa implements Serializable {
     
     @GeneratedValue
     @Id
-    private int ID;
+    private int id;
     @Basic
     private String Estado;
 
     public Mesa() {
     }
 
-    public Mesa(int ID, String Estado) {
-        this.ID = ID;
+    public Mesa(int id, String Estado) {
+        this.id = id;
         this.Estado = Estado;
     }
 
-    public int getID() {
-        return ID;
+    public int getId() {
+        return id;
     }
 
     public String getEstado() {
         return Estado;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setEstado(String Estado) {
         this.Estado = Estado;
     }
+
+    
     
     
     

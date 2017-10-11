@@ -20,7 +20,7 @@ public class Servicio implements Serializable {
     
     @GeneratedValue
     @Id
-    private int ID;
+    private int id;
     @Basic
     private String nombre;
     @Basic
@@ -29,14 +29,14 @@ public class Servicio implements Serializable {
     public Servicio() {
     }
 
-    public Servicio(int ID, String nombre, String descripcion) {
-        this.ID = ID;
+    public Servicio(int id, String nombre, String descripcion) {
+        this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
     }
 
-    public int getID() {
-        return ID;
+    public int getId() {
+        return id;
     }
 
     public String getNombre() {
@@ -47,8 +47,8 @@ public class Servicio implements Serializable {
         return descripcion;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setNombre(String nombre) {
@@ -58,6 +58,8 @@ public class Servicio implements Serializable {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+
+    
     
     
     

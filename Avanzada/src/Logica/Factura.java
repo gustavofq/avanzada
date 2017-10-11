@@ -23,7 +23,7 @@ public class Factura implements Serializable {
     
     @GeneratedValue
     @Id
-    private int ID;
+    private int id;
     @Basic
     private String Tipo;
     @Basic
@@ -36,16 +36,16 @@ public class Factura implements Serializable {
     public Factura() {
     }
 
-    public Factura(int ID, String Tipo, Double total, Cliente unCliente, List<DetalleFactura> unosDetalles) {
-        this.ID = ID;
+    public Factura(int id, String Tipo, Double total, Cliente unCliente, List<DetalleFactura> unosDetalles) {
+        this.id = id;
         this.Tipo = Tipo;
         this.total = total;
         this.unCliente = unCliente;
         this.unosDetalles = unosDetalles;
     }
 
-    public int getID() {
-        return ID;
+    public int getId() {
+        return id;
     }
 
     public String getTipo() {
@@ -64,8 +64,8 @@ public class Factura implements Serializable {
         return unosDetalles;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setTipo(String Tipo) {
@@ -83,6 +83,7 @@ public class Factura implements Serializable {
     public void setUnosDetalles(List<DetalleFactura> unosDetalles) {
         this.unosDetalles = unosDetalles;
     }
+
     
     
     

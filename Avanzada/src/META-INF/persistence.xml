@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="AvanzadaPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>Logica.Camarero</class>
+    <class>Logica.Cliente</class>
+    <class>Logica.Departamento</class>
+    <class>Logica.DetalleFactura</class>
+    <class>Logica.Empleado</class>
+    <class>Logica.Factura</class>
+    <class>Logica.Habitacion</class>
+    <class>Logica.Mesa</class>
+    <class>Logica.Plato</class>
+    <class>Logica.Proveedor</class>
+    <class>Logica.RHabitacion</class>
+    <class>Logica.RMesas</class>
+    <class>Logica.Recepcionista</class>
+    <class>Logica.Servicio</class>
+    <class>Logica.Tipo</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/hotel"/>
+      <property name="javax.persistence.jdbc.user" value="facu"/>
+      <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="1234"/>
+      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+    </properties>
+  </persistence-unit>
+</persistence>

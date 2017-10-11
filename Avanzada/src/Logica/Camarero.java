@@ -7,20 +7,25 @@ package Logica;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
 /**
  *
  * @author Facu
  */
 @Entity
+@Inheritance (strategy = InheritanceType.JOINED)
 public class Camarero extends Empleado implements Serializable{
 
     public Camarero() {
     }
 
-    public Camarero(int DNI, String nombre, String apellido) {
-        super(DNI, nombre, apellido);
+    public Camarero(int dni, String nombre, String apellido) {
+        super(dni, nombre, apellido);
     }
+
+    
     
 
 }

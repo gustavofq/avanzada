@@ -20,33 +20,35 @@ public class Departamento implements Serializable {
     
     @GeneratedValue
     @Id
-    private int ID;
+    private int id;
     @Basic
     private String nombre;
 
     public Departamento() {
     }
 
-    public Departamento(int ID, String nombre) {
-        this.ID = ID;
+    public Departamento(int id, String nombre) {
+        this.id = id;
         this.nombre = nombre;
     }
 
-    public int getID() {
-        return ID;
+    public int getId() {
+        return id;
     }
 
     public String getNombre() {
         return nombre;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+    
     
     
     

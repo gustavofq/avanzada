@@ -20,7 +20,7 @@ public class Plato implements Serializable {
     
     @GeneratedValue
     @Id
-    private int ID;
+    private int id;
     @Basic
     private String nombre;
     @Basic
@@ -31,15 +31,15 @@ public class Plato implements Serializable {
     public Plato() {
     }
 
-    public Plato(int ID, String nombre, String descripcion, int precio) {
-        this.ID = ID;
+    public Plato(int id, String nombre, String descripcion, int precio) {
+        this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
     }
 
-    public int getID() {
-        return ID;
+    public int getId() {
+        return id;
     }
 
     public String getNombre() {
@@ -54,8 +54,8 @@ public class Plato implements Serializable {
         return precio;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setNombre(String nombre) {

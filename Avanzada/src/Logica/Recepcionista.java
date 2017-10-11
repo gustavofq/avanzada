@@ -6,20 +6,25 @@
 package Logica;
 
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
 /**
  *
  * @author Facu
  */
 @Entity
+@Inheritance (strategy = InheritanceType.JOINED)
 public class Recepcionista extends Empleado{
 
     public Recepcionista() {
     }
 
-    public Recepcionista(int DNI, String nombre, String apellido) {
-        super(DNI, nombre, apellido);
+    public Recepcionista(int dni, String nombre, String apellido) {
+        super(dni, nombre, apellido);
     }
+ 
+    
     
     
 }

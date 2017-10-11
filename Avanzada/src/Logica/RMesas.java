@@ -5,26 +5,31 @@
  */
 package Logica;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
 
 /**
  *
  * @author Facu
  */
 @Entity
-public class RMesas extends Reservas{
+@Inheritance (strategy = InheritanceType.JOINED)
+public class RMesas extends Reservas implements Serializable{
     
     @GeneratedValue
     @Id
-    private int ID;
+    private int id;
     @Basic
     private int numeroMesa;
-    @Basic
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Calendar fecha;
     @OneToOne
     private Cliente unCliente;
@@ -32,15 +37,15 @@ public class RMesas extends Reservas{
     public RMesas() {
     }
 
-    public RMesas(int ID, int numeroMesa, Calendar fecha, Cliente unCliente) {
-        this.ID = ID;
+    public RMesas(int id, int numeroMesa, Calendar fecha, Cliente unCliente) {
+        this.id = id;
         this.numeroMesa = numeroMesa;
         this.fecha = fecha;
         this.unCliente = unCliente;
     }
 
-    public int getID() {
-        return ID;
+    public int getId() {
+        return id;
     }
 
     public int getNumeroMesa() {
@@ -55,8 +60,8 @@ public class RMesas extends Reservas{
         return unCliente;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setNumeroMesa(int numeroMesa) {
@@ -70,8 +75,8 @@ public class RMesas extends Reservas{
     public void setUnCliente(Cliente unCliente) {
         this.unCliente = unCliente;
     }
-    
-    
+
+   
     
     
     

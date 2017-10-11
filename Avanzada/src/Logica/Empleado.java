@@ -10,20 +10,17 @@ import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 
 /**
  *
  * @author Facu
  */
 @Entity
-@Inheritance (strategy = InheritanceType.TABLE_PER_CLASS)
 public class Empleado implements Serializable {
     
     @GeneratedValue
     @Id
-    private int DNI;
+    private int dni;
     @Basic
     private String nombre;
     @Basic
@@ -32,14 +29,14 @@ public class Empleado implements Serializable {
     public Empleado() {
     }
 
-    public Empleado(int DNI, String nombre, String apellido) {
-        this.DNI = DNI;
+    public Empleado(int dni, String nombre, String apellido) {
+        this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
     }
 
-    public int getDNI() {
-        return DNI;
+    public int getDni() {
+        return dni;
     }
 
     public String getNombre() {
@@ -50,8 +47,8 @@ public class Empleado implements Serializable {
         return apellido;
     }
 
-    public void setDNI(int DNI) {
-        this.DNI = DNI;
+    public void setDni(int dni) {
+        this.dni = dni;
     }
 
     public void setNombre(String nombre) {
@@ -61,6 +58,7 @@ public class Empleado implements Serializable {
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
+
     
     
     
