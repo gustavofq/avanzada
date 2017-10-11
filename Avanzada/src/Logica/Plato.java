@@ -5,7 +5,9 @@
  */
 package Logica;
 
+import java.io.Serializable;
 import javax.persistence.Basic;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
@@ -13,7 +15,8 @@ import javax.persistence.Id;
  *
  * @author Facu
  */
-public class Plato {
+@Entity
+public class Plato implements Serializable {
     
     @GeneratedValue
     @Id

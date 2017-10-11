@@ -5,15 +5,21 @@
  */
 package Logica;
 
+import java.io.Serializable;
 import javax.persistence.Basic;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
 /**
  *
  * @author Facu
  */
-public class Empleado {
+@Entity
+@Inheritance (strategy = InheritanceType.TABLE_PER_CLASS)
+public class Empleado implements Serializable {
     
     @GeneratedValue
     @Id

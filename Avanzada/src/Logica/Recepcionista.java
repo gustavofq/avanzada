@@ -5,10 +5,13 @@
  */
 package Logica;
 
+import javax.persistence.Entity;
+
 /**
  *
  * @author Facu
  */
+@Entity
 public class Recepcionista extends Empleado{
 
     public Recepcionista() {

@@ -6,6 +6,7 @@
 package Logica;
 
 import javax.persistence.Basic;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
@@ -14,6 +15,7 @@ import javax.persistence.OneToOne;
  *
  * @author Facu
  */
+@Entity
 public class Habitacion {
     
     @GeneratedValue

@@ -5,7 +5,9 @@
  */
 package Logica;
 
+import java.io.Serializable;
 import javax.persistence.Basic;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -14,7 +16,8 @@ import javax.persistence.ManyToOne;
  *
  * @author Facu
  */
-public class Tipo {
+@Entity
+public class Tipo implements Serializable {
     
     @GeneratedValue
     @Id

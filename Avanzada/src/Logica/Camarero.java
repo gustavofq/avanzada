@@ -5,11 +5,15 @@
  */
 package Logica;
 
+import java.io.Serializable;
+import javax.persistence.Entity;
+
 /**
  *
  * @author Facu
  */
-public class Camarero extends Empleado{
+@Entity
+public class Camarero extends Empleado implements Serializable{
 
     public Camarero() {
     }
@@ -18,6 +22,5 @@ public class Camarero extends Empleado{
         super(DNI, nombre, apellido);
     }
     
-    
-    
+
 }
