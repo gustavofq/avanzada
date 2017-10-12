@@ -16,6 +16,7 @@ import Persistencia.exceptions.NonexistentEntityException;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 /**
  *
@@ -26,6 +27,11 @@ public class TipoJpaController implements Serializable {
     public TipoJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
+
+    public TipoJpaController() {
+        emf = Persistence.createEntityManagerFactory("AvanzadaPU");
+    }
+    
     private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {

@@ -24,9 +24,6 @@ import javax.persistence.Temporal;
 @Inheritance (strategy = InheritanceType.JOINED)
 public class RMesas extends Reservas implements Serializable{
     
-    @GeneratedValue
-    @Id
-    private int id;
     @Basic
     private int numeroMesa;
     @Temporal(javax.persistence.TemporalType.DATE)
@@ -37,47 +34,36 @@ public class RMesas extends Reservas implements Serializable{
     public RMesas() {
     }
 
-    public RMesas(int id, int numeroMesa, Calendar fecha, Cliente unCliente) {
-        this.id = id;
+    public RMesas(int numeroMesa, Calendar fecha, Cliente unCliente, int id) {
+        super(id);
         this.numeroMesa = numeroMesa;
         this.fecha = fecha;
         this.unCliente = unCliente;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public int getNumeroMesa() {
         return numeroMesa;
     }
 
-    public Calendar getFecha() {
-        return fecha;
-    }
-
-    public Cliente getUnCliente() {
-        return unCliente;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public void setNumeroMesa(int numeroMesa) {
         this.numeroMesa = numeroMesa;
+    }
+
+    public Calendar getFecha() {
+        return fecha;
     }
 
     public void setFecha(Calendar fecha) {
         this.fecha = fecha;
     }
 
+    public Cliente getUnCliente() {
+        return unCliente;
+    }
+
     public void setUnCliente(Cliente unCliente) {
         this.unCliente = unCliente;
     }
-
-   
-    
     
     
 }

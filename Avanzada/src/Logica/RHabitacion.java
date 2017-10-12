@@ -9,8 +9,6 @@ import java.io.Serializable;
 import java.util.Calendar;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
@@ -24,9 +22,7 @@ import javax.persistence.Temporal;
 @Inheritance (strategy = InheritanceType.JOINED)
 public class RHabitacion extends Reservas implements Serializable{
     
-    @GeneratedValue
-    @Id
-    private int id;
+
     @Temporal(javax.persistence.TemporalType.DATE)
     private Calendar fechaEntrada;
     @Temporal(javax.persistence.TemporalType.DATE)
@@ -41,64 +37,55 @@ public class RHabitacion extends Reservas implements Serializable{
     public RHabitacion() {
     }
 
-    public RHabitacion(int id, Calendar fechaEntrada, Calendar fechaSalida, int cantidad, Habitacion unaHabitacion, Cliente unCliente) {
-        this.id = id;
+    public RHabitacion(Calendar fechaEntrada, Calendar fechaSalida, int cantidad, Habitacion unaHabitacion, Cliente unCliente, int id) {
+        super(id);
         this.fechaEntrada = fechaEntrada;
         this.fechaSalida = fechaSalida;
         this.cantidad = cantidad;
         this.unaHabitacion = unaHabitacion;
         this.unCliente = unCliente;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public Calendar getFechaEntrada() {
         return fechaEntrada;
     }
 
-    public Calendar getFechaSalida() {
-        return fechaSalida;
-    }
-
-    public int getCantidad() {
-        return cantidad;
-    }
-
-    public Habitacion getUnaHabitacion() {
-        return unaHabitacion;
-    }
-
-    public Cliente getUnCliente() {
-        return unCliente;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public void setFechaEntrada(Calendar fechaEntrada) {
         this.fechaEntrada = fechaEntrada;
+    }
+
+    public Calendar getFechaSalida() {
+        return fechaSalida;
     }
 
     public void setFechaSalida(Calendar fechaSalida) {
         this.fechaSalida = fechaSalida;
     }
 
+    public int getCantidad() {
+        return cantidad;
+    }
+
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
+    }
+
+    public Habitacion getUnaHabitacion() {
+        return unaHabitacion;
     }
 
     public void setUnaHabitacion(Habitacion unaHabitacion) {
         this.unaHabitacion = unaHabitacion;
     }
 
+    public Cliente getUnCliente() {
+        return unCliente;
+    }
+
     public void setUnCliente(Cliente unCliente) {
         this.unCliente = unCliente;
     }
-    
-    
 
+    
 
 }

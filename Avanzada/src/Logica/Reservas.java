@@ -5,10 +5,37 @@
  */
 package Logica;
 
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 /**
  *
  * @author Facu
  */
-public class Reservas {
+@Entity
+public class Reservas implements Serializable {
+    
+    @GeneratedValue
+    @Id
+    private int id;
+    
+    public Reservas() {
+    }
+
+    public Reservas(int id) {
+        this.id = id;
+    }
+    
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     
 }

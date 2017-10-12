@@ -16,6 +16,7 @@ import Persistencia.exceptions.NonexistentEntityException;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 /**
  *
@@ -26,6 +27,13 @@ public class HabitacionJpaController implements Serializable {
     public HabitacionJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
+
+    public HabitacionJpaController() {
+        emf = Persistence.createEntityManagerFactory("AvanzadaPU");
+    }
+    
+    
+    
     private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {

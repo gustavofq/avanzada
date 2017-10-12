@@ -5,7 +5,7 @@
  */
 package Persistencia;
 
-import Logica.Proveedor;
+import Logica.Reservas;
 import Persistencia.exceptions.NonexistentEntityException;
 import java.io.Serializable;
 import java.util.List;
@@ -21,13 +21,13 @@ import javax.persistence.criteria.Root;
  *
  * @author Facu
  */
-public class ProveedorJpaController implements Serializable {
+public class ReservasJpaController implements Serializable {
 
-    public ProveedorJpaController(EntityManagerFactory emf) {
+    public ReservasJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
 
-    public ProveedorJpaController() {
+    public ReservasJpaController() {
         emf = Persistence.createEntityManagerFactory("AvanzadaPU");
     }
     
@@ -39,12 +39,12 @@ public class ProveedorJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Proveedor proveedor) {
+    public void create(Reservas reservas) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            em.persist(proveedor);
+            em.persist(reservas);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -53,19 +53,19 @@ public class ProveedorJpaController implements Serializable {
         }
     }
 
-    public void edit(Proveedor proveedor) throws NonexistentEntityException, Exception {
+    public void edit(Reservas reservas) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            proveedor = em.merge(proveedor);
+            reservas = em.merge(reservas);
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                int id = proveedor.getId();
-                if (findProveedor(id) == null) {
-                    throw new NonexistentEntityException("The proveedor with id " + id + " no longer exists.");
+                int id = reservas.getId();
+                if (findReservas(id) == null) {
+                    throw new NonexistentEntityException("The reservas with id " + id + " no longer exists.");
                 }
             }
             throw ex;
@@ -81,14 +81,14 @@ public class ProveedorJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Proveedor proveedor;
+            Reservas reservas;
             try {
-                proveedor = em.getReference(Proveedor.class, id);
-                proveedor.getId();
+                reservas = em.getReference(Reservas.class, id);
+                reservas.getId();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The proveedor with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The reservas with id " + id + " no longer exists.", enfe);
             }
-            em.remove(proveedor);
+            em.remove(reservas);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -97,19 +97,19 @@ public class ProveedorJpaController implements Serializable {
         }
     }
 
-    public List<Proveedor> findProveedorEntities() {
-        return findProveedorEntities(true, -1, -1);
+    public List<Reservas> findReservasEntities() {
+        return findReservasEntities(true, -1, -1);
     }
 
-    public List<Proveedor> findProveedorEntities(int maxResults, int firstResult) {
-        return findProveedorEntities(false, maxResults, firstResult);
+    public List<Reservas> findReservasEntities(int maxResults, int firstResult) {
+        return findReservasEntities(false, maxResults, firstResult);
     }
 
-    private List<Proveedor> findProveedorEntities(boolean all, int maxResults, int firstResult) {
+    private List<Reservas> findReservasEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Proveedor.class));
+            cq.select(cq.from(Reservas.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -121,20 +121,20 @@ public class ProveedorJpaController implements Serializable {
         }
     }
 
-    public Proveedor findProveedor(int id) {
+    public Reservas findReservas(int id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Proveedor.class, id);
+            return em.find(Reservas.class, id);
         } finally {
             em.close();
         }
     }
 
-    public int getProveedorCount() {
+    public int getReservasCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Proveedor> rt = cq.from(Proveedor.class);
+            Root<Reservas> rt = cq.from(Reservas.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
