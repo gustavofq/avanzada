@@ -5,6 +5,8 @@
  */
 package Persistencia;
 
+import Logica.Camarero;
+
 /**
  *
  * @author Facu
@@ -44,9 +46,13 @@ public class ControladoraPersistencia {
     miTipo = new TipoJpaController();
     }
     
+    public void AltaCamarero(Camarero unCamarero){
+        miCamarero.create(unCamarero);
+    }
     
+    public Camarero dameUnCamarero(Camarero unCamarero){
+        return miCamarero.findCamarero(unCamarero.getDni());
+    }
     
-    
-    
-    
+    public 
 }
