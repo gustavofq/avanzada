@@ -5,9 +5,12 @@
  */
 package Logica;
 
+import Persistencia.ControladoraPersistencia;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.OneToMany;
+import jdk.nashorn.internal.runtime.Undefined;
 
 /**
  *
@@ -43,6 +46,8 @@ public class Hotel {
     private List<Tipo> misTipos = new LinkedList();
 
     
+    ControladoraPersistencia miPersistencia = new ControladoraPersistencia();
+    
     /**
      * @param args the command line arguments
      */
@@ -54,6 +59,7 @@ public class Hotel {
     }
     
     public Hotel() {
+        CargarListas();
     }
     
     
@@ -162,6 +168,271 @@ public class Hotel {
         this.misTipos = misTipos;
     }
 
+    
+    
+    ///////////// METODOS ABML: ///////////////////
+    
+    //CAMARERO
+    
+    public void altaCamarero(int dni, String nombre, String apellido) throws Exception {
+        if (comprobarCamarero(dni) == false) {
+            Camarero unCamarero = new Camarero(dni, nombre, apellido);
+            misCamareros.add(unCamarero);
+            miPersistencia.AltaCamarero(unCamarero);
+        }
+    }
+    
+    public Camarero DameElCamarero(int ID) {
+        return this.miPersistencia.dameUnCamarero(ID);
+    }
+
+    public boolean comprobarCamarero(int dni) {
+        boolean aux = false;
+        
+        for(Camarero unCamarero : misCamareros){
+            if(unCamarero.getDni() == dni){
+                aux = true;
+            }
+        }
+        
+        return aux;
+    }
+    
+
+    public void modificarCamarero(int dni, String nombre, String apellido, Camarero unCamarero) throws Exception {
+        misCamareros.remove(unCamarero);
+        unCamarero.setNombre(nombre);
+        unCamarero.setApellido(apellido);
+        miPersistencia.EditarCamarero(unCamarero);
+    }
+
+    public void borrarCamarero(Camarero unCamarero) throws Exception {
+        misCamareros.remove(unCamarero);
+        miPersistencia.BajaCamarero(unCamarero);
+    }
+
+    public List<Camarero> mostrarCamareros() {
+        return misCamareros;
+    }
+    
+    
+    
+    //CLIENTE
+    
+    public void altaCliente(int dni, String nombre, String apellido, Double tarjetaDeCredito, String usuario, String contraseña) throws Exception {
+        if (comprobarCliente(dni) == false) {
+            Cliente unCliente = new Cliente(dni, nombre, apellido, tarjetaDeCredito, usuario, contraseña);
+            misClientes.add(unCliente);
+            miPersistencia.AltaCliente(unCliente);
+        }
+    }
+    
+    public Cliente DameElCliente(int ID) {
+        return this.miPersistencia.dameUnCliente(ID);
+    }
+
+    public boolean comprobarCliente(int dni) {
+        boolean aux = false;
+        
+        for(Cliente unCliente : misClientes){
+            if(unCliente.getDni() == dni){
+                aux = true;
+            }
+        }
+        
+        return aux;
+    }
+    
+
+    public void modificarCliente(int dni, String nombre, String apellido, Double tarjetaDeCredito, String usuario, String contraseña, Cliente unCliente) throws Exception {
+        misClientes.remove(unCliente);
+        unCliente.setNombre(nombre);
+        unCliente.setApellido(apellido);
+        unCliente.setTarjetaDeCredito(tarjetaDeCredito);
+        unCliente.setUsuario(usuario);
+        unCliente.setContraseña(contraseña);
+        miPersistencia.EditarCliente(unCliente);
+    }
+
+    public void borrarCliente(Cliente unCliente) throws Exception {
+        misClientes.remove(unCliente);
+        miPersistencia.BajaCliente(unCliente);
+    }
+
+    public List<Cliente> mostrarClientes() {
+        return misClientes;
+    }
+    
+    
+    
+    
+    //DEPARTAMENTO
+    
+    public void altaDepartamento(int id, String nombre) throws Exception {
+        if (comprobarDepartamento(id) == false) {
+            Departamento unDepartamento = new Departamento(id, nombre);
+            misDepartamentos.add(unDepartamento);
+            miPersistencia.AltaDepartamento(unDepartamento);
+        }
+    }
+    
+    public Departamento DameElDepartamento(int ID) {
+        return this.miPersistencia.dameUnDepartamento(ID);
+    }
+
+    public boolean comprobarDepartamento(int id) {
+        boolean aux = false;
+        
+        for(Departamento unDepartamento : misDepartamentos){
+            if(unDepartamento.getId() == id){
+                aux = true;
+            }
+        }
+        
+        return aux;
+    }
+    
+
+    public void modificarDepartamento(int id, String nombre, Departamento unDepartamento) throws Exception {
+        misDepartamentos.remove(unDepartamento);
+        unDepartamento.setNombre(nombre);
+        miPersistencia.EditarDepartamento(unDepartamento);
+    }
+
+    public void borrarDepartamento(Departamento unDepartamento) throws Exception {
+        misDepartamentos.remove(unDepartamento);
+        miPersistencia.BajaDepartamento(unDepartamento);
+    }
+
+    public List<Departamento> mostrarDepartamentos() {
+        return misDepartamentos;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
