@@ -295,6 +295,51 @@ public class Hotel {
 
     public void modificarDepartamento(int id, String nombre, Departamento unDepartamento) throws Exception {
         misDepartamentos.remove(unDepartamento);
+        miPersistencia.EditarDepartamento(unDepartamento);
+    }
+
+    public void borrarDepartamento(Departamento unDepartamento) throws Exception {
+        misDepartamentos.remove(unDepartamento);
+        miPersistencia.BajaDepartamento(unDepartamento);
+    }
+
+    public List<Departamento> mostrarDepartamentos() {
+        return misDepartamentos;
+    }
+
+    
+    
+    
+    
+    //FACTURA
+    
+    public void altaFactura(int id, String Tipo, Double total) throws Exception {
+        if (comprobarFactura(id) == false) {
+            DetalleFactura unDetalleFactura = new DetalleFactura(id, descripcion, cantidad, Subtotal);
+            misDetalleFacu.add(unDepartamento);
+            miPersistencia.AltaDepartamento(unDepartamento);
+        }
+    }
+    
+    public Departamento DameElDepartamento(int ID) {
+        return this.miPersistencia.dameUnDepartamento(ID);
+    }
+
+    public boolean comprobarFactura(int id) {
+        boolean aux = false;
+        
+        for(Departamento unDepartamento : misDepartamentos){
+            if(unDepartamento.getId() == id){
+                aux = true;
+            }
+        }
+        
+        return aux;
+    }
+    
+
+    public void modificarDepartamento(int id, String nombre, Departamento unDepartamento) throws Exception {
+        misDepartamentos.remove(unDepartamento);
         unDepartamento.setNombre(nombre);
         miPersistencia.EditarDepartamento(unDepartamento);
     }
@@ -311,26 +356,187 @@ public class Hotel {
     
     
     
+    //HABITACION
+    
+    public void altaHabitacion(int id, String estado, int montoPorNoche, Tipo unTipo) throws Exception {
+        if (comprobarHabitacion(id) == false) {
+            Habitacion unaHabitacion = new Habitacion(id, estado, montoPorNoche, unTipo);
+            misHabitaciones.add(unaHabitacion);
+            miPersistencia.AltaHabitacion(unaHabitacion);
+        }
+    }
+    
+    public Habitacion DameLaHabitacion(int ID) {
+        return this.miPersistencia.dameUnaHabitacion(ID);
+    }
+
+    public boolean comprobarHabitacion(int id) {
+        boolean aux = false;
+        
+        for(Habitacion unaHabitacion : misHabitaciones){
+            if(unaHabitacion.getId() == id){
+                aux = true;
+            }
+        }
+        
+        return aux;
+    }
+    
+
+    public void modificarHabitacion(int id, String estado, int montoPorNoche, Tipo unTipo, Habitacion unaHabitacion) throws Exception {
+        misHabitaciones.remove(unaHabitacion);
+        unaHabitacion.setEstado(estado);
+        unaHabitacion.setMontoPorNoche(montoPorNoche);
+        unaHabitacion.setUnTipo(unTipo);
+        miPersistencia.EditarHabitacion(unaHabitacion);
+    }
+
+    public void borrarHabitacion(Habitacion unaHabitacion) throws Exception {
+        misHabitaciones.remove(unaHabitacion);
+        miPersistencia.BajaHabitacion(unaHabitacion);
+    }
+
+    public List<Habitacion> mostrarHabitaciones() {
+        return misHabitaciones;
+    }
     
     
     
     
+    //MESAS
+    
+    public void altaMesa(int id, String Estado) throws Exception {
+        if (comprobarMesa(id) == false) {
+            Mesa unaMesa = new Mesa(id, Estado);
+            misMesas.add(unaMesa);
+            miPersistencia.AltaMesa(unaMesa);
+        }
+    }
+    
+    public Mesa DameLaMesa(int ID) {
+        return this.miPersistencia.dameUnaMesa(ID);
+    }
+
+    public boolean comprobarMesa(int id) {
+        boolean aux = false;
+        
+        for(Mesa unaMesa : misMesas){
+            if(unaMesa.getId() == id){
+                aux = true;
+            }
+        }
+        
+        return aux;
+    }
+    
+
+    public void modificarMesa(int id, String Estado, Mesa unaMesa) throws Exception {
+        misMesas.remove(unaMesa);
+        unaMesa.setEstado(Estado);
+        miPersistencia.EditarMesa(unaMesa);
+    }
+
+    public void borrarMesa(Mesa unaMesa) throws Exception {
+        misMesas.remove(unaMesa);
+        miPersistencia.BajaMesa(unaMesa);
+    }
+
+    public List<Mesa> mostrarMesas() {
+        return misMesas;
+    }
     
     
     
     
+    //PLATOS
+    
+    public void altaPlato(int id, String nombre, String descripcion, int precio) throws Exception {
+        if (comprobarPlato(id) == false) {
+            Plato unPlato = new Plato(id, nombre, descripcion, precio);
+            misPlatos.add(unPlato);
+            miPersistencia.AltaPlato(unPlato);
+        }
+    }
+    
+    public Mesa DameElPlato(int ID) {
+        return this.miPersistencia.dameUnPlato(ID);
+    }
+
+    public boolean comprobarPlato(int id) {
+        boolean aux = false;
+        
+        for(Plato unPlato : misPlatos){
+            if(unPlato.getId() == id){
+                aux = true;
+            }
+        }
+        
+        return aux;
+    }
+    
+
+    public void modificarPlato(int id, String nombre, String descripcion, int precio, Plato unPlato) throws Exception {
+        misPlatos.remove(unPlato);
+        unPlato.setNombre(nombre);
+        unPlato.setDescripcion(descripcion);
+        unPlato.setPrecio(precio);
+        miPersistencia.EditarPlato(unPlato);
+    }
+
+    public void borrarPlato(Plato unPlato) throws Exception {
+        misPlatos.remove(unPlato);
+        miPersistencia.BajaPlato(unPlato);
+    }
+
+    public List<Plato> mostrarPlatos() {
+        return misPlatos;
+    }
     
     
     
+    //Proveedor
     
+    public void altaProveedor(int id, String nombre, String direccion, int telefono) throws Exception {
+        if (comprobarProveedor(id) == false) {
+            Proveedor unProveedor = new Proveedor(id, nombre, direccion, telefono);
+            misProveedores.add(unProveedor);
+            miPersistencia.AltaProveedor(unProveedor);
+        }
+    }
     
+    public Mesa DameElProveedor(int ID) {
+        return this.miPersistencia.dameUnProveedor(ID);
+    }
+
+    public boolean comprobarProveedor(int id) {
+        boolean aux = false;
+        
+        for(Proveedor unProveedor : misProveedores){
+            if(unProveedor.getId() == id){
+                aux = true;
+            }
+        }
+        
+        return aux;
+    }
     
-    
-    
-    
-    
-    
-    
+
+    public void modificarProveedor(int id, String nombre, String direccion, int telefono, Proveedor unProveedor) throws Exception {
+        misProveedores.remove(unProveedor);
+        unProveedor.setNombre(nombre);
+        unProveedor.setDireccion(direccion);
+        unProveedor.setTelefono(telefono);
+        miPersistencia.EditarProveedor(unProveedor);
+    }
+
+    public void borrarProveedor(Proveedor unProveedor) throws Exception {
+        misProveedores.remove(unProveedor);
+        miPersistencia.BajaProveedor(unProveedor);
+    }
+
+    public List<Proveedor> mostrarProveedores() {
+        return misProveedores;
+    }
     
     
     
