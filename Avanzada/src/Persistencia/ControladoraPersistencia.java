@@ -5,7 +5,9 @@
  */
 package Persistencia;
 
-import Logica.Camarero;
+import Logica.*;
+import Persistencia.exceptions.NonexistentEntityException;
+import java.util.List;
 
 /**
  *
@@ -46,13 +48,70 @@ public class ControladoraPersistencia {
     miTipo = new TipoJpaController();
     }
     
+    
+    //camarero
+    
     public void AltaCamarero(Camarero unCamarero){
         miCamarero.create(unCamarero);
     }
     
-    public Camarero dameUnCamarero(Camarero unCamarero){
-        return miCamarero.findCamarero(unCamarero.getDni());
+    public Camarero dameUnCamarero(int id){
+        return miCamarero.findCamarero(id);
     }
     
-    public 
+    public void EditarCamarero(Camarero unCamarero) throws Exception{
+        miCamarero.edit(unCamarero);
+    }
+    
+    public void BajaCamarero(Camarero unCamarero) throws NonexistentEntityException{
+        miCamarero.destroy(unCamarero.getDni());
+    }
+    
+    public List<Camarero> obtenerCamareros(){
+        return miCamarero.findCamareroEntities();
+    }
+    
+    //cliente
+    
+    public void AltaCliente(Cliente unCliente) throws Exception{
+        miCliente.create(unCliente);
+    }
+    
+    public Cliente dameUnCliente(int id){
+        return miCliente.findCliente(id);
+    }
+    
+    public void EditarCliente(Cliente unCliente) throws Exception{
+        miCliente.edit(unCliente);
+    }
+    
+    public void BajaCliente(Cliente unCliente) throws NonexistentEntityException{
+        miCliente.destroy(unCliente.getDni());
+    }
+    
+    public List<Cliente> obtenerClientes(){
+        return miCliente.findClienteEntities();
+    }
+   
+    //Departamento 
+    
+    public void AltaDepartamento(Departamento unDepartamento){
+        miDepartamento.create(unDepartamento);
+    }
+    
+    public Departamento dameUnDepartamento(int id){
+        return miDepartamento.findDepartamento(id);
+    }
+    
+    public void EditarDepartamento(Departamento unDepartamento) throws Exception{
+        miDepartamento.edit(unDepartamento);
+    }
+    
+    public void BajaDepartamento(Departamento unDepartamento) throws NonexistentEntityException{
+        miDepartamento.destroy(unDepartamento.getId());
+    }
+    
+    public List<Departamento> obtenerDepartamentos(){
+        return miDepartamento.findDepartamentoEntities();
+    }
 }
