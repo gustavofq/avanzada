@@ -6,6 +6,7 @@
 package Logica;
 
 import Persistencia.ControladoraPersistencia;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -542,27 +543,235 @@ public class Hotel {
     
     
     
+    //RH HABITACION
+    
+    public void altaRHabitacion(Calendar fechaEntrada, Calendar fechaSalida, int cantidad, Habitacion unaHabitacion, Cliente unCliente, int id) throws Exception {
+        if (comprobarRHabitacion(id) == false) {
+            RHabitacion unaRHabitacion = new RHabitacion(fechaEntrada, fechaSalida, cantidad, unaHabitacion, unCliente, id);
+            misRHabitaciones.add(unaRHabitacion);
+            miPersistencia.AltaRHabitacion(unaRHabitacion);
+        }
+    }
+    
+    public Mesa DameLaRHabitacion(int ID) {
+        return this.miPersistencia.dameUnaRHabitacion(ID);
+    }
+
+    public boolean comprobarRHabitacion(int id) {
+        boolean aux = false;
+        
+        for(RHabitacion unaRHabitacion : misRHabitaciones){
+            if(unaRHabitacion.getId() == id){
+                aux = true;
+            }
+        }
+        
+        return aux;
+    }
+    
+
+    public void modificarRHabitacion(Calendar fechaEntrada, Calendar fechaSalida, int cantidad, Habitacion unaHabitacion, Cliente unCliente, int id, RHabitacion unaRHabitacion) throws Exception {
+        misRHabitaciones.remove(unaRHabitacion);
+        unaRHabitacion.setFechaEntrada(fechaEntrada);
+        unaRHabitacion.setFechaSalida(fechaSalida);
+        unaRHabitacion.setCantidad(cantidad);
+        unaRHabitacion.setUnCliente(unCliente);
+        unaRHabitacion.setUnaHabitacion(unaHabitacion);
+        miPersistencia.EditarRHabitacion(unaRHabitacion);
+    }
+
+    public void borrarRHabitacion(RHabitacion unaRHabitacion) throws Exception {
+        misRHabitaciones.remove(unaRHabitacion);
+        miPersistencia.BajaRHabitacion(unaRHabitacion);
+    }
+
+    public List<RHabitacion> mostrarRHabitaciones() {
+        return misRHabitaciones;
+    }
     
     
     
     
     
+    //R MESAS
+    
+    public void altaRMesa(int numeroMesa, Calendar fecha, Cliente unCliente, int id) throws Exception {
+        if (comprobarRMesa(id) == false) {
+            RMesas unaRMesas = new RMesas(numeroMesa, fecha, unCliente, id);
+            misRMesas.add(unaRMesas);
+            miPersistencia.AltaRMesas(unaRMesas);
+        }
+    }
+    
+    public Mesa DameLaRMesa(int ID) {
+        return this.miPersistencia.dameUnaRMesa(ID);
+    }
+
+    public boolean comprobarRMesa(int id) {
+        boolean aux = false;
+        
+        for(RMesas unaRMesas : misRMesas){
+            if(unaRMesas.getId() == id){
+                aux = true;
+            }
+        }
+        
+        return aux;
+    }
+    
+
+    public void modificarRMesa(int numeroMesa, Calendar fecha, Cliente unCliente, int id, RMesas unaRMesas) throws Exception {
+        misRMesas.remove(unaRMesas);
+        unaRMesas.setNumeroMesa(numeroMesa);
+        unaRMesas.setFecha(fecha);
+        unaRMesas.setUnCliente(unCliente);
+        miPersistencia.EditarRMesas(unaRMesas);
+    }
+
+    public void borrarRMesa(RMesas unaRMesas) throws Exception {
+        misRMesas.remove(unaRMesas);
+        miPersistencia.BajaRMesas(unaRMesas);
+    }
+
+    public List<RMesas> mostrarRMesas() {
+        return misRMesas;
+    }
     
     
     
     
+    //Recepcionista
+    
+    public void altaRecepcionista(int dni, String nombre, String apellido) throws Exception {
+        if (comprobarRecepcionista(dni) == false) {
+            Recepcionista unaRecepcionista = new Recepcionista(dni, nombre, apellido);
+            misRecepcionistas.add(unaRecepcionista);
+            miPersistencia.AltaRecepcionista(unaRecepcionista);
+        }
+    }
+    
+    public Recepcionista DameLaRecepcionista(int ID) {
+        return this.miPersistencia.dameUnaRecepcionista(ID);
+    }
+
+    public boolean comprobarRecepcionista(int dni) {
+        boolean aux = false;
+        
+        for(Recepcionista unaRecepcionista : misRecepcionistas){
+            if(unaRecepcionista.getDni() == dni){
+                aux = true;
+            }
+        }
+        
+        return aux;
+    }
+    
+
+    public void modificarRecepcionista(int dni, String nombre, String apellido, Recepcionista unaRecepcionista) throws Exception {
+        misRecepcionistas.remove(unaRecepcionista);
+        unaRecepcionista.setNombre(nombre);
+        unaRecepcionista.setApellido(apellido);
+        miPersistencia.EditarRecepcionista(unaRecepcionista);
+    }
+
+    public void borrarRecepcionista(Recepcionista unaRecepcionista) throws Exception {
+        misRecepcionistas.remove(unaRecepcionista);
+        miPersistencia.BajaRecepcionista(unaRecepcionista);
+    }
+
+    public List<Recepcionista> mostrarRecepcionistas() {
+        return misRecepcionistas;
+    }
+    
+    
+    
+    //Servicios
+    
+    public void altaServicio(int id, String nombre, String descripcion) throws Exception {
+        if (comprobarServicio(id) == false) {
+            Servicio unServicio = new Servicio(id, nombre, descripcion);
+            misServicios.add(unServicio);
+            miPersistencia.AltaServicio(unServicio);
+        }
+    }
+    
+    public Servicio DameElServicio(int ID) {
+        return this.miPersistencia.dameUnServicio(ID);
+    }
+
+    public boolean comprobarServicio(int id) {
+        boolean aux = false;
+        
+        for(Servicio unServicio : misServicios){
+            if(unServicio.getId() == id){
+                aux = true;
+            }
+        }
+        
+        return aux;
+    }
+    
+
+    public void modificarServicio(int id, String nombre, String descripcion, Servicio unServicio) throws Exception {
+        misServicios.remove(unServicio);
+        unServicio.setNombre(nombre);
+        unServicio.setDescripcion(descripcion);
+        miPersistencia.EditarServicio(unServicio);
+    }
+
+    public void borrarServicio(Servicio unServicio) throws Exception {
+        misServicios.remove(unServicio);
+        miPersistencia.BajaServicio(unServicio);
+    }
+
+    public List<Servicio> mostrarServicios() {
+        return misServicios;
+    }
     
     
     
     
+    //TIPO
     
+    public void altaTipo(int id, String nombre) throws Exception {
+        if (comprobarTipo(id) == false) {
+            Tipo unTipo = new Tipo(id, nombre);
+            misTipos.add(unTipo);
+            miPersistencia.AltaTipo(unTipo);
+        }
+    }
     
+    public Tipo DameElTipo(int ID) {
+        return this.miPersistencia.dameUnTipo(ID);
+    }
+
+    public boolean comprobarTipo(int id) {
+        boolean aux = false;
+        
+        for(Tipo unTipo : misTipos){
+            if(unTipo.getId() == id){
+                aux = true;
+            }
+        }
+        
+        return aux;
+    }
     
-    
-    
-    
-    
-    
+
+    public void modificarTipo(int id, String nombre, Tipo unTipo) throws Exception {
+        misTipos.remove(unTipo);
+        unTipo.setNombre(nombre);
+        miPersistencia.EditarTipo(unTipo);
+    }
+
+    public void borrarTipo(Tipo unTipo) throws Exception {
+        misTipos.remove(unTipo);
+        miPersistencia.BajaTipo(unTipo);
+    }
+
+    public List<Tipo> mostrarTipos() {
+        return misTipos;
+    }
     
     
     
