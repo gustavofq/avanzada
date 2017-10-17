@@ -853,6 +853,4 @@ public class Hotel {
     
     
     
-    
-    
 }
