@@ -7,6 +7,7 @@ package Persistencia;
 
 import Logica.*;
 import Persistencia.exceptions.NonexistentEntityException;
+import com.sun.xml.internal.messaging.saaj.packaging.mime.internet.HeaderTokenizer;
 import java.util.List;
 
 /**
@@ -114,4 +115,223 @@ public class ControladoraPersistencia {
     public List<Departamento> obtenerDepartamentos(){
         return miDepartamento.findDepartamentoEntities();
     }
+    
+    //facturas 
+    
+    public void AltaFactura(Factura unaFactura){
+        miFactura.create(unaFactura);
+    }
+    
+    public Factura dameUnaFactura(int id){
+        return miFactura.findFactura(id);
+    }
+    
+    public void EditarFactura(Factura unaFactura) throws Exception{
+        miFactura.edit(unaFactura);
+    }
+    
+    public void BajaFactura(Factura unaFactura) throws NonexistentEntityException{
+        miFactura.destroy(unaFactura.getId());
+    }
+    
+    public List<Factura> obtenerFacturas(){
+        return miFactura.findFacturaEntities();
+    }
+    
+    //habitacion 
+    
+    public void AltaHabitacion(Habitacion unaHabitacion){
+        miHabitacion.create(unaHabitacion);
+    }
+    
+    public Habitacion dameUnaHabitacion(int id){
+        return miHabitacion.findHabitacion(id);
+    }
+    
+    public void EditarHabitacion(Habitacion unaHabitacion) throws Exception{
+        miHabitacion.edit(unaHabitacion);
+    }
+    
+    public void BajaHabitacion(Habitacion unaHabitacion) throws NonexistentEntityException{
+        miHabitacion.destroy(unaHabitacion.getId());
+    }
+    
+    public List<Habitacion> obtenerHabitaciones(){
+        return miHabitacion.findHabitacionEntities();
+    }
+    
+    //Mesas
+    
+    public void AltaMesa(Mesa unaMesa){
+        miMesa.create(unaMesa);
+    }
+    
+    public Mesa dameUnaMesa(int id){
+        return miMesa.findMesa(id);
+    }
+    
+    public void EditarMesa(Mesa unMesa) throws Exception{
+        miMesa.edit(unMesa);
+    }
+    
+    public void BajaMesa(Mesa unMesa) throws NonexistentEntityException{
+        miMesa.destroy(unMesa.getId());
+    }
+    
+    public List<Mesa> obtenerMesas(){
+        return miMesa.findMesaEntities();
+    }
+    
+    //platos
+    
+    public void AltaPlato(Plato unPlato){
+        miPlato.create(unPlato);
+    }
+    
+    public Plato dameUnPlato(int id){
+        return miPlato.findPlato(id);
+    }
+    
+    public void EditarPlato(Plato unPlato) throws Exception{
+        miPlato.edit(unPlato);
+    }
+    
+   public void BajaPlato(Plato unPlato) throws NonexistentEntityException{
+       miPlato.destroy(unPlato.getId());
+   }
+   
+   public List<Plato> obtenerPlatos(){
+       return miPlato.findPlatoEntities();
+   }
+    
+   //proveedores
+   
+   public void AltaProveedor(Proveedor unProveedor){
+       miProveedor.create(unProveedor);
+   }
+   
+   public Proveedor dameUnProveedor(int id){
+       return miProveedor.findProveedor(id);
+   }
+   
+   public void EditarProveedor(Proveedor unProveedor) throws Exception{
+       miProveedor.edit(unProveedor);
+   }
+   
+   public void BajaProveedor(Proveedor unProveedor) throws NonexistentEntityException{
+       miProveedor.destroy(unProveedor.getId());
+   }
+   
+   public List<Proveedor>obtenerProveedores(){
+       return miProveedor.findProveedorEntities();
+   }
+   
+   //rh habitacion 
+   
+   public void AltaRHabitacion(RHabitacion unaRHabitacion){
+       miRHabitacion.create(unaRHabitacion);
+   }
+   
+   public RHabitacion dameUnaRHabitacion(int id){
+       return miRHabitacion.findRHabitacion(id);
+   }
+   
+   public void EditarRHabitacion(RHabitacion unaHabitacion) throws Exception{
+       miRHabitacion.edit(unaHabitacion);
+   }
+   
+   public void BajaRHabitacion(RHabitacion unaRHabitacion) throws NonexistentEntityException{
+       miRHabitacion.destroy(unaRHabitacion.getId());
+   }
+   
+   public List<RHabitacion> obtenerRHabitaciones(){
+       return miRHabitacion.findRHabitacionEntities();
+   }
+   
+   // R Mesas
+   
+   public void AltaRMesas(RMesas unaRMesas){
+       miRMesas.create(unaRMesas);
+   }
+   
+   public RMesas dameUnaRMesa(int id){
+       return miRMesas.findRMesas(id);
+   }
+   
+   public void EditarRMesas(RMesas unaRMesas) throws Exception{
+       miRMesas.edit(unaRMesas);
+   }
+   
+   public void BajaRMesas(RMesas unaRMesas) throws NonexistentEntityException{
+       miRMesas.destroy(unaRMesas.getId());
+   }
+   
+   public List<RMesas> obtenerRMesas(){
+       return miRMesas.findRMesasEntities();
+   }
+   
+   //Recepcionistas
+   
+   public void AltaRecepcionista(Recepcionista unaRecepcionista){
+       miRecepcionista.create(unaRecepcionista);
+   }
+   
+   public Recepcionista dameUnaRecepcionista(int id){
+       return miRecepcionista.findRecepcionista(id);
+   }
+   
+   public void EditarRecepcionista(Recepcionista unaRecepcionista) throws Exception{
+       miRecepcionista.edit(unaRecepcionista);
+   }
+   
+   public void BajaRecepcionista(Recepcionista unaRecepcionista) throws NonexistentEntityException{
+       miRecepcionista.destroy(unaRecepcionista.getDni());
+   }
+   
+   public List<Recepcionista> obtenerRecepcionistas(){
+       return miRecepcionista.findRecepcionistaEntities();
+   }
+   
+   //servicios
+   
+   public void AltaServicio(Servicio unServicio){
+       miServicio.create(unServicio);
+   }
+   
+   public Servicio dameUnServicio(int id){
+       return miServicio.findServicio(id);
+   }
+   
+   public void EditarServicio(Servicio unServicio) throws Exception{
+       miServicio.edit(unServicio);
+   }
+   
+   public void BajaServicio(Servicio unServicio) throws NonexistentEntityException{
+       miServicio.destroy(unServicio.getId());
+   }
+   
+   public List<Servicio> obtenerServicios(){
+       return miServicio.findServicioEntities();
+   }
+   
+   //tipo
+   public void AltaTipo(Tipo unTipo){
+       miTipo.create(unTipo);
+   }
+   
+   public Tipo dameUnTipo(int id){
+       return miTipo.findTipo(id);
+   }
+   
+   public void EditarTipo(Tipo unTipo) throws Exception{
+       miTipo.edit(unTipo);
+   }
+   
+   public void BajaTipo(Tipo unTipo) throws NonexistentEntityException{
+       miTipo.destroy(unTipo.getId());
+   }
+   
+   public List<Tipo> obtenerTipos(){
+       return miTipo.findTipoEntities();
+   }
 }

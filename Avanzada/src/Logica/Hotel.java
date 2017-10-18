@@ -352,10 +352,8 @@ public class Hotel {
     }
 
     public List<Factura> mostrarFacturas() {
-        return misFacturas;
+        return miPersistencia.obtenerFacturas();
     }
-    
-    
     
     
     //HABITACION
@@ -399,7 +397,7 @@ public class Hotel {
     }
 
     public List<Habitacion> mostrarHabitaciones() {
-        return misHabitaciones;
+        return miPersistencia.obtenerHabitaciones();
     }
     
     
@@ -444,7 +442,7 @@ public class Hotel {
     }
 
     public List<Mesa> mostrarMesas() {
-        return misMesas;
+        return miPersistencia.obtenerMesas();
     }
     
     
@@ -460,7 +458,7 @@ public class Hotel {
         }
     }
     
-    public Mesa DameElPlato(int ID) {
+    public Plato DameElPlato(int ID) {
         return this.miPersistencia.dameUnPlato(ID);
     }
 
@@ -491,7 +489,7 @@ public class Hotel {
     }
 
     public List<Plato> mostrarPlatos() {
-        return misPlatos;
+        return miPersistencia.obtenerPlatos();
     }
     
     
@@ -506,7 +504,7 @@ public class Hotel {
         }
     }
     
-    public Mesa DameElProveedor(int ID) {
+    public Proveedor DameElProveedor(int ID) {
         return this.miPersistencia.dameUnProveedor(ID);
     }
 
@@ -537,11 +535,8 @@ public class Hotel {
     }
 
     public List<Proveedor> mostrarProveedores() {
-        return misProveedores;
+        return miPersistencia.obtenerProveedores();
     }
-    
-    
-    
     
     //RH HABITACION
     
@@ -553,7 +548,7 @@ public class Hotel {
         }
     }
     
-    public Mesa DameLaRHabitacion(int ID) {
+    public RHabitacion DameLaRHabitacion(int ID) {
         return this.miPersistencia.dameUnaRHabitacion(ID);
     }
 
@@ -586,7 +581,7 @@ public class Hotel {
     }
 
     public List<RHabitacion> mostrarRHabitaciones() {
-        return misRHabitaciones;
+        return miPersistencia.obtenerRHabitaciones();
     }
     
     
@@ -601,7 +596,7 @@ public class Hotel {
         }
     }
     
-    public Mesa DameLaRMesa(int ID) {
+    public RMesas DameLaRMesa(int ID) {
         return this.miPersistencia.dameUnaRMesa(ID);
     }
 
@@ -632,7 +627,7 @@ public class Hotel {
     }
 
     public List<RMesas> mostrarRMesas() {
-        return misRMesas;
+        return miPersistencia.obtenerRMesas();
     }
     
     
@@ -678,7 +673,7 @@ public class Hotel {
     }
 
     public List<Recepcionista> mostrarRecepcionistas() {
-        return misRecepcionistas;
+        return miPersistencia.obtenerRecepcionistas();
     }
     
     
@@ -723,7 +718,7 @@ public class Hotel {
     }
 
     public List<Servicio> mostrarServicios() {
-        return misServicios;
+        return miPersistencia.obtenerServicios();
     }
     
     
@@ -768,7 +763,7 @@ public class Hotel {
     }
 
     public List<Tipo> mostrarTipos() {
-        return misTipos;
+        return miPersistencia.obtenerTipos();
     }
     
     
