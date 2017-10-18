@@ -316,21 +316,21 @@ public class Hotel {
     
     public void altaFactura(int id, String Tipo, Double total) throws Exception {
         if (comprobarFactura(id) == false) {
-            DetalleFactura unDetalleFactura = new DetalleFactura(id, descripcion, cantidad, Subtotal);
-            misDetalleFacu.add(unDepartamento);
-            miPersistencia.AltaDepartamento(unDepartamento);
+            Factura unaFactura = new Factura(id, Tipo, total);
+            misFacturas.add(unaFactura);
+            miPersistencia.AltaFactura(unaFactura);
         }
     }
     
-    public Departamento DameElDepartamento(int ID) {
-        return this.miPersistencia.dameUnDepartamento(ID);
+    public Factura DameLaFactura(int ID) {
+        return this.miPersistencia.dameUnaFactura(ID);
     }
 
     public boolean comprobarFactura(int id) {
         boolean aux = false;
         
-        for(Departamento unDepartamento : misDepartamentos){
-            if(unDepartamento.getId() == id){
+        for(Factura unaFactura : misFacturas){
+            if(unaFactura.getId() == id){
                 aux = true;
             }
         }
@@ -339,19 +339,20 @@ public class Hotel {
     }
     
 
-    public void modificarDepartamento(int id, String nombre, Departamento unDepartamento) throws Exception {
-        misDepartamentos.remove(unDepartamento);
-        unDepartamento.setNombre(nombre);
-        miPersistencia.EditarDepartamento(unDepartamento);
+    public void modificarFactura(int id, String Tipo, Double total, Factura unaFactura) throws Exception {
+        misFacturas.remove(unaFactura);
+        unaFactura.setTipo(Tipo);
+        unaFactura.setTotal(total);
+        miPersistencia.EditarFactura(unaFactura);
     }
 
-    public void borrarDepartamento(Departamento unDepartamento) throws Exception {
-        misDepartamentos.remove(unDepartamento);
-        miPersistencia.BajaDepartamento(unDepartamento);
+    public void borrarFactura(Factura unaFactura) throws Exception {
+        misFacturas.remove(unaFactura);
+        miPersistencia.BajaFactura(unaFactura);
     }
 
-    public List<Departamento> mostrarDepartamentos() {
-        return misDepartamentos;
+    public List<Factura> mostrarFacturas() {
+        return misFacturas;
     }
     
     
