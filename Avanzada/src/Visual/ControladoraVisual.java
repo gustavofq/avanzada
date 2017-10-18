@@ -10,7 +10,17 @@ import Logica.Cliente;
 import Logica.Departamento;
 import Logica.DetalleFactura;
 import Logica.Factura;
+import Logica.Habitacion;
 import Logica.Hotel;
+import Logica.Mesa;
+import Logica.Plato;
+import Logica.Proveedor;
+import Logica.RHabitacion;
+import Logica.RMesas;
+import Logica.Recepcionista;
+import Logica.Servicio;
+import Logica.Tipo;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -114,36 +124,247 @@ public class ControladoraVisual {
     }
     
     public  Factura DameLaFactura(int ID) {
-        return this.miPersistencia.dameUnDepartamento(ID);
+        return this.unHotel.DameLaFactura(ID);
+    }
+    
+    public void modificarFactura(int id, String Tipo, Double total, Factura unaFactura) throws Exception {
+        this.unHotel.modificarFactura(id, Tipo, total, unaFactura);
     }
 
-    public boolean comprobarFactura(int id) {
-        boolean aux = false;
-        
-        for(Departamento unDepartamento : misDepartamentos){
-            if(unDepartamento.getId() == id){
-                aux = true;
-            }
-        }
-        
-        return aux;
+    public void borrarFactura(Factura unaFactura) throws Exception {
+        this.unHotel.borrarFactura(unaFactura);
+    }
+
+    public List<Factura> mostrarFacturas() {
+        return this.unHotel.mostrarFacturas();
+    }
+    
+    
+    
+    
+    //HABITACION
+    
+    public void altaHabitacion(int id, String estado, int montoPorNoche, Tipo unTipo) throws Exception {
+        this.unHotel.altaHabitacion(id, estado, montoPorNoche, unTipo);
+    }
+    
+    public Habitacion DameLaHabitacion(int ID) {
+        return this.unHotel.DameLaHabitacion(ID);
+    }
+
+    public void modificarHabitacion(int id, String estado, int montoPorNoche, Tipo unTipo, Habitacion unaHabitacion) throws Exception {
+        this.unHotel.modificarHabitacion(id, estado, montoPorNoche, unTipo, unaHabitacion);
+    }
+
+    public void borrarHabitacion(Habitacion unaHabitacion) throws Exception {
+        this.unHotel.borrarHabitacion(unaHabitacion);
+    }
+
+    public List<Habitacion> mostrarHabitaciones() {
+        return this.unHotel.mostrarHabitaciones();
+    }
+    
+    
+    
+    //MESAS
+    
+    public void altaMesa(int id, String Estado) throws Exception {
+        this.unHotel.altaMesa(id, Estado);
+    }
+
+    public void modificarMesa(int id, String Estado, Mesa unaMesa) throws Exception {
+        this.unHotel.modificarMesa(id, Estado, unaMesa);
+    }
+
+    public void borrarMesa(Mesa unaMesa) throws Exception {
+        this.unHotel.borrarMesa(unaMesa);
+    }
+
+    public List<Mesa> mostrarMesas() {
+        return this.unHotel.mostrarMesas();
+    }
+    
+    
+    //PLATOS
+    
+    public void altaPlato(int id, String nombre, String descripcion, int precio) throws Exception {
+        this.unHotel.altaPlato(id, nombre, descripcion, precio);
     }
     
 
-    public void modificarDepartamento(int id, String nombre, Departamento unDepartamento) throws Exception {
-        misDepartamentos.remove(unDepartamento);
-        unDepartamento.setNombre(nombre);
-        miPersistencia.EditarDepartamento(unDepartamento);
+    public void modificarPlato(int id, String nombre, String descripcion, int precio, Plato unPlato) throws Exception {
+        this.unHotel.modificarPlato(id, nombre, descripcion, precio, unPlato);
     }
 
-    public void borrarDepartamento(Departamento unDepartamento) throws Exception {
-        misDepartamentos.remove(unDepartamento);
-        miPersistencia.BajaDepartamento(unDepartamento);
+    public void borrarPlato(Plato unPlato) throws Exception {
+        this.unHotel.borrarPlato(unPlato);
     }
 
-    public List<Departamento> mostrarDepartamentos() {
-        return misDepartamentos;
+    public List<Plato> mostrarPlatos() {
+        return this.unHotel.mostrarPlatos();
     }
+    
+    
+    
+    
+    //Proveedor
+    
+    public void altaProveedor(int id, String nombre, String direccion, int telefono) throws Exception {
+        this.unHotel.altaProveedor(id, nombre, direccion, telefono);
+    }
+    
+    public Mesa DameElProveedor(int ID) {
+        return this.unHotel.DameElProveedor(ID);
+    }
+
+    public void modificarProveedor(int id, String nombre, String direccion, int telefono, Proveedor unProveedor) throws Exception {
+        this.unHotel.modificarProveedor(id, nombre, direccion, telefono, unProveedor);
+    }
+
+    public void borrarProveedor(Proveedor unProveedor) throws Exception {
+        this.unHotel.borrarProveedor(unProveedor);
+    }
+
+    public List<Proveedor> mostrarProveedores() {
+        return this.unHotel.mostrarProveedores();
+    }
+    
+    
+    
+    //RH HABITACION
+    
+    public void altaRHabitacion(Calendar fechaEntrada, Calendar fechaSalida, int cantidad, Habitacion unaHabitacion, Cliente unCliente, int id) throws Exception {
+        this.unHotel.altaRHabitacion(fechaEntrada, fechaSalida, cantidad, unaHabitacion, unCliente, id);
+    }
+    
+    public Mesa DameLaRHabitacion(int ID) {
+        return this.unHotel.DameLaRHabitacion(ID);
+    }
+
+    public void modificarRHabitacion(Calendar fechaEntrada, Calendar fechaSalida, int cantidad, Habitacion unaHabitacion, Cliente unCliente, int id, RHabitacion unaRHabitacion) throws Exception {
+        this.unHotel.modificarRHabitacion(fechaEntrada, fechaSalida, cantidad, unaHabitacion, unCliente, id, unaRHabitacion);
+    }
+
+    public void borrarRHabitacion(RHabitacion unaRHabitacion) throws Exception {
+        this.unHotel.borrarRHabitacion(unaRHabitacion);
+    }
+
+    public List<RHabitacion> mostrarRHabitaciones() {
+        return this.unHotel.mostrarRHabitaciones();
+    }
+    
+    
+    
+    
+    
+    //R MESAS
+    
+    public void altaRMesa(int numeroMesa, Calendar fecha, Cliente unCliente, int id) throws Exception {
+        this.unHotel.altaRMesa(numeroMesa, fecha, unCliente, id);
+    }
+    
+    public Mesa DameLaRMesa(int ID) {
+        return this.unHotel.DameLaRMesa(ID);
+    }
+
+    public void modificarRMesa(int numeroMesa, Calendar fecha, Cliente unCliente, int id, RMesas unaRMesas) throws Exception {
+        this.unHotel.modificarRMesa(numeroMesa, fecha, unCliente, id, unaRMesas);
+    }
+
+    public void borrarRMesa(RMesas unaRMesas) throws Exception {
+        this.unHotel.borrarRMesa(unaRMesas);
+    }
+
+    public List<RMesas> mostrarRMesas() {
+        return this.unHotel.mostrarRMesas();
+    }
+    
+    
+    
+    
+    //Recepcionista
+    
+    public void altaRecepcionista(int dni, String nombre, String apellido) throws Exception {
+        this.unHotel.altaRecepcionista(dni, nombre, apellido);
+    }
+    
+    public Recepcionista DameLaRecepcionista(int ID) {
+        return this.unHotel.DameLaRecepcionista(ID);
+    } 
+
+    public void modificarRecepcionista(int dni, String nombre, String apellido, Recepcionista unaRecepcionista) throws Exception {
+        this.unHotel.modificarRecepcionista(dni, nombre, apellido, unaRecepcionista);
+    }
+
+    public void borrarRecepcionista(Recepcionista unaRecepcionista) throws Exception {
+        this.unHotel.borrarRecepcionista(unaRecepcionista);
+    }
+
+    public List<Recepcionista> mostrarRecepcionistas() {
+        return this.unHotel.mostrarRecepcionistas();
+    }
+    
+    
+    
+    
+    
+    //Servicios
+    
+    public void altaServicio(int id, String nombre, String descripcion) throws Exception {
+        this.unHotel.altaServicio(id, nombre, descripcion);
+    }
+    
+    public Servicio DameElServicio(int ID) {
+        return this.unHotel.DameElServicio(ID);
+    }
+
+    public void modificarServicio(int id, String nombre, String descripcion, Servicio unServicio) throws Exception {
+        this.unHotel.modificarServicio(id, nombre, descripcion, unServicio);
+    }
+
+    public void borrarServicio(Servicio unServicio) throws Exception {
+        this.unHotel.borrarServicio(unServicio);
+    }
+
+    public List<Servicio> mostrarServicios() {
+        return this.unHotel.mostrarServicios();
+    }
+    
+    
+    //TIPO
+    
+    public void altaTipo(int id, String nombre) throws Exception {
+        this.unHotel.altaTipo(id, nombre);
+    }
+    
+    public Tipo DameElTipo(int ID) {
+        return this.unHotel.DameElTipo(ID);
+    }
+    
+    public void modificarTipo(int id, String nombre, Tipo unTipo) throws Exception {
+        this.modificarTipo(id, nombre, unTipo);
+    }
+
+    public void borrarTipo(Tipo unTipo) throws Exception {
+        this.unHotel.borrarTipo(unTipo);
+    }
+
+    public List<Tipo> mostrarTipos() {
+        return this.unHotel.mostrarTipos();
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     

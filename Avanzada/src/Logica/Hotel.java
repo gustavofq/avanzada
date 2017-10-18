@@ -543,7 +543,6 @@ public class Hotel {
     
     
     
-    
     //RH HABITACION
     
     public void altaRHabitacion(Calendar fechaEntrada, Calendar fechaSalida, int cantidad, Habitacion unaHabitacion, Cliente unCliente, int id) throws Exception {
@@ -588,50 +587,6 @@ public class Hotel {
 
     public List<RHabitacion> mostrarRHabitaciones() {
         return misRHabitaciones;
-    }
-    
-    //Reserva Habitacion
-    
-    public void altaRHabitacion(Calendar fechaEntrada, Calendar fechaSalida, int cantidad, Habitacion unaHabitacion, Cliente unCliente, int id) throws Exception {
-        if (comprobarRHabtiacion(id) == false) {
-            RHabitacion unaRHabitacion = new RHabitacion(fechaEntrada, fechaSalida, cantidad, unaHabitacion, unCliente, id);
-            misRHabitaciones.add(unaRHabitacion);
-            miPersistencia.AltaRHabitacion(unaRHabitacion);
-        }
-    }
-    
-    public Mesa DameLaRHabitacion(int ID) {
-        return this.miPersistencia.dameUnaRHabitacion(ID);
-    }
-
-    public boolean comprobarRHabtiacion(int id) {
-        boolean aux = false;
-        
-        for(Proveedor unProveedor : misProveedores){
-            if(unProveedor.getId() == id){
-                aux = true;
-            }
-        }
-        
-        return aux;
-    }
-    
-
-    public void modificarProveedor(int id, String nombre, String direccion, int telefono, Proveedor unProveedor) throws Exception {
-        misProveedores.remove(unProveedor);
-        unProveedor.setNombre(nombre);
-        unProveedor.setDireccion(direccion);
-        unProveedor.setTelefono(telefono);
-        miPersistencia.EditarProveedor(unProveedor);
-    }
-
-    public void borrarProveedor(Proveedor unProveedor) throws Exception {
-        misProveedores.remove(unProveedor);
-        miPersistencia.BajaProveedor(unProveedor);
-    }
-
-    public List<Proveedor> mostrarProveedores() {
-        return misProveedores;
     }
     
     
