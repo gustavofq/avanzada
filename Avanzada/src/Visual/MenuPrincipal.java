@@ -11,11 +11,14 @@ package Visual;
  */
 public class MenuPrincipal extends javax.swing.JFrame {
 
+    ControladoraVisual unaControladora = new ControladoraVisual();
+    
     /**
      * Creates new form MenuPrincipal
      */
     public MenuPrincipal() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -29,11 +32,22 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         Escritorio = new javax.swing.JDesktopPane();
         Menu = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
+        ABMCamarero = new javax.swing.JMenuItem();
+        ABMCliente = new javax.swing.JMenuItem();
+        ABMDepartamento = new javax.swing.JMenuItem();
+        ABMFactura = new javax.swing.JMenuItem();
+        ABMHabitacion = new javax.swing.JMenuItem();
+        ABMMesa = new javax.swing.JMenuItem();
+        ABMPlato = new javax.swing.JMenuItem();
+        ABMProveedor = new javax.swing.JMenuItem();
+        ABMRHabitacion = new javax.swing.JMenuItem();
+        ABMRMesas = new javax.swing.JMenuItem();
+        ABMRecepcionista = new javax.swing.JMenuItem();
+        ABMServicio = new javax.swing.JMenuItem();
+        ABMTipo = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1000, 600));
 
         javax.swing.GroupLayout EscritorioLayout = new javax.swing.GroupLayout(Escritorio);
         Escritorio.setLayout(EscritorioLayout);
@@ -46,10 +60,47 @@ public class MenuPrincipal extends javax.swing.JFrame {
             .addGap(0, 603, Short.MAX_VALUE)
         );
 
-        jMenu1.setText("File");
-        Menu.add(jMenu1);
+        jMenu2.setText("ABM");
 
-        jMenu2.setText("Edit");
+        ABMCamarero.setText("Camarero");
+        jMenu2.add(ABMCamarero);
+
+        ABMCliente.setText("Cliente");
+        jMenu2.add(ABMCliente);
+
+        ABMDepartamento.setText("Departamento");
+        jMenu2.add(ABMDepartamento);
+
+        ABMFactura.setText("Factura");
+        jMenu2.add(ABMFactura);
+
+        ABMHabitacion.setText("Habitacion");
+        jMenu2.add(ABMHabitacion);
+
+        ABMMesa.setText("Mesa");
+        jMenu2.add(ABMMesa);
+
+        ABMPlato.setText("Plato");
+        jMenu2.add(ABMPlato);
+
+        ABMProveedor.setText("Proveedor");
+        jMenu2.add(ABMProveedor);
+
+        ABMRHabitacion.setText("RHabitacion");
+        jMenu2.add(ABMRHabitacion);
+
+        ABMRMesas.setText("RMesas");
+        jMenu2.add(ABMRMesas);
+
+        ABMRecepcionista.setText("Recepcionista");
+        jMenu2.add(ABMRecepcionista);
+
+        ABMServicio.setText("Servicio");
+        jMenu2.add(ABMServicio);
+
+        ABMTipo.setText("Tipo");
+        jMenu2.add(ABMTipo);
+
         Menu.add(jMenu2);
 
         setJMenuBar(Menu);
@@ -104,9 +155,21 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem ABMCamarero;
+    private javax.swing.JMenuItem ABMCliente;
+    private javax.swing.JMenuItem ABMDepartamento;
+    private javax.swing.JMenuItem ABMFactura;
+    private javax.swing.JMenuItem ABMHabitacion;
+    private javax.swing.JMenuItem ABMMesa;
+    private javax.swing.JMenuItem ABMPlato;
+    private javax.swing.JMenuItem ABMProveedor;
+    private javax.swing.JMenuItem ABMRHabitacion;
+    private javax.swing.JMenuItem ABMRMesas;
+    private javax.swing.JMenuItem ABMRecepcionista;
+    private javax.swing.JMenuItem ABMServicio;
+    private javax.swing.JMenuItem ABMTipo;
     private javax.swing.JDesktopPane Escritorio;
     private javax.swing.JMenuBar Menu;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     // End of variables declaration//GEN-END:variables
 }
