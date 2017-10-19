@@ -63,6 +63,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu2.setText("ABM");
 
         ABMCamarero.setText("Camarero");
+        ABMCamarero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ABMCamareroActionPerformed(evt);
+            }
+        });
         jMenu2.add(ABMCamarero);
 
         ABMCliente.setText("Cliente");
@@ -118,6 +123,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void ABMCamareroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ABMCamareroActionPerformed
+        ABMCamarero miABMCamarero = new ABMCamarero(unaControladora); 
+        this.Escritorio.add(miABMCamarero);
+        miABMCamarero.show();
+    }//GEN-LAST:event_ABMCamareroActionPerformed
 
     /**
      * @param args the command line arguments

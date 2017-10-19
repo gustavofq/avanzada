@@ -8,7 +8,6 @@ package Visual;
 import Logica.Camarero;
 import Logica.Cliente;
 import Logica.Departamento;
-import Logica.DetalleFactura;
 import Logica.Factura;
 import Logica.Habitacion;
 import Logica.Hotel;
@@ -41,7 +40,7 @@ public class ControladoraVisual {
     }
 
     
-    //METODOS QUE LLAMAN A EMPRESA
+    //METODOS QUE LLAMAN A HOTEL
     
     //CAMARERO
     
@@ -213,7 +212,7 @@ public class ControladoraVisual {
         this.unHotel.altaProveedor(id, nombre, direccion, telefono);
     }
     
-    public Mesa DameElProveedor(int ID) {
+    public Proveedor DameElProveedor(int ID) {
         return this.unHotel.DameElProveedor(ID);
     }
 
@@ -237,7 +236,7 @@ public class ControladoraVisual {
         this.unHotel.altaRHabitacion(fechaEntrada, fechaSalida, cantidad, unaHabitacion, unCliente, id);
     }
     
-    public Mesa DameLaRHabitacion(int ID) {
+    public RHabitacion DameLaRHabitacion(int ID) {
         return this.unHotel.DameLaRHabitacion(ID);
     }
 
@@ -263,7 +262,7 @@ public class ControladoraVisual {
         this.unHotel.altaRMesa(numeroMesa, fecha, unCliente, id);
     }
     
-    public Mesa DameLaRMesa(int ID) {
+    public RMesas DameLaRMesa(int ID) {
         return this.unHotel.DameLaRMesa(ID);
     }
 
@@ -342,7 +341,7 @@ public class ControladoraVisual {
     }
     
     public void modificarTipo(int id, String nombre, Tipo unTipo) throws Exception {
-        this.modificarTipo(id, nombre, unTipo);
+        this.unHotel.modificarTipo(id, nombre, unTipo);
     }
 
     public void borrarTipo(Tipo unTipo) throws Exception {

@@ -6,12 +6,11 @@
 package Logica;
 
 import Persistencia.ControladoraPersistencia;
+import Visual.MenuPrincipal;
 import java.util.Calendar;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.OneToMany;
-import jdk.nashorn.internal.runtime.Undefined;
 
 /**
  *
@@ -54,16 +53,36 @@ public class Hotel {
      */
     public static void main(String[] args) {
        
-        
+        Hotel unHotel = new Hotel();
+        MenuPrincipal miMenu = new MenuPrincipal();
+        miMenu.show();
         
         
     }
+    
+    
     
     public Hotel() {
         CargarListas();
     }
     
-    
+    private void CargarListas() {
+
+        this.misCamareros = this.miPersistencia.obtenerCamareros();
+        this.misClientes = this.miPersistencia.obtenerClientes();
+        this.misDepartamentos = this.miPersistencia.obtenerDepartamentos();
+        this.misFacturas = this.miPersistencia.obtenerFacturas();
+        this.misHabitaciones = this.miPersistencia.obtenerHabitaciones();
+        this.misMesas = this.miPersistencia.obtenerMesas();
+        this.misPlatos = this.miPersistencia.obtenerPlatos();
+        this.misProveedores = this.miPersistencia.obtenerProveedores();
+        this.misRHabitaciones = this.miPersistencia.obtenerRHabitaciones();
+        this.misRMesas = this.miPersistencia.obtenerRMesas();
+        this.misRecepcionistas = this.miPersistencia.obtenerRecepcionistas();
+        this.misServicios = this.miPersistencia.obtenerServicios();
+        this.misTipos = this.miPersistencia.obtenerTipos();
+        
+    }
 
     public List<Camarero> getMisCamareros() {
         return misCamareros;
