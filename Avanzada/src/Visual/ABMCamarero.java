@@ -116,6 +116,10 @@ public class ABMCamarero extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JButton();
 
+        setClosable(true);
+        setMaximizable(true);
+        setResizable(true);
+
         jLabel1.setText("DNI:");
 
         jLabel2.setText("Nombre:");
@@ -160,6 +164,11 @@ public class ABMCamarero extends javax.swing.JInternalFrame {
                 "DNI", "Nombre", "Apellido"
             }
         ));
+        tblCamarero.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblCamareroMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblCamarero);
 
         jLabel4.setText("CAMAREROS");
@@ -294,6 +303,12 @@ public class ABMCamarero extends javax.swing.JInternalFrame {
         txtApellido.setText(null);
         cargarTabla();
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void tblCamareroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCamareroMouseClicked
+        txtDNI.setText(tblCamarero.getValueAt(tblCamarero.getSelectedRow(), 0).toString());
+        txtNombre.setText(tblCamarero.getValueAt(tblCamarero.getSelectedRow(), 1).toString());
+        txtApellido.setText(tblCamarero.getValueAt(tblCamarero.getSelectedRow(), 2).toString());
+    }//GEN-LAST:event_tblCamareroMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

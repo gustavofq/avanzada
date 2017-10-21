@@ -232,7 +232,7 @@ public class Hotel {
     }
 
     public List<Camarero> mostrarCamareros() {
-        return misCamareros;
+        return miPersistencia.obtenerCamareros();
     }
     
     
@@ -280,7 +280,7 @@ public class Hotel {
     }
 
     public List<Cliente> mostrarClientes() {
-        return misClientes;
+        return miPersistencia.obtenerClientes();
     }
     
     
@@ -324,7 +324,7 @@ public class Hotel {
     }
 
     public List<Departamento> mostrarDepartamentos() {
-        return misDepartamentos;
+        return miPersistencia.obtenerDepartamentos();
     }
 
     
