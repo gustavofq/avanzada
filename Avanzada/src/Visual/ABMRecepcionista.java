@@ -27,8 +27,9 @@ public class ABMRecepcionista extends javax.swing.JInternalFrame {
     /**
      * Creates new form ABMRecepcionista
      */
-    public ABMRecepcionista(ControladoraVisual unaControladoraVisual) {
+    public ABMRecepcionista(ControladoraVisual unaControladora) {
         initComponents();
+        unaControladoraVisual = unaControladora;
         modelo.addColumn("DNI");
         modelo.addColumn("Nombre");
         modelo.addColumn("Apellido");
@@ -114,6 +115,8 @@ public class ABMRecepcionista extends javax.swing.JInternalFrame {
         btnCancelar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblRecepcionista = new javax.swing.JTable();
+
+        setClosable(true);
 
         jLabel1.setText("DNI:");
 
