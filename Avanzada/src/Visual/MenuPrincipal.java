@@ -98,6 +98,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu2.add(ABMRMesas);
 
         ABMRecepcionista.setText("Recepcionista");
+        ABMRecepcionista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ABMRecepcionistaActionPerformed(evt);
+            }
+        });
         jMenu2.add(ABMRecepcionista);
 
         ABMServicio.setText("Servicio");
@@ -129,6 +134,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
         this.Escritorio.add(miABMCamarero);
         miABMCamarero.show();
     }//GEN-LAST:event_ABMCamareroActionPerformed
+
+    private void ABMRecepcionistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ABMRecepcionistaActionPerformed
+        ABMRecepcionista miABMRecepcionista = new ABMRecepcionista(unaControladora);
+        this.Escritorio.add(miABMRecepcionista);
+        miABMRecepcionista.show();
+    }//GEN-LAST:event_ABMRecepcionistaActionPerformed
 
     /**
      * @param args the command line arguments
