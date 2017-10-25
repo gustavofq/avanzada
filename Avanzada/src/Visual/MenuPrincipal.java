@@ -71,9 +71,19 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu2.add(ABMCamarero);
 
         ABMCliente.setText("Cliente");
+        ABMCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ABMClienteActionPerformed(evt);
+            }
+        });
         jMenu2.add(ABMCliente);
 
         ABMDepartamento.setText("Departamento");
+        ABMDepartamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ABMDepartamentoActionPerformed(evt);
+            }
+        });
         jMenu2.add(ABMDepartamento);
 
         ABMFactura.setText("Factura");
@@ -140,6 +150,18 @@ public class MenuPrincipal extends javax.swing.JFrame {
         this.Escritorio.add(miABMRecepcionista);
         miABMRecepcionista.show();
     }//GEN-LAST:event_ABMRecepcionistaActionPerformed
+
+    private void ABMClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ABMClienteActionPerformed
+        ABMCliente miABMCliente = new ABMCliente(unaControladora);
+        this.Escritorio.add(miABMCliente);
+        miABMCliente.show();
+    }//GEN-LAST:event_ABMClienteActionPerformed
+
+    private void ABMDepartamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ABMDepartamentoActionPerformed
+        ABMDepartamento miABMDepartamento = new ABMDepartamento(unaControladora);
+        this.Escritorio.add(miABMDepartamento);
+        miABMDepartamento.show();
+    }//GEN-LAST:event_ABMDepartamentoActionPerformed
 
     /**
      * @param args the command line arguments

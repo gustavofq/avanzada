@@ -315,6 +315,7 @@ public class Hotel {
 
     public void modificarDepartamento(int id, String nombre, Departamento unDepartamento) throws Exception {
         misDepartamentos.remove(unDepartamento);
+        unDepartamento.setNombre(nombre);
         miPersistencia.EditarDepartamento(unDepartamento);
     }
 

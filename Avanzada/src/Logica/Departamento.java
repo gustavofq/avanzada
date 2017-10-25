@@ -32,6 +32,11 @@ public class Departamento implements Serializable {
         this.nombre = nombre;
     }
 
+    public Departamento(String nombre) {
+        this.nombre = nombre;
+    }
+    
+
     public int getId() {
         return id;
     }
