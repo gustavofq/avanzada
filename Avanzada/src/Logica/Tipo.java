@@ -10,7 +10,7 @@ import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+
 
 /**
  *
@@ -24,18 +24,11 @@ public class Tipo implements Serializable {
     private int id;
     @Basic
     private String nombre;
-    @ManyToOne
-    private Habitacion unaHabitacion;
      
 
     public Tipo() {
     }
 
-    public Tipo(int id, String nombre, Habitacion unaHabitacion) {
-        this.id = id;
-        this.nombre = nombre;
-        this.unaHabitacion = unaHabitacion;
-    }
 
     public Tipo(int id, String nombre) {
         this.id = id;
@@ -52,9 +45,6 @@ public class Tipo implements Serializable {
         return nombre;
     }
 
-    public Habitacion getUnaHabitacion() {
-        return unaHabitacion;
-    }
 
     public void setId(int id) {
         this.id = id;
@@ -64,11 +54,7 @@ public class Tipo implements Serializable {
         this.nombre = nombre;
     }
 
-    public void setUnaHabitacion(Habitacion unaHabitacion) {
-        this.unaHabitacion = unaHabitacion;
-    }
 
-    
    
     
 }

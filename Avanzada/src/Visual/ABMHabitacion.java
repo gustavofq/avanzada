@@ -139,6 +139,8 @@ public class ABMHabitacion extends javax.swing.JInternalFrame {
         cmbTipo = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
 
+        setClosable(true);
+
         btnModificar.setText("Modificar");
         btnModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -281,14 +283,14 @@ public class ABMHabitacion extends javax.swing.JInternalFrame {
         int id = Integer.parseInt(txtID.getText());
         String estado = txtEstado.getText();
         int montoPorNoche = Integer.parseInt(txtMontoPorNoche.getText());
-        String Tipo = (String)comboTipo.getSelectedItem();
+        String tipo = (String)comboTipo.getSelectedItem();
         Tipo unTipo2 = null;
         
         Habitacion unaHabitacion = unaControladoraVisual.DameLaHabitacion(id);
         List <Tipo> misTipos = unaControladoraVisual.mostrarTipos();
         
         for (Tipo unTipo : misTipos) {
-            if(unTipo.getNombre().equals(Tipo)){
+            if(unTipo.getNombre().equals(tipo)){
                 unTipo2 = unTipo;
             }
         }
@@ -338,13 +340,13 @@ public class ABMHabitacion extends javax.swing.JInternalFrame {
         int id = Integer.parseInt(txtID.getText());
         String estado = txtEstado.getText();
         int montoPorNoche = Integer.parseInt(txtMontoPorNoche.getText());
-        String Tipo = (String)cmbTipo.getSelectedItem();
+        String tipo = (String)cmbTipo.getSelectedItem();
         Tipo unTipo2 = null;
 
         List <Tipo> misTipos = unaControladoraVisual.mostrarTipos();
         
         for (Tipo unTipo : misTipos) {
-            if(unTipo.getNombre().equals(Tipo)){
+            if(unTipo.getNombre().equals(tipo)){
                 unTipo2 = unTipo;
             }
         }

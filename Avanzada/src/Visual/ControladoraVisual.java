@@ -170,6 +170,10 @@ public class ControladoraVisual {
     public void altaMesa(int id, String Estado) throws Exception {
         this.unHotel.altaMesa(id, Estado);
     }
+    
+    public Mesa DameLaMesa(int ID) {
+        return this.unHotel.DameLaMesa(ID);
+    }
 
     public void modificarMesa(int id, String Estado, Mesa unaMesa) throws Exception {
         this.unHotel.modificarMesa(id, Estado, unaMesa);
@@ -190,6 +194,9 @@ public class ControladoraVisual {
         this.unHotel.altaPlato(id, nombre, descripcion, precio);
     }
     
+    public Plato DameElPlato(int ID) {
+        return this.unHotel.DameElPlato(ID);
+    }
 
     public void modificarPlato(int id, String nombre, String descripcion, int precio, Plato unPlato) throws Exception {
         this.unHotel.modificarPlato(id, nombre, descripcion, precio, unPlato);

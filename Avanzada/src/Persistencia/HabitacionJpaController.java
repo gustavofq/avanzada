@@ -6,32 +6,30 @@
 package Persistencia;
 
 import Logica.Habitacion;
-import java.io.Serializable;
-import javax.persistence.Query;
-import javax.persistence.EntityNotFoundException;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-import Logica.Tipo;
 import Persistencia.exceptions.NonexistentEntityException;
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.Persistence;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 /**
  *
- * @author Facu
+ * @author Facundo
  */
 public class HabitacionJpaController implements Serializable {
 
     public HabitacionJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
-
+    
     public HabitacionJpaController() {
         emf = Persistence.createEntityManagerFactory("AvanzadaPU");
     }
-    
     
     
     private EntityManagerFactory emf = null;
@@ -45,21 +43,7 @@ public class HabitacionJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Tipo unTipo = habitacion.getUnTipo();
-            if (unTipo != null) {
-                unTipo = em.getReference(unTipo.getClass(), unTipo.getId());
-                habitacion.setUnTipo(unTipo);
-            }
             em.persist(habitacion);
-            if (unTipo != null) {
-                Habitacion oldUnaHabitacionOfUnTipo = unTipo.getUnaHabitacion();
-                if (oldUnaHabitacionOfUnTipo != null) {
-                    oldUnaHabitacionOfUnTipo.setUnTipo(null);
-                    oldUnaHabitacionOfUnTipo = em.merge(oldUnaHabitacionOfUnTipo);
-                }
-                unTipo.setUnaHabitacion(habitacion);
-                unTipo = em.merge(unTipo);
-            }
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -73,27 +57,7 @@ public class HabitacionJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Habitacion persistentHabitacion = em.find(Habitacion.class, habitacion.getId());
-            Tipo unTipoOld = persistentHabitacion.getUnTipo();
-            Tipo unTipoNew = habitacion.getUnTipo();
-            if (unTipoNew != null) {
-                unTipoNew = em.getReference(unTipoNew.getClass(), unTipoNew.getId());
-                habitacion.setUnTipo(unTipoNew);
-            }
             habitacion = em.merge(habitacion);
-            if (unTipoOld != null && !unTipoOld.equals(unTipoNew)) {
-                unTipoOld.setUnaHabitacion(null);
-                unTipoOld = em.merge(unTipoOld);
-            }
-            if (unTipoNew != null && !unTipoNew.equals(unTipoOld)) {
-                Habitacion oldUnaHabitacionOfUnTipo = unTipoNew.getUnaHabitacion();
-                if (oldUnaHabitacionOfUnTipo != null) {
-                    oldUnaHabitacionOfUnTipo.setUnTipo(null);
-                    oldUnaHabitacionOfUnTipo = em.merge(oldUnaHabitacionOfUnTipo);
-                }
-                unTipoNew.setUnaHabitacion(habitacion);
-                unTipoNew = em.merge(unTipoNew);
-            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
@@ -122,11 +86,6 @@ public class HabitacionJpaController implements Serializable {
                 habitacion.getId();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The habitacion with id " + id + " no longer exists.", enfe);
-            }
-            Tipo unTipo = habitacion.getUnTipo();
-            if (unTipo != null) {
-                unTipo.setUnaHabitacion(null);
-                unTipo = em.merge(unTipo);
             }
             em.remove(habitacion);
             em.getTransaction().commit();

@@ -5,29 +5,28 @@
  */
 package Persistencia;
 
-import java.io.Serializable;
-import javax.persistence.Query;
-import javax.persistence.EntityNotFoundException;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-import Logica.Habitacion;
 import Logica.Tipo;
 import Persistencia.exceptions.NonexistentEntityException;
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.Persistence;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 /**
  *
- * @author Facu
+ * @author Facundo
  */
 public class TipoJpaController implements Serializable {
 
     public TipoJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
-
+    
     public TipoJpaController() {
         emf = Persistence.createEntityManagerFactory("AvanzadaPU");
     }
@@ -43,21 +42,7 @@ public class TipoJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Habitacion unaHabitacion = tipo.getUnaHabitacion();
-            if (unaHabitacion != null) {
-                unaHabitacion = em.getReference(unaHabitacion.getClass(), unaHabitacion.getId());
-                tipo.setUnaHabitacion(unaHabitacion);
-            }
             em.persist(tipo);
-            if (unaHabitacion != null) {
-                Tipo oldUnTipoOfUnaHabitacion = unaHabitacion.getUnTipo();
-                if (oldUnTipoOfUnaHabitacion != null) {
-                    oldUnTipoOfUnaHabitacion.setUnaHabitacion(null);
-                    oldUnTipoOfUnaHabitacion = em.merge(oldUnTipoOfUnaHabitacion);
-                }
-                unaHabitacion.setUnTipo(tipo);
-                unaHabitacion = em.merge(unaHabitacion);
-            }
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -71,27 +56,7 @@ public class TipoJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Tipo persistentTipo = em.find(Tipo.class, tipo.getId());
-            Habitacion unaHabitacionOld = persistentTipo.getUnaHabitacion();
-            Habitacion unaHabitacionNew = tipo.getUnaHabitacion();
-            if (unaHabitacionNew != null) {
-                unaHabitacionNew = em.getReference(unaHabitacionNew.getClass(), unaHabitacionNew.getId());
-                tipo.setUnaHabitacion(unaHabitacionNew);
-            }
             tipo = em.merge(tipo);
-            if (unaHabitacionOld != null && !unaHabitacionOld.equals(unaHabitacionNew)) {
-                unaHabitacionOld.setUnTipo(null);
-                unaHabitacionOld = em.merge(unaHabitacionOld);
-            }
-            if (unaHabitacionNew != null && !unaHabitacionNew.equals(unaHabitacionOld)) {
-                Tipo oldUnTipoOfUnaHabitacion = unaHabitacionNew.getUnTipo();
-                if (oldUnTipoOfUnaHabitacion != null) {
-                    oldUnTipoOfUnaHabitacion.setUnaHabitacion(null);
-                    oldUnTipoOfUnaHabitacion = em.merge(oldUnTipoOfUnaHabitacion);
-                }
-                unaHabitacionNew.setUnTipo(tipo);
-                unaHabitacionNew = em.merge(unaHabitacionNew);
-            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
@@ -120,11 +85,6 @@ public class TipoJpaController implements Serializable {
                 tipo.getId();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The tipo with id " + id + " no longer exists.", enfe);
-            }
-            Habitacion unaHabitacion = tipo.getUnaHabitacion();
-            if (unaHabitacion != null) {
-                unaHabitacion.setUnTipo(null);
-                unaHabitacion = em.merge(unaHabitacion);
             }
             em.remove(tipo);
             em.getTransaction().commit();
