@@ -30,9 +30,8 @@ public class ABMTipo extends javax.swing.JInternalFrame {
     public ABMTipo(ControladoraVisual unaControladora) {
         initComponents();
         unaControladoraVisual = unaControladora;
-        modelo.addColumn("DNI");
+        modelo.addColumn("ID");
         modelo.addColumn("Nombre");
-        modelo.addColumn("Apellido");
         cargarTabla();
     }
     

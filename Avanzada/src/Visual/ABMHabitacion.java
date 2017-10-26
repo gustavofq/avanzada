@@ -9,6 +9,8 @@ import Logica.Habitacion;
 import Logica.Tipo;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -32,9 +34,10 @@ public class ABMHabitacion extends javax.swing.JInternalFrame {
     public ABMHabitacion(ControladoraVisual unaControladora) {
         initComponents();
         unaControladoraVisual = unaControladora;
-        modelo.addColumn("DNI");
-        modelo.addColumn("Nombre");
-        modelo.addColumn("Apellido");
+        modelo.addColumn("ID");
+        modelo.addColumn("Estado");
+        modelo.addColumn("Monto por Noche");
+        modelo.addColumn("Tipo");
         cargarComboTipo();
         cargarTabla();
     }
@@ -88,7 +91,7 @@ public class ABMHabitacion extends javax.swing.JInternalFrame {
                 fila[0] = unaHabitacion.getId();
                 fila[1] = unaHabitacion.getEstado();
                 fila[2] = unaHabitacion.getMontoPorNoche();
-                fila[3] = unaHabitacion.getUnTipo();
+                fila[3] = unaHabitacion.getUnTipo().getNombre();
 
                 modelo.addRow(fila);  ////AGREGO A MI MODELO UNA FILA (ES IMPORTANTE SABER QUE CADA VECTOR ES UNA FILA DA LA TABLA)
                 
@@ -275,32 +278,41 @@ public class ABMHabitacion extends javax.swing.JInternalFrame {
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
 
-        int dni = Integer.parseInt(txtID.getText());
-        String nombre = txtEstado.getText();
-        String apellido = txtMontoPorNoche.getText();
-
-        Camarero unCamarero = unaControladoraVisual.DameElCamarero(dni);
-
-        try {
-            unaControladoraVisual.modificarCamarero(dni, nombre, apellido, unCamarero);
-        } catch (Exception ex) {
-            Logger.getLogger(ABMCamarero.class.getName()).log(Level.SEVERE, null, ex);
+        int id = Integer.parseInt(txtID.getText());
+        String estado = txtEstado.getText();
+        int montoPorNoche = Integer.parseInt(txtMontoPorNoche.getText());
+        String Tipo = (String)comboTipo.getSelectedItem();
+        Tipo unTipo2 = null;
+        
+        Habitacion unaHabitacion = unaControladoraVisual.DameLaHabitacion(id);
+        List <Tipo> misTipos = unaControladoraVisual.mostrarTipos();
+        
+        for (Tipo unTipo : misTipos) {
+            if(unTipo.getNombre().equals(Tipo)){
+                unTipo2 = unTipo;
+            }
         }
 
+        try {
+            unaControladoraVisual.modificarHabitacion(id, estado, montoPorNoche, unTipo2, unaHabitacion);
+        } catch (Exception ex) {
+            Logger.getLogger(ABMHabitacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         cargarTabla();
 
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
 
-        int dni = Integer.parseInt(txtID.getText());
+        int id = Integer.parseInt(txtID.getText());
 
-        Camarero unCamarero = unaControladoraVisual.DameElCamarero(dni);
+        Habitacion unaHabitacion = unaControladoraVisual.DameLaHabitacion(id);
 
         try {
-            unaControladoraVisual.borrarCamarero(unCamarero);
+            unaControladoraVisual.borrarHabitacion(unaHabitacion);
         } catch (Exception ex) {
-            Logger.getLogger(ABMCamarero.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ABMHabitacion.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         cargarTabla();
@@ -311,6 +323,7 @@ public class ABMHabitacion extends javax.swing.JInternalFrame {
         txtID.setText(tblHabitacion.getValueAt(tblHabitacion.getSelectedRow(), 0).toString());
         txtEstado.setText(tblHabitacion.getValueAt(tblHabitacion.getSelectedRow(), 1).toString());
         txtMontoPorNoche.setText(tblHabitacion.getValueAt(tblHabitacion.getSelectedRow(), 2).toString());
+        cmbTipo.setSelectedItem((String)tblHabitacion.getValueAt(tblHabitacion.getSelectedRow(), 3));
     }//GEN-LAST:event_tblHabitacionMouseClicked
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -321,14 +334,25 @@ public class ABMHabitacion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        int dni = Integer.parseInt(txtID.getText());
-        String nombre = txtEstado.getText();
-        String apellido = txtMontoPorNoche.getText();
+        
+        int id = Integer.parseInt(txtID.getText());
+        String estado = txtEstado.getText();
+        int montoPorNoche = Integer.parseInt(txtMontoPorNoche.getText());
+        String Tipo = (String)cmbTipo.getSelectedItem();
+        Tipo unTipo2 = null;
 
+        List <Tipo> misTipos = unaControladoraVisual.mostrarTipos();
+        
+        for (Tipo unTipo : misTipos) {
+            if(unTipo.getNombre().equals(Tipo)){
+                unTipo2 = unTipo;
+            }
+        }
+        
         try {
-            unaControladoraVisual.altaCamarero(dni, nombre, apellido);
+            unaControladoraVisual.altaHabitacion(id, estado, montoPorNoche, unTipo2);
         } catch (Exception ex) {
-            Logger.getLogger(ABMCamarero.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ABMHabitacion.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         cargarTabla();

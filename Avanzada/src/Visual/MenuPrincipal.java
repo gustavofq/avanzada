@@ -90,6 +90,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu2.add(ABMFactura);
 
         ABMHabitacion.setText("Habitacion");
+        ABMHabitacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ABMHabitacionActionPerformed(evt);
+            }
+        });
         jMenu2.add(ABMHabitacion);
 
         ABMMesa.setText("Mesa");
@@ -173,6 +178,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
         this.Escritorio.add(miABMTipo);
         miABMTipo.show();
     }//GEN-LAST:event_ABMTipoActionPerformed
+
+    private void ABMHabitacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ABMHabitacionActionPerformed
+        ABMHabitacion miABMHabitacion = new ABMHabitacion(unaControladora);
+        this.Escritorio.add(miABMHabitacion);
+        miABMHabitacion.show();
+    }//GEN-LAST:event_ABMHabitacionActionPerformed
 
     /**
      * @param args the command line arguments
