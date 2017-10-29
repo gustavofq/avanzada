@@ -754,6 +754,12 @@ public class Hotel {
         }
     }
     
+    public void altaTipo(String nombre){
+            Tipo unTipo = new Tipo(nombre);
+            misTipos.add(unTipo);
+            miPersistencia.AltaTipo(unTipo);
+    }
+    
     public Tipo DameElTipo(int ID) {
         return this.miPersistencia.dameUnTipo(ID);
     }

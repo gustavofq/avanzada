@@ -225,11 +225,11 @@ public class ABMTipo extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        int ID = Integer.parseInt(txtID.getText());
+        //int ID = Integer.parseInt(txtID.getText());
         String nombre = txtNombre.getText();
 
         try {
-            unaControladoraVisual.altaTipo(ID, nombre);
+            unaControladoraVisual.altaTipo(nombre);
         } catch (Exception ex) {
             Logger.getLogger(ABMTipo.class.getName()).log(Level.SEVERE, null, ex);
         }

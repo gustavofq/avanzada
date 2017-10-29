@@ -343,6 +343,10 @@ public class ControladoraVisual {
         this.unHotel.altaTipo(id, nombre);
     }
     
+    public void altaTipo(String nombre){
+        this.unHotel.altaTipo(nombre);
+    }
+    
     public Tipo DameElTipo(int ID) {
         return this.unHotel.DameElTipo(ID);
     }

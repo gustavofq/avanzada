@@ -35,7 +35,9 @@ public class Tipo implements Serializable {
         this.nombre = nombre;
     }
     
-    
+    public Tipo(String nombre){
+        this.nombre = nombre;
+    }
 
     public int getId() {
         return id;
@@ -54,7 +56,12 @@ public class Tipo implements Serializable {
         this.nombre = nombre;
     }
 
-
+    @Override
+    public String toString() {
+        return nombre;
+    }
+    
+    
    
     
 }

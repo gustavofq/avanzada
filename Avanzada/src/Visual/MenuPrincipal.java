@@ -21,6 +21,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -46,6 +47,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         ABMRecepcionista = new javax.swing.JMenuItem();
         ABMServicio = new javax.swing.JMenuItem();
         ABMTipo = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -133,6 +135,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         Menu.add(jMenu2);
 
+        jMenu1.setText("Recepción");
+        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu1MouseClicked(evt);
+            }
+        });
+        Menu.add(jMenu1);
+
         setJMenuBar(Menu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -185,6 +195,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
         miABMHabitacion.show();
     }//GEN-LAST:event_ABMHabitacionActionPerformed
 
+    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+        // TODO add your handling code here:
+        Recepcion unaRecepcion = new Recepcion(unaControladora);
+        this.Escritorio.add(unaRecepcion);
+        unaRecepcion.show();
+        
+    }//GEN-LAST:event_jMenu1MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -236,6 +254,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem ABMTipo;
     private javax.swing.JDesktopPane Escritorio;
     private javax.swing.JMenuBar Menu;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     // End of variables declaration//GEN-END:variables
 }

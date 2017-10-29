@@ -45,9 +45,6 @@ public class Factura implements Serializable {
     }
 
     public Factura(int id, String Tipo, Double total) {
-        this.id = id;
-        this.Tipo = Tipo;
-        this.total = total;
     }
     
 
