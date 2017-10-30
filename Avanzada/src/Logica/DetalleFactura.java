@@ -10,6 +10,7 @@ import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -27,15 +28,19 @@ public class DetalleFactura implements Serializable {
     private int cantidad;
     @Basic
     private Double Subtotal;
-
+    @OneToOne
+    private Habitacion unaHabitacion;
+    
+    
     public DetalleFactura() {
     }
 
-    public DetalleFactura(int id, String descripcion, int cantidad, Double Subtotal) {
+    public DetalleFactura(int id, String descripcion, int cantidad, Double Subtotal, Habitacion unaHabitacion) {
         this.id = id;
         this.descripcion = descripcion;
         this.cantidad = cantidad;
         this.Subtotal = Subtotal;
+        this.unaHabitacion = unaHabitacion;
     }
 
     public int getId() {
@@ -68,6 +73,14 @@ public class DetalleFactura implements Serializable {
 
     public void setSubtotal(Double Subtotal) {
         this.Subtotal = Subtotal;
+    }
+
+    public Habitacion getUnaHabitacion() {
+        return unaHabitacion;
+    }
+
+    public void setUnaHabitacion(Habitacion unaHabitacion) {
+        this.unaHabitacion = unaHabitacion;
     }
 
     

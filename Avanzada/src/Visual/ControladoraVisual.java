@@ -8,6 +8,7 @@ package Visual;
 import Logica.Camarero;
 import Logica.Cliente;
 import Logica.Departamento;
+import Logica.DetalleFactura;
 import Logica.Factura;
 import Logica.Habitacion;
 import Logica.Hotel;
@@ -118,8 +119,8 @@ public class ControladoraVisual {
     
     //FACTURA
     
-    public void altaFactura(int id, String Tipo, Double total) throws Exception {
-        this.unHotel.altaFactura(id, Tipo, total);
+    public void altaFactura(int id, String Tipo, Double total, Cliente unCliente, List<DetalleFactura> unosDetalles) throws Exception {
+        this.unHotel.altaFactura(id, Tipo, total, unCliente, unosDetalles);
     }
     
     public  Factura DameLaFactura(int ID) {

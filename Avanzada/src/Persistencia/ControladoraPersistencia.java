@@ -137,6 +137,28 @@ public class ControladoraPersistencia {
         return miFactura.findFacturaEntities();
     }
     
+    //facturas 
+    
+    public void AltaDetalleFactura(DetalleFactura unDetalleFactura){
+        miDetalleFactura.create(unDetalleFactura);
+    }
+    
+    public DetalleFactura dameUnDetalleFactura(int id){
+        return miDetalleFactura.findDetalleFactura(id);
+    }
+    
+    public void EditarDetalleFactura(DetalleFactura unDetalleFactura) throws Exception{
+        miDetalleFactura.edit(unDetalleFactura);
+    }
+    
+    public void BajaDetalleFactura(DetalleFactura unDetalleFactura) throws NonexistentEntityException{
+        miFactura.destroy(unDetalleFactura.getId());
+    }
+    
+    public List<DetalleFactura> obtenerDetallesFacturas(){
+        return miDetalleFactura.findDetalleFacturaEntities();
+    }
+    
     //habitacion 
     
     public void AltaHabitacion(Habitacion unaHabitacion){

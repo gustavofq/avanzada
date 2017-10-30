@@ -334,13 +334,21 @@ public class Hotel {
     
     //FACTURA
     
-    public void altaFactura(int id, String Tipo, Double total) throws Exception {
+    public void altaFactura(int id, String Tipo, Double total, Cliente unCliente, List<DetalleFactura> unosDetalles) throws Exception {
         if (comprobarFactura(id) == false) {
-            Factura unaFactura = new Factura(id, Tipo, total);
+            Factura unaFactura = new Factura(id, Tipo, total, unCliente);
             misFacturas.add(unaFactura);
             miPersistencia.AltaFactura(unaFactura);
+            
+            for (DetalleFactura unDetalle : unosDetalles) {
+                unaFactura.agregarDetalleFactura(unDetalle.getId(), unDetalle.getDescripcion(), unDetalle.getCantidad(), unDetalle.getSubtotal(), unDetalle.getUnaHabitacion());
+                miPersistencia.AltaDetalleFactura(unDetalle);
+            }
+            
         }
     }
+    
+    
     
     public Factura DameLaFactura(int ID) {
         return this.miPersistencia.dameUnaFactura(ID);

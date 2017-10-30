@@ -81,9 +81,9 @@ public class ABMHabitacion extends javax.swing.JInternalFrame {
         
         try {
             
-            misHabitaciones = unaControladoraVisual.mostrarHabitaciones();///CARGO EN UNA COLECCION LOS ELEMENTOS QUE DESEO CARGAR; EN ESTE CASO LOS TRAIGO DESDE LA CONTROLADORA 													    VISUAL
+            misHabitaciones = unaControladoraVisual.mostrarHabitaciones(); ///CARGO EN UNA COLECCION LOS ELEMENTOS QUE DESEO CARGAR; EN ESTE CASO LOS TRAIGO DESDE LA CONTROLADORA 													    VISUAL
             
-            Object[] fila = new Object[4];   ///GENERO UN VECTOR DE TIPO OBJECT DADO QUE EN EL VOY A CARGAR DISTINTOS TIPOS DE DATOS
+            Object[] fila = new Object[4];  ///GENERO UN VECTOR DE TIPO OBJECT DADO QUE EN EL VOY A CARGAR DISTINTOS TIPOS DE DATOS
 
             for (Habitacion unaHabitacion : misHabitaciones) { ///RECORRO LA LISTA UTILIZANDO UN FOR EACH
                 
