@@ -86,6 +86,8 @@ public class RHabitacion extends Reservas implements Serializable{
         this.unCliente = unCliente;
     }
 
+    public void cambiarEstado(boolean estado){
     
+    }
 
 }
