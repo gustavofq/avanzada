@@ -32,6 +32,10 @@ public class Mesa implements Serializable {
         this.Estado = Estado;
     }
 
+    public Mesa(String Estado){
+        this.Estado = Estado;
+    }
+    
     public int getId() {
         return id;
     }

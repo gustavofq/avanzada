@@ -56,11 +56,7 @@ public class Hotel {
         Hotel unHotel = new Hotel();
         MenuPrincipal miMenu = new MenuPrincipal();
         miMenu.show();
-        
-        
     }
-    
-    
     
     public Hotel() {
         CargarListas();
@@ -202,6 +198,7 @@ public class Hotel {
         }
     }
     
+
     public Camarero DameElCamarero(int ID) {
         return this.miPersistencia.dameUnCamarero(ID);
     }
@@ -295,6 +292,15 @@ public class Hotel {
             miPersistencia.AltaDepartamento(unDepartamento);
         }
     }
+    /**
+     * Registara un nuevo departamento.
+     * @param nombre del delpartamento.
+     * @throws java.lang.Exception */
+    public void altaDepartamento(String nombre) throws Exception {
+        Departamento unDepartamento = new Departamento(nombre);
+        misDepartamentos.add(unDepartamento);
+        miPersistencia.AltaDepartamento(unDepartamento);
+    }
     
     public Departamento DameElDepartamento(int ID) {
         return this.miPersistencia.dameUnDepartamento(ID);
@@ -319,6 +325,12 @@ public class Hotel {
         miPersistencia.EditarDepartamento(unDepartamento);
     }
 
+    public void modificarDepartamento(String nombre, Departamento unDepartamento) throws Exception {
+        misDepartamentos.remove(unDepartamento);
+        unDepartamento.setNombre(nombre);
+        miPersistencia.EditarDepartamento(unDepartamento);
+    }
+    
     public void borrarDepartamento(Departamento unDepartamento) throws Exception {
         misDepartamentos.remove(unDepartamento);
         miPersistencia.BajaDepartamento(unDepartamento);

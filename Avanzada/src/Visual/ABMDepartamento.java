@@ -30,7 +30,7 @@ public class ABMDepartamento extends javax.swing.JInternalFrame {
     public ABMDepartamento(ControladoraVisual unaControladora) {
         initComponents();
         unaControladoraVisual = unaControladora;
-        modelo.addColumn("ID");
+        modelo.addColumn("Número");
         modelo.addColumn("Nombre");
         cargarTabla();
     }

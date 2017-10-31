@@ -38,6 +38,12 @@ public class Proveedor implements Serializable {
         this.telefono = telefono;
     }
 
+    public Proveedor(String nombre, String direccion, int telefono){
+        this.nombre = nombre;
+        this.direccion = direccion;
+        this.telefono = telefono;
+    }
+    
     public int getId() {
         return id;
     }

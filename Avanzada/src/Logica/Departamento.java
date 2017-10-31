@@ -53,8 +53,4 @@ public class Departamento implements Serializable {
         this.nombre = nombre;
     }
 
-    
-    
-    
-    
 }

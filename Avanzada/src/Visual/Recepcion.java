@@ -164,7 +164,7 @@ public class Recepcion extends javax.swing.JInternalFrame {
     }
     
     
-    
+    /*
     public void cargarLista(){
         Iterator it = this.unaControladoraVisual.mostrarHabitaciones().iterator();
         DefaultListModel modelo = new DefaultListModel();
@@ -174,7 +174,7 @@ public class Recepcion extends javax.swing.JInternalFrame {
         }
         this.jtHabitaciones.setModel(modelo);
     }
-
+    */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> JcmbTipos;
     private javax.swing.JButton jButton1;

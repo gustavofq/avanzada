@@ -38,6 +38,12 @@ public class Habitacion implements Serializable {
         this.montoPorNoche = montoPorNoche;
         this.unTipo = unTipo;
     }
+    
+    public Habitacion( String estado, int montoPorNoche, Tipo unTipo){
+        this.estado = estado;
+        this.montoPorNoche = montoPorNoche;
+        this.unTipo = unTipo;
+    }
 
     public int getId() {
         return id;
@@ -71,7 +77,10 @@ public class Habitacion implements Serializable {
         this.unTipo = unTipo;
     }
 
-    
+    public boolean isEstado(){
+        boolean estado= true;
+        return estado;
+    }
     
     
 }
