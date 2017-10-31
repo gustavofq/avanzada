@@ -89,6 +89,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu2.add(ABMDepartamento);
 
         ABMFactura.setText("Factura");
+        ABMFactura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ABMFacturaActionPerformed(evt);
+            }
+        });
         jMenu2.add(ABMFactura);
 
         ABMHabitacion.setText("Habitacion");
@@ -202,6 +207,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
         unaRecepcion.show();
         
     }//GEN-LAST:event_jMenu1MouseClicked
+
+    private void ABMFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ABMFacturaActionPerformed
+       Factura miFactura = new Factura(unaControladora);
+       this.Escritorio.add(miFactura);
+       miFactura.show();
+    }//GEN-LAST:event_ABMFacturaActionPerformed
 
     /**
      * @param args the command line arguments

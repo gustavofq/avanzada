@@ -121,6 +121,11 @@ public class Factura extends javax.swing.JInternalFrame {
                 "ID Detalle", "Descripcion", "Cantidad", "Subtotal"
             }
         ));
+        tblDetalle.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblDetalleMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblDetalle);
 
         btnAgregar.setText("Agregar");
@@ -131,6 +136,11 @@ public class Factura extends javax.swing.JInternalFrame {
         });
 
         btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
 
         btnBorrar.setText("Borrar");
 
@@ -248,13 +258,80 @@ public class Factura extends javax.swing.JInternalFrame {
         int id = Integer.parseInt(txtID.getText());
         String descripcion = txtDescripcion.getText();
         int cantidad = Integer.parseInt(txtCantidad.getText());
-        Double subtotal = 0.0;
+        Double subtotal;
+        Double total = 0.0;
         
         int numHabitacion = Integer.parseInt(cmbHabitacion.getSelectedItem().toString());
         
         Habitacion unaHabitacion = unaControladoraVisual.DameLaHabitacion(numHabitacion);
         
+        String cadena = Integer.toString(unaHabitacion.getMontoPorNoche());
+        
+        subtotal = Double.parseDouble(cadena);
+        
+        Object[] fila = new Object[3];
+
+        fila[0] = id;
+        fila[1] = descripcion;
+        fila[2] = cantidad;
+        fila[3] = subtotal;
+
+        modelo.addRow(fila);
+        
+        tblDetalle.setModel(modelo);
+        
+        txtIDdetalle.setText(null);
+        txtDescripcion.setText(null);
+        txtCantidad.setText(null);
+        
+        int filas = tblDetalle.getRowCount();
+
+        for (int i = 0; i < filas; i++) {
+            total = total + Double.parseDouble(tblDetalle.getValueAt(i, 3).toString());
+        }
+        
+        lblTotal.setText(String.valueOf(total));
+        
     }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void tblDetalleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDetalleMouseClicked
+        txtIDdetalle.setText(tblDetalle.getValueAt(tblDetalle.getSelectedRow(), 0).toString());
+        txtDescripcion.setText(tblDetalle.getValueAt(tblDetalle.getSelectedRow(), 1).toString());
+        txtCantidad.setText(tblDetalle.getValueAt(tblDetalle.getSelectedRow(), 2).toString());
+    }//GEN-LAST:event_tblDetalleMouseClicked
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        int id = Integer.parseInt(txtID.getText());
+        String descripcion = txtDescripcion.getText();
+        int cantidad = Integer.parseInt(txtCantidad.getText());
+        Double subtotal;
+        Double total = 0.0;
+        
+        int numHabitacion = Integer.parseInt(cmbHabitacion.getSelectedItem().toString());
+        
+        Habitacion unaHabitacion = unaControladoraVisual.DameLaHabitacion(numHabitacion);
+        
+        String cadena = Integer.toString(unaHabitacion.getMontoPorNoche());
+        
+        subtotal = Double.parseDouble(cadena);
+        
+        tblDetalleCompra.setValueAt(unArticulo2.getCodigoArt(), tblDetalleCompra.getSelectedRow(), 0);
+        tblDetalleCompra.setValueAt(unArticulo2.getDescripcion(), tblDetalleCompra.getSelectedRow(), 1);
+        tblDetalleCompra.setValueAt(cantidad, tblDetalleCompra.getSelectedRow(), 2);
+        
+        txtIDdetalle.setText(null);
+        txtDescripcion.setText(null);
+        txtCantidad.setText(null);
+        
+        int filas = tblDetalle.getRowCount();
+
+        for (int i = 0; i < filas; i++) {
+            total = total + Double.parseDouble(tblDetalle.getValueAt(i, 3).toString());
+        }
+        
+        lblTotal.setText(String.valueOf(total));
+        
+    }//GEN-LAST:event_btnModificarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
