@@ -77,6 +77,10 @@ public class ControladoraVisual {
     public Cliente DameElCliente(int ID) {
         return this.unHotel.DameElCliente(ID);
     }
+    
+    public Cliente buscarClientePorNombre(String nombre, String apellido) {
+        return this.unHotel.buscarClientePorNombre(nombre, apellido);
+    }
 
     public void modificarCliente(int dni, String nombre, String apellido, Double tarjetaDeCredito, String usuario, String contraseña, Cliente unCliente) throws Exception {
         this.unHotel.modificarCliente(dni, nombre, apellido, tarjetaDeCredito, usuario, contraseña, unCliente);
@@ -151,6 +155,7 @@ public class ControladoraVisual {
     public Habitacion DameLaHabitacion(int ID) {
         return this.unHotel.DameLaHabitacion(ID);
     }
+    
 
     public void modificarHabitacion(int id, String estado, int montoPorNoche, Tipo unTipo, Habitacion unaHabitacion) throws Exception {
         this.unHotel.modificarHabitacion(id, estado, montoPorNoche, unTipo, unaHabitacion);

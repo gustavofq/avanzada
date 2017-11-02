@@ -31,8 +31,8 @@ public class Factura extends javax.swing.JInternalFrame {
         unaControladoraVisual = unaControladora;
         modelo.addColumn("ID");
         modelo.addColumn("Estado");
-        modelo.addColumn("Monto por Noche");
-        modelo.addColumn("Tipo");
+        modelo.addColumn("Cantidad");
+        modelo.addColumn("Subtotal");
         cargarComboCliente();
         cargarComboHabitacion();
     }
@@ -42,10 +42,10 @@ public class Factura extends javax.swing.JInternalFrame {
         List<Cliente> misClientes = unaControladoraVisual.mostrarClientes();
         
         for (Cliente unCliente : misClientes) {
-            comboCliente.addElement(unCliente.getNombre() + unCliente.getApellido());
+            comboCliente.addElement(unCliente.getDni());
         }
         
-        cmbCliente.setModel(comboCliente);
+        cmbDNI.setModel(comboCliente);
         
     }
     
@@ -77,7 +77,7 @@ public class Factura extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         lblTotal = new javax.swing.JLabel();
-        cmbCliente = new javax.swing.JComboBox<>();
+        cmbDNI = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         txtTipo = new javax.swing.JTextField();
         txtID = new javax.swing.JTextField();
@@ -95,6 +95,14 @@ public class Factura extends javax.swing.JInternalFrame {
         jLabel9 = new javax.swing.JLabel();
         cmbHabitacion = new javax.swing.JComboBox<>();
         btnFacturar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        lblMonto = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        lblCliente = new javax.swing.JLabel();
+
+        setClosable(true);
 
         jLabel1.setText("FACTURA");
 
@@ -106,9 +114,14 @@ public class Factura extends javax.swing.JInternalFrame {
 
         lblTotal.setText("xxxxxxxxxxxx");
 
-        cmbCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbDNI.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbDNI.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbDNIActionPerformed(evt);
+            }
+        });
 
-        jLabel5.setText("Cliente:");
+        jLabel5.setText("DNI:");
 
         tblDetalle.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -143,6 +156,11 @@ public class Factura extends javax.swing.JInternalFrame {
         });
 
         btnBorrar.setText("Borrar");
+        btnBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBorrarActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("ID Detalle:");
 
@@ -153,8 +171,35 @@ public class Factura extends javax.swing.JInternalFrame {
         jLabel9.setText("Habitacion:");
 
         cmbHabitacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbHabitacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbHabitacionActionPerformed(evt);
+            }
+        });
 
         btnFacturar.setText("Facturar");
+        btnFacturar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFacturarActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Imprimir");
+
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+
+        jLabel10.setText("Monto Hab. :");
+
+        lblMonto.setText("xxx");
+
+        jLabel11.setText("Cliente:");
+
+        lblCliente.setText("xxx");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -170,7 +215,9 @@ public class Factura extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnModificar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnBorrar))
+                                .addComponent(btnBorrar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnCancelar))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 858, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel6)
@@ -187,7 +234,11 @@ public class Factura extends javax.swing.JInternalFrame {
                                 .addGap(41, 41, 41)
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cmbHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(cmbHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(45, 45, 45)
+                                .addComponent(jLabel10)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblMonto))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -199,11 +250,17 @@ public class Factura extends javax.swing.JInternalFrame {
                                 .addGap(33, 33, 33)
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cmbCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(cmbDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(40, 40, 40)
+                                .addComponent(jLabel11)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblCliente)))
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnFacturar)
-                        .addGap(240, 240, 240)
+                        .addGap(38, 38, 38)
+                        .addComponent(jButton1)
+                        .addGap(129, 129, 129)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblTotal)
@@ -222,10 +279,12 @@ public class Factura extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
-                    .addComponent(cmbCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
                     .addComponent(txtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11)
+                    .addComponent(lblCliente))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -237,25 +296,29 @@ public class Factura extends javax.swing.JInternalFrame {
                     .addComponent(jLabel8)
                     .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
-                    .addComponent(cmbHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10)
+                    .addComponent(lblMonto))
                 .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgregar)
                     .addComponent(btnModificar)
-                    .addComponent(btnBorrar))
+                    .addComponent(btnBorrar)
+                    .addComponent(btnCancelar))
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(lblTotal)
-                    .addComponent(btnFacturar))
-                .addContainerGap(22, Short.MAX_VALUE))
+                    .addComponent(btnFacturar)
+                    .addComponent(jButton1))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        int id = Integer.parseInt(txtID.getText());
+        int id = Integer.parseInt(txtIDdetalle.getText());
         String descripcion = txtDescripcion.getText();
         int cantidad = Integer.parseInt(txtCantidad.getText());
         Double subtotal;
@@ -269,7 +332,7 @@ public class Factura extends javax.swing.JInternalFrame {
         
         subtotal = Double.parseDouble(cadena);
         
-        Object[] fila = new Object[3];
+        Object[] fila = new Object[4];
 
         fila[0] = id;
         fila[1] = descripcion;
@@ -301,7 +364,7 @@ public class Factura extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tblDetalleMouseClicked
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        int id = Integer.parseInt(txtID.getText());
+        int id = Integer.parseInt(txtIDdetalle.getText());
         String descripcion = txtDescripcion.getText();
         int cantidad = Integer.parseInt(txtCantidad.getText());
         Double subtotal;
@@ -315,9 +378,10 @@ public class Factura extends javax.swing.JInternalFrame {
         
         subtotal = Double.parseDouble(cadena);
         
-        tblDetalleCompra.setValueAt(unArticulo2.getCodigoArt(), tblDetalleCompra.getSelectedRow(), 0);
-        tblDetalleCompra.setValueAt(unArticulo2.getDescripcion(), tblDetalleCompra.getSelectedRow(), 1);
-        tblDetalleCompra.setValueAt(cantidad, tblDetalleCompra.getSelectedRow(), 2);
+        tblDetalle.setValueAt(id, tblDetalle.getSelectedRow(), 0);
+        tblDetalle.setValueAt(descripcion, tblDetalle.getSelectedRow(), 1);
+        tblDetalle.setValueAt(cantidad, tblDetalle.getSelectedRow(), 2);
+        tblDetalle.setValueAt(subtotal, tblDetalle.getSelectedRow(), 3);
         
         txtIDdetalle.setText(null);
         txtDescripcion.setText(null);
@@ -333,15 +397,68 @@ public class Factura extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_btnModificarActionPerformed
 
+    private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
+        
+        Double total = 0.0;
+        
+        DefaultTableModel modelo2 = (DefaultTableModel) tblDetalle.getModel();
+        
+        modelo2.removeRow(tblDetalle.getSelectedRow());
+        
+        tblDetalle.setModel(modelo);
+        
+        int filas = tblDetalle.getRowCount();
+
+        for (int i = 0; i < filas; i++) {
+            total = total + Double.parseDouble(tblDetalle.getValueAt(i, 3).toString());
+        }
+        
+        lblTotal.setText(String.valueOf(total));
+        
+    }//GEN-LAST:event_btnBorrarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        tblDetalle.clearSelection();
+        txtIDdetalle.setText(null);
+        txtDescripcion.setText(null);
+        txtCantidad.setText(null);
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void cmbHabitacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbHabitacionActionPerformed
+        int id = Integer.parseInt(cmbHabitacion.getSelectedItem().toString());
+        
+        Habitacion unaHabitacion = unaControladoraVisual.DameLaHabitacion(id);
+        
+        lblMonto.setText(String.valueOf(unaHabitacion.getMontoPorNoche()));
+    }//GEN-LAST:event_cmbHabitacionActionPerformed
+
+    private void cmbDNIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbDNIActionPerformed
+        int id = Integer.parseInt(cmbDNI.getSelectedItem().toString());
+        
+        Cliente unCliente = unaControladoraVisual.DameElCliente(id);
+        
+        lblCliente.setText(String.valueOf(unCliente.getNombre()) + " " + unCliente.getApellido());
+    }//GEN-LAST:event_cmbDNIActionPerformed
+
+    private void btnFacturarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFacturarActionPerformed
+        
+        
+        
+    }//GEN-LAST:event_btnFacturarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnBorrar;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnFacturar;
     private javax.swing.JButton btnModificar;
-    private javax.swing.JComboBox<String> cmbCliente;
+    private javax.swing.JComboBox<String> cmbDNI;
     private javax.swing.JComboBox<String> cmbHabitacion;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -351,6 +468,8 @@ public class Factura extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblCliente;
+    private javax.swing.JLabel lblMonto;
     private javax.swing.JLabel lblTotal;
     private javax.swing.JTable tblDetalle;
     private javax.swing.JTextField txtCantidad;

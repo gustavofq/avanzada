@@ -244,6 +244,19 @@ public class Hotel {
         }
     }
     
+    public Cliente buscarClientePorNombre(String nombre, String apellido) {
+
+        Cliente cli = null;
+        
+        for (Cliente unCliente : this.misClientes) {
+            if(unCliente.getNombre().equals(nombre) && unCliente.getApellido().equals(apellido)){
+                cli = unCliente;
+            }
+        }
+        
+        return cli;
+    }
+    
     public Cliente DameElCliente(int ID) {
         return this.miPersistencia.dameUnCliente(ID);
     }
