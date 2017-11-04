@@ -413,13 +413,15 @@ public class Hotel {
     
     //HABITACION
     
-    public void altaHabitacion(int id, String estado, int montoPorNoche, Tipo unTipo) throws Exception {
+    public void altaHabitacion(int id, boolean estado, int montoPorNoche, Tipo unTipo) throws Exception {
         if (comprobarHabitacion(id) == false) {
             Habitacion unaHabitacion = new Habitacion(id, estado, montoPorNoche, unTipo);
             misHabitaciones.add(unaHabitacion);
             miPersistencia.AltaHabitacion(unaHabitacion);
         }
     }
+    
+    
     
     public Habitacion DameLaHabitacion(int ID) {
         return this.miPersistencia.dameUnaHabitacion(ID);
@@ -438,7 +440,7 @@ public class Hotel {
     }
     
 
-    public void modificarHabitacion(int id, String estado, int montoPorNoche, Tipo unTipo, Habitacion unaHabitacion) throws Exception {
+    public void modificarHabitacion(int id, boolean estado, int montoPorNoche, Tipo unTipo, Habitacion unaHabitacion) throws Exception {
         misHabitaciones.remove(unaHabitacion);
         unaHabitacion.setEstado(estado);
         unaHabitacion.setMontoPorNoche(montoPorNoche);

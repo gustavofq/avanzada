@@ -281,7 +281,7 @@ public class ABMHabitacion extends javax.swing.JInternalFrame {
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
 
         int id = Integer.parseInt(txtID.getText());
-        String estado = txtEstado.getText();
+        boolean estado = false; //txtEstado.getText();
         int montoPorNoche = Integer.parseInt(txtMontoPorNoche.getText());
         String tipo = (String)comboTipo.getSelectedItem();
         Tipo unTipo2 = null;
@@ -338,7 +338,7 @@ public class ABMHabitacion extends javax.swing.JInternalFrame {
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         
         int id = Integer.parseInt(txtID.getText());
-        String estado = txtEstado.getText();
+        boolean estado = false; //txtEstado.getText();
         int montoPorNoche = Integer.parseInt(txtMontoPorNoche.getText());
         String tipo = (String)cmbTipo.getSelectedItem();
         Tipo unTipo2 = null;

@@ -149,7 +149,7 @@ public class ControladoraVisual {
     
     //HABITACION
     
-    public void altaHabitacion(int id, String estado, int montoPorNoche, Tipo unTipo) throws Exception {
+    public void altaHabitacion(int id, boolean estado, int montoPorNoche, Tipo unTipo) throws Exception {
         this.unHotel.altaHabitacion(id, estado, montoPorNoche, unTipo);
     }
     
@@ -158,7 +158,7 @@ public class ControladoraVisual {
     }
     
 
-    public void modificarHabitacion(int id, String estado, int montoPorNoche, Tipo unTipo, Habitacion unaHabitacion) throws Exception {
+    public void modificarHabitacion(int id, boolean estado, int montoPorNoche, Tipo unTipo, Habitacion unaHabitacion) throws Exception {
         this.unHotel.modificarHabitacion(id, estado, montoPorNoche, unTipo, unaHabitacion);
     }
 

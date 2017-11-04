@@ -23,7 +23,7 @@ public class Habitacion implements Serializable {
     @Id
     private int id;
     @Basic
-    private String estado;
+    private boolean ocupado;
     @Basic
     private int montoPorNoche;
     @OneToOne
@@ -32,15 +32,15 @@ public class Habitacion implements Serializable {
     public Habitacion() {
     }
 
-    public Habitacion(int id, String estado, int montoPorNoche, Tipo unTipo) {
+    public Habitacion(int id, boolean estado, int montoPorNoche, Tipo unTipo) {
         this.id = id;
-        this.estado = estado;
+        this.ocupado = estado;
         this.montoPorNoche = montoPorNoche;
         this.unTipo = unTipo;
     }
     
-    public Habitacion( String estado, int montoPorNoche, Tipo unTipo){
-        this.estado = estado;
+    public Habitacion( boolean estado, int montoPorNoche, Tipo unTipo){
+        this.ocupado = estado;
         this.montoPorNoche = montoPorNoche;
         this.unTipo = unTipo;
     }
@@ -49,8 +49,8 @@ public class Habitacion implements Serializable {
         return id;
     }
 
-    public String getEstado() {
-        return estado;
+    public boolean getEstado() {
+        return ocupado;
     }
 
     public int getMontoPorNoche() {
@@ -65,8 +65,8 @@ public class Habitacion implements Serializable {
         this.id = id;
     }
 
-    public void setEstado(String estado) {
-        this.estado = estado;
+    public void setEstado(boolean estado) {
+        this.ocupado = estado;
     }
 
     public void setMontoPorNoche(int montoPorNoche) {
@@ -77,10 +77,16 @@ public class Habitacion implements Serializable {
         this.unTipo = unTipo;
     }
 
-    public boolean isEstado(){
-        boolean estado= true;
-        return estado;
+    public String verificarEstado(){
+        String estado;
+        if(this.ocupado == true){
+            estado = "Ocupado";
+        }else if(this.ocupado == false){
+            estado = "Disponible";
+        }else{
+            estado = "Indeterminado";
+        } 
+    return estado;    
     }
-    
-    
+ 
 }
