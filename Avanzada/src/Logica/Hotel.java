@@ -834,6 +834,20 @@ public class Hotel {
         unTipo.setNombre(nombre);
         miPersistencia.EditarTipo(unTipo);
     }
+    
+    public void modificarTipo(String oldName, String newName) throws Exception{
+        int id = 0;
+        if(this.misTipos.isEmpty() != true){
+            id= this.buscarTipoPorNombre(oldName);
+            if(id != -1){
+                Tipo unTipo = new Tipo(id, oldName);
+                this.misTipos.remove(unTipo);
+                unTipo.setNombre(newName);
+                this.misTipos.add(unTipo);
+                this.miPersistencia.EditarTipo(unTipo);
+            }
+        }
+    }
 
     public void borrarTipo(Tipo unTipo) throws Exception {
         misTipos.remove(unTipo);

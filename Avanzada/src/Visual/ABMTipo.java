@@ -192,7 +192,7 @@ public class ABMTipo extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(124, 124, 124)
                         .addComponent(jLabel4)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -238,8 +238,8 @@ public class ABMTipo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-
-        int ID = Integer.parseInt(txtID.getText());
+        int ID = Integer.parseInt(this.tblTipo.getValueAt(tblTipo.getSelectedRow(), 0).toString());
+        //int ID = Integer.parseInt(txtID.getText());
         String nombre = txtNombre.getText();
 
         Tipo unTipo = unaControladoraVisual.DameElTipo(ID);

@@ -369,22 +369,12 @@ public class ControladoraVisual {
         return this.unHotel.mostrarTipos();
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    public int buscarTipoPorNombre(String nombre){
+        return this.unHotel.buscarTipoPorNombre(nombre);
     }
+    
+    public void modificarTipo(String oldName, String newName) throws Exception{
+        this.unHotel.modificarTipo(oldName, newName);
+    }
+ 
+}
