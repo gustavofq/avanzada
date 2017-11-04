@@ -8,6 +8,7 @@ package Logica;
 import Persistencia.ControladoraPersistencia;
 import Visual.MenuPrincipal;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.OneToMany;
@@ -807,6 +808,24 @@ public class Hotel {
         }
         
         return aux;
+    }
+    /**
+     * @param nombre
+     * @return id en el caso de no encontrar retorna -1
+     */
+    public int buscarTipoPorNombre(String nombre){
+        int id=-1;
+        Tipo unTipo = null;
+            if(this.mostrarTipos().isEmpty()!= true){
+                Iterator it = this.mostrarTipos().iterator();
+                while(it.hasNext()){
+                    unTipo = (Tipo)it.next();
+                    if(unTipo.getNombre().equals(nombre)){
+                        id = unTipo.getId();
+                    }
+                }
+            }
+        return id;
     }
     
 
