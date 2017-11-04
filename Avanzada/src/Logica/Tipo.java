@@ -59,9 +59,5 @@ public class Tipo implements Serializable {
     @Override
     public String toString() {
         return nombre;
-    }
-    
-    
-   
-    
+    } 
 }

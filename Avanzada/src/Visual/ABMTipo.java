@@ -6,6 +6,7 @@
 package Visual;
 
 import Logica.Tipo;
+import Persistencia.exceptions.NonexistentEntityException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
@@ -238,33 +239,45 @@ public class ABMTipo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        int ID = Integer.parseInt(this.tblTipo.getValueAt(tblTipo.getSelectedRow(), 0).toString());
-        //int ID = Integer.parseInt(txtID.getText());
-        String nombre = txtNombre.getText();
-
-        Tipo unTipo = unaControladoraVisual.DameElTipo(ID);
-
         try {
+            /*
+            int ID = Integer.parseInt(txtID.getText());
+            String nombre = txtNombre.getText();
+            
+            Tipo unTipo = unaControladoraVisual.DameElTipo(ID);
+            
+            try {
             unaControladoraVisual.modificarTipo(ID, nombre, unTipo);
+            } catch (Exception ex) {
+            Logger.getLogger(ABMTipo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            */
+            
+            this.unaControladoraVisual.modificarTipo(this.tblTipo.getValueAt(tblTipo.getSelectedRow(), 1).toString(), this.txtNombre.getText());
         } catch (Exception ex) {
             Logger.getLogger(ABMTipo.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         cargarTabla();
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
-
-        int ID = Integer.parseInt(txtID.getText());
-
-        Tipo unTipo = unaControladoraVisual.DameElTipo(ID);
-
         try {
+            /*
+            int ID = Integer.parseInt(txtID.getText());
+            
+            Tipo unTipo = unaControladoraVisual.DameElTipo(ID);
+            
+            try {
             unaControladoraVisual.borrarTipo(unTipo);
-        } catch (Exception ex) {
+            } catch (Exception ex) {
+            Logger.getLogger(ABMTipo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            */
+            
+            this.unaControladoraVisual.borrarTipo(Integer.parseInt(tblTipo.getValueAt(tblTipo.getSelectedRow(), 0).toString()));
+        } catch (NonexistentEntityException ex) {
             Logger.getLogger(ABMTipo.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         cargarTabla();
     }//GEN-LAST:event_btnBorrarActionPerformed
 

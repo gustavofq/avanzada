@@ -352,6 +352,10 @@ public class ControladoraPersistencia {
        miTipo.destroy(unTipo.getId());
    }
    
+   public void BajaTipo(int id) throws NonexistentEntityException{
+       miTipo.destroy(id);
+   }
+   
    public List<Tipo> obtenerTipos(){
        return miTipo.findTipoEntities();
    }

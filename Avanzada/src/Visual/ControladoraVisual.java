@@ -20,6 +20,7 @@ import Logica.RMesas;
 import Logica.Recepcionista;
 import Logica.Servicio;
 import Logica.Tipo;
+import Persistencia.exceptions.NonexistentEntityException;
 import java.util.Calendar;
 import java.util.List;
 
@@ -365,6 +366,10 @@ public class ControladoraVisual {
         this.unHotel.borrarTipo(unTipo);
     }
 
+    public void borrarTipo(int id) throws NonexistentEntityException{
+        this.unHotel.borrarTipo(id);
+    }
+    
     public List<Tipo> mostrarTipos() {
         return this.unHotel.mostrarTipos();
     }
@@ -377,4 +382,5 @@ public class ControladoraVisual {
         this.unHotel.modificarTipo(oldName, newName);
     }
  
+    
 }

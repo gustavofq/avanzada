@@ -6,6 +6,7 @@
 package Logica;
 
 import Persistencia.ControladoraPersistencia;
+import Persistencia.exceptions.NonexistentEntityException;
 import Visual.MenuPrincipal;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -854,6 +855,13 @@ public class Hotel {
         miPersistencia.BajaTipo(unTipo);
     }
 
+    public void borrarTipo(int id) throws NonexistentEntityException{
+        if(this.misTipos.isEmpty() != true){
+            this.miPersistencia.BajaTipo(id);
+            this.misTipos.remove(this.DameElTipo(id));
+        }
+    }   
+    
     public List<Tipo> mostrarTipos() {
         return miPersistencia.obtenerTipos();
     }
