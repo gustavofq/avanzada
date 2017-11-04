@@ -6,6 +6,7 @@
 package Visual;
 
 import Logica.Cliente;
+import Logica.DetalleFactura;
 import Logica.Habitacion;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
@@ -442,7 +443,22 @@ public class Factura extends javax.swing.JInternalFrame {
 
     private void btnFacturarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFacturarActionPerformed
         
+        int id = Integer.parseInt(txtID.getText());
+        String tipo = txtTipo.getText();
+        Double total = Double.parseDouble(lblTotal.getText());
+        int dni = Integer.parseInt(cmbDNI.getSelectedItem().toString());
         
+        Cliente unCliente = unaControladoraVisual.DameElCliente(dni);
+        
+        List <DetalleFactura> unosDetalles = null;
+        
+        int filas = tblDetalle.getRowCount();
+        
+        for (int i = 0; i < filas; i++) {
+            
+            int idDetalle = Integer.parseInt(tblDetalle.getValueAt(i, 0).toString());
+            
+        }
         
     }//GEN-LAST:event_btnFacturarActionPerformed
 
