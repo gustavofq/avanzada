@@ -312,7 +312,7 @@ public class ABMHabitacion extends javax.swing.JInternalFrame {
         }
         
         */
-        if(this.unVerificador.campoVacio(txtMontoPorNoche)){
+        if(this.unVerificador.tablaSeleccionada(tblHabitacion)){
             int numero = Integer.parseInt(tblHabitacion.getValueAt(tblHabitacion.getSelectedRow(), 0).toString());
             try {
                 this.unaControladoraVisual.borrarHabitacion(numero);

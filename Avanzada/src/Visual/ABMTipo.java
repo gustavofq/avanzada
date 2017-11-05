@@ -24,6 +24,7 @@ public class ABMTipo extends javax.swing.JInternalFrame {
     
     ControladoraVisual unaControladoraVisual = null;
     DefaultTableModel modelo = new DefaultTableModel();
+    Verificador unVerificador = new Verificador();
 
     /**
      * Creates new form ABMTipo
@@ -218,10 +219,11 @@ public class ABMTipo extends javax.swing.JInternalFrame {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         //int ID = Integer.parseInt(txtID.getText());
-        String nombre = txtNombre.getText();
-
         try {
-            unaControladoraVisual.altaTipo(nombre);
+            if(this.unVerificador.campoVacio(txtNombre)){
+                String nombre = txtNombre.getText();
+                unaControladoraVisual.altaTipo(nombre);
+            }
         } catch (Exception ex) {
             Logger.getLogger(ABMTipo.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -264,8 +266,9 @@ public class ABMTipo extends javax.swing.JInternalFrame {
             Logger.getLogger(ABMTipo.class.getName()).log(Level.SEVERE, null, ex);
             }
             */
-            
-            this.unaControladoraVisual.borrarTipo(Integer.parseInt(tblTipo.getValueAt(tblTipo.getSelectedRow(), 0).toString()));
+            if(this.unVerificador.tablaSeleccionada(tblTipo)){
+                this.unaControladoraVisual.borrarTipo(Integer.parseInt(tblTipo.getValueAt(tblTipo.getSelectedRow(), 0).toString()));
+            }
         } catch (NonexistentEntityException ex) {
             Logger.getLogger(ABMTipo.class.getName()).log(Level.SEVERE, null, ex);
         }
