@@ -166,10 +166,18 @@ public class ControladoraVisual {
         this.unHotel.modificarHabitacion(id, estado, montoPorNoche, unTipo, unaHabitacion);
     }
 
+    public void modificarHabitacion(int numero,int montoPorNoche, String nombreTipo) throws Exception{
+        this.unHotel.modificarHabitacion(numero, montoPorNoche, nombreTipo);
+    }
+    
     public void borrarHabitacion(Habitacion unaHabitacion) throws Exception {
         this.unHotel.borrarHabitacion(unaHabitacion);
     }
 
+    public void borrarHabitacion(int numero) throws NonexistentEntityException{
+        this.unHotel.borrarHabitacion(numero);
+    }
+    
     public List<Habitacion> mostrarHabitaciones() {
         return this.unHotel.mostrarHabitaciones();
     }

@@ -420,7 +420,13 @@ public class Hotel {
             miPersistencia.AltaHabitacion(unaHabitacion);
         }
     }
-    
+    /**
+     * 
+     * crea una habitacion desocupada 
+     * @param ocupado
+     * @param montoPorNoche
+     * @param nombreTipo
+     */
     public void altaHabitacion(boolean ocupado, int montoPorNoche, String nombreTipo){
         if(this.misHabitaciones.isEmpty() != true){
             Habitacion unaHabitacion = new Habitacion(ocupado, montoPorNoche, this.DameElTipo(this.buscarTipoPorNombre(nombreTipo)));
@@ -455,9 +461,28 @@ public class Hotel {
         miPersistencia.EditarHabitacion(unaHabitacion);
     }
 
+    public void modificarHabitacion(int numero,int montoPorNoche, String nombreTipo) throws Exception{
+        if(this.misHabitaciones.isEmpty() != true){
+            Habitacion unaHabitacion = this.DameLaHabitacion(numero);
+            this.misHabitaciones.remove(unaHabitacion);
+            unaHabitacion.setMontoPorNoche(montoPorNoche);
+            unaHabitacion.setUnTipo(this.DameElTipo(this.buscarTipoPorNombre(nombreTipo)));
+            this.misHabitaciones.add(unaHabitacion);
+            this.miPersistencia.EditarHabitacion(unaHabitacion);
+        }
+    }
+    
     public void borrarHabitacion(Habitacion unaHabitacion) throws Exception {
         misHabitaciones.remove(unaHabitacion);
         miPersistencia.BajaHabitacion(unaHabitacion);
+    }
+    
+    public void borrarHabitacion(int numero) throws NonexistentEntityException{
+        if(this.misHabitaciones.isEmpty() != true){
+            Habitacion unaHabitacion = this.DameLaHabitacion(numero);
+            this.misHabitaciones.remove(unaHabitacion);
+            this.miPersistencia.BajaHabitacion(unaHabitacion);
+        }
     }
 
     public List<Habitacion> mostrarHabitaciones() {

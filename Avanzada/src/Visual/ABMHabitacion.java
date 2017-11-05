@@ -7,6 +7,7 @@ package Visual;
 
 import Logica.Habitacion;
 import Logica.Tipo;
+import Persistencia.exceptions.NonexistentEntityException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
@@ -103,7 +104,7 @@ public class ABMHabitacion extends javax.swing.JInternalFrame {
             TableRowSorter <TableModel> ordenar = new TableRowSorter <TableModel> (modelo);
             tblHabitacion.setRowSorter(ordenar);
             
-            txtID.setText(null);
+            //txtID.setText(null);
             //txtEstado.setText(null);
             txtMontoPorNoche.setText(null);
             
@@ -127,11 +128,9 @@ public class ABMHabitacion extends javax.swing.JInternalFrame {
         btnBorrar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblHabitacion = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        txtID = new javax.swing.JTextField();
         txtMontoPorNoche = new javax.swing.JTextField();
         btnAgregar = new javax.swing.JButton();
         cmbTipo = new javax.swing.JComboBox<>();
@@ -177,8 +176,6 @@ public class ABMHabitacion extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tblHabitacion);
 
-        jLabel1.setText("Número:");
-
         jLabel4.setText("HABITACIONES");
 
         btnCancelar.setText("Cancelar");
@@ -206,35 +203,33 @@ public class ABMHabitacion extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnCancelar)
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(171, 171, 171)
+                        .addComponent(btnCancelar))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(118, 118, 118)
+                                .addGap(104, 104, 104)
                                 .addComponent(jLabel4))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(56, 56, 56)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel5))
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel3))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(txtMontoPorNoche, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
-                                        .addComponent(txtID, javax.swing.GroupLayout.Alignment.LEADING))))
+                                    .addComponent(txtMontoPorNoche, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(14, 14, 14)
                                 .addComponent(btnAgregar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnModificar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnBorrar)))
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(16, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,63 +238,67 @@ public class ABMHabitacion extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
+                        .addGap(4, 4, 4)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel3)
+                            .addComponent(txtMontoPorNoche, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtMontoPorNoche, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
                             .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnAgregar)
+                            .addComponent(btnCancelar)
+                            .addComponent(btnBorrar)
                             .addComponent(btnModificar)
-                            .addComponent(btnBorrar))
-                        .addGap(71, 71, 71))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCancelar)
-                        .addContainerGap())))
+                            .addComponent(btnAgregar))))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-
-        int id = Integer.parseInt(txtID.getText());
-        boolean estado = false; //txtEstado.getText();
-        int montoPorNoche = Integer.parseInt(txtMontoPorNoche.getText());
-        String tipo = (String)comboTipo.getSelectedItem();
-        Tipo unTipo2 = null;
-        
-        Habitacion unaHabitacion = unaControladoraVisual.DameLaHabitacion(id);
-        List <Tipo> misTipos = unaControladoraVisual.mostrarTipos();
-        
-        for (Tipo unTipo : misTipos) {
-            if(unTipo.getNombre().equals(tipo)){
-                unTipo2 = unTipo;
-            }
-        }
-
         try {
+            /*
+            int id = Integer.parseInt(txtID.getText());
+            boolean estado = false; //txtEstado.getText();
+            int montoPorNoche = Integer.parseInt(txtMontoPorNoche.getText());
+            String tipo = (String)comboTipo.getSelectedItem();
+            Tipo unTipo2 = null;
+            
+            Habitacion unaHabitacion = unaControladoraVisual.DameLaHabitacion(id);
+            List <Tipo> misTipos = unaControladoraVisual.mostrarTipos();
+            
+            for (Tipo unTipo : misTipos) {
+            if(unTipo.getNombre().equals(tipo)){
+            unTipo2 = unTipo;
+            }
+            }
+            
+            try {
             unaControladoraVisual.modificarHabitacion(id, estado, montoPorNoche, unTipo2, unaHabitacion);
+            } catch (Exception ex) {
+            Logger.getLogger(ABMHabitacion.class.getName()).log(Level.SEVERE, null, ex);
+            }*/
+            int numero = Integer.parseInt(this.tblHabitacion.getValueAt(tblHabitacion.getSelectedRow(), 0).toString());
+            int montoPorNoche = Integer.parseInt(this.txtMontoPorNoche.getText());
+            String tipo = this.cmbTipo.getItemAt(this.cmbTipo.getSelectedIndex());
+            this.unaControladoraVisual.modificarHabitacion(numero, montoPorNoche, tipo);
         } catch (Exception ex) {
             Logger.getLogger(ABMHabitacion.class.getName()).log(Level.SEVERE, null, ex);
         }
+         
         
         cargarTabla();
 
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
-
+        /*
         int id = Integer.parseInt(txtID.getText());
 
         Habitacion unaHabitacion = unaControladoraVisual.DameLaHabitacion(id);
@@ -309,20 +308,25 @@ public class ABMHabitacion extends javax.swing.JInternalFrame {
         } catch (Exception ex) {
             Logger.getLogger(ABMHabitacion.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        */int numero = Integer.parseInt(tblHabitacion.getValueAt(tblHabitacion.getSelectedRow(), 0).toString());
+        try {
+            this.unaControladoraVisual.borrarHabitacion(numero);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(ABMHabitacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
         cargarTabla();
 
     }//GEN-LAST:event_btnBorrarActionPerformed
 
     private void tblHabitacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHabitacionMouseClicked
-        txtID.setText(tblHabitacion.getValueAt(tblHabitacion.getSelectedRow(), 0).toString());
+        //txtID.setText(tblHabitacion.getValueAt(tblHabitacion.getSelectedRow(), 0).toString());
         //txtEstado.setText(tblHabitacion.getValueAt(tblHabitacion.getSelectedRow(), 1).toString());
         txtMontoPorNoche.setText(tblHabitacion.getValueAt(tblHabitacion.getSelectedRow(), 1).toString());
         cmbTipo.setSelectedItem((String)tblHabitacion.getValueAt(tblHabitacion.getSelectedRow(), 2));
     }//GEN-LAST:event_tblHabitacionMouseClicked
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        txtID.setText(null);
+        //txtID.setText(null);
         //txtEstado.setText(null);
         txtMontoPorNoche.setText(null);
         cargarTabla();
@@ -358,13 +362,11 @@ public class ABMHabitacion extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnModificar;
     private javax.swing.JComboBox<String> cmbTipo;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblHabitacion;
-    private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtMontoPorNoche;
     // End of variables declaration//GEN-END:variables
 }
