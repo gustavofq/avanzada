@@ -27,7 +27,7 @@ public class ABMHabitacion extends javax.swing.JInternalFrame {
     ControladoraVisual unaControladoraVisual = null;
     DefaultTableModel modelo = new DefaultTableModel();
     DefaultComboBoxModel comboTipo = new DefaultComboBoxModel();
-    
+    Verificador unVerificador = new Verificador();
 
     /**
      * Creates new form ABMHabitacion
@@ -262,7 +262,7 @@ public class ABMHabitacion extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        try {
+       
             /*
             int id = Integer.parseInt(txtID.getText());
             boolean estado = false; //txtEstado.getText();
@@ -284,16 +284,18 @@ public class ABMHabitacion extends javax.swing.JInternalFrame {
             } catch (Exception ex) {
             Logger.getLogger(ABMHabitacion.class.getName()).log(Level.SEVERE, null, ex);
             }*/
-            int numero = Integer.parseInt(this.tblHabitacion.getValueAt(tblHabitacion.getSelectedRow(), 0).toString());
-            int montoPorNoche = Integer.parseInt(this.txtMontoPorNoche.getText());
-            String tipo = this.cmbTipo.getItemAt(this.cmbTipo.getSelectedIndex());
-            this.unaControladoraVisual.modificarHabitacion(numero, montoPorNoche, tipo);
-        } catch (Exception ex) {
-            Logger.getLogger(ABMHabitacion.class.getName()).log(Level.SEVERE, null, ex);
-        }
-         
-        
-        cargarTabla();
+            if(this.unVerificador.tablaSeleccionada(tblHabitacion)){
+             try {
+                int numero = Integer.parseInt(this.tblHabitacion.getValueAt(tblHabitacion.getSelectedRow(), 0).toString());
+                int montoPorNoche = Integer.parseInt(this.txtMontoPorNoche.getText());
+                String tipo = this.cmbTipo.getItemAt(this.cmbTipo.getSelectedIndex());
+                this.unaControladoraVisual.modificarHabitacion(numero, montoPorNoche, tipo);
+                } catch (Exception ex) {
+                    Logger.getLogger(ABMHabitacion.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                cargarTabla();
+            }
+            
 
     }//GEN-LAST:event_btnModificarActionPerformed
 
@@ -308,14 +310,17 @@ public class ABMHabitacion extends javax.swing.JInternalFrame {
         } catch (Exception ex) {
             Logger.getLogger(ABMHabitacion.class.getName()).log(Level.SEVERE, null, ex);
         }
-        */int numero = Integer.parseInt(tblHabitacion.getValueAt(tblHabitacion.getSelectedRow(), 0).toString());
-        try {
-            this.unaControladoraVisual.borrarHabitacion(numero);
-        } catch (NonexistentEntityException ex) {
-            Logger.getLogger(ABMHabitacion.class.getName()).log(Level.SEVERE, null, ex);
+        
+        */
+        if(this.unVerificador.campoVacio(txtMontoPorNoche)){
+            int numero = Integer.parseInt(tblHabitacion.getValueAt(tblHabitacion.getSelectedRow(), 0).toString());
+            try {
+                this.unaControladoraVisual.borrarHabitacion(numero);
+            } catch (NonexistentEntityException ex) {
+                Logger.getLogger(ABMHabitacion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            cargarTabla();
         }
-        cargarTabla();
-
     }//GEN-LAST:event_btnBorrarActionPerformed
 
     private void tblHabitacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHabitacionMouseClicked
@@ -332,6 +337,14 @@ public class ABMHabitacion extends javax.swing.JInternalFrame {
         cargarTabla();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    public boolean campoVacio(){
+        boolean vacio = false;
+        if(this.txtMontoPorNoche.getText().equals("")!= true){
+            vacio= true;
+        }
+    return vacio;  
+    }
+    
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         /*
         int id = Integer.parseInt(txtID.getText());
@@ -351,8 +364,11 @@ public class ABMHabitacion extends javax.swing.JInternalFrame {
             Logger.getLogger(ABMHabitacion.class.getName()).log(Level.SEVERE, null, ex);
         }
         */
-        this.unaControladoraVisual.altaHabitacion(false, Integer.parseInt(this.txtMontoPorNoche.getText()), (String)this.comboTipo.getSelectedItem());
-        cargarTabla();
+        
+        if(unVerificador.campoVacio(txtMontoPorNoche)&& unVerificador.datoNumerico(txtMontoPorNoche)){
+            this.unaControladoraVisual.altaHabitacion(false, Integer.parseInt(this.txtMontoPorNoche.getText()), (String)this.comboTipo.getSelectedItem());
+            cargarTabla();
+        }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
 
