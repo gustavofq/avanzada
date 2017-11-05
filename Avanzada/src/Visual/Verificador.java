@@ -5,6 +5,15 @@
  */
 package Visual;
 
+import Logica.Camarero;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+
 /**
  *
  * @author maquinola
@@ -44,6 +53,15 @@ public class Verificador {
 		isNumeric = false;
 	}
         return isNumeric;
+    }
+    
+    public void lipiarTabla(javax.swing.JTable tabla){
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo = (DefaultTableModel) tabla.getModel();																	
+        int filas = tabla.getRowCount(); 
+        for (int i = 0; i < filas; i++) {   
+            modelo.removeRow(0);
+        }    
     }
     
 }

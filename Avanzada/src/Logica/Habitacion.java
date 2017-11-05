@@ -39,7 +39,7 @@ public class Habitacion implements Serializable {
         this.unTipo = unTipo;
     }
     
-    public Habitacion( boolean estado, int montoPorNoche, Tipo unTipo){
+    public Habitacion(boolean estado, int montoPorNoche, Tipo unTipo){
         this.ocupado = estado;
         this.montoPorNoche = montoPorNoche;
         this.unTipo = unTipo;
@@ -88,5 +88,12 @@ public class Habitacion implements Serializable {
         } 
     return estado;    
     }
+
+    @Override
+    public String toString() {
+        return Integer.toString(this.id);
+    }
+    
+    
  
 }
