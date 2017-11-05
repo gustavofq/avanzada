@@ -421,6 +421,13 @@ public class Hotel {
         }
     }
     
+    public void altaHabitacion(boolean ocupado, int montoPorNoche, String nombreTipo){
+        if(this.misHabitaciones.isEmpty() != true){
+            Habitacion unaHabitacion = new Habitacion(ocupado, montoPorNoche, this.DameElTipo(this.buscarTipoPorNombre(nombreTipo)));
+            this.misHabitaciones.add(unaHabitacion);
+            this.miPersistencia.AltaHabitacion(unaHabitacion);
+        }
+    }
     
     
     public Habitacion DameLaHabitacion(int ID) {
@@ -456,6 +463,8 @@ public class Hotel {
     public List<Habitacion> mostrarHabitaciones() {
         return miPersistencia.obtenerHabitaciones();
     }
+    
+
     
     
     

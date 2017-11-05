@@ -153,6 +153,10 @@ public class ControladoraVisual {
         this.unHotel.altaHabitacion(id, estado, montoPorNoche, unTipo);
     }
     
+    public void altaHabitacion(boolean ocupado, int montoPorNoche, String nombreTipo){
+        this.unHotel.altaHabitacion(ocupado, montoPorNoche, nombreTipo);
+    }
+    
     public Habitacion DameLaHabitacion(int ID) {
         return this.unHotel.DameLaHabitacion(ID);
     }

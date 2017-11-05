@@ -34,8 +34,8 @@ public class ABMHabitacion extends javax.swing.JInternalFrame {
     public ABMHabitacion(ControladoraVisual unaControladora) {
         initComponents();
         unaControladoraVisual = unaControladora;
-        modelo.addColumn("ID");
-        modelo.addColumn("Estado");
+        modelo.addColumn("Número");
+       // modelo.addColumn("Estado");
         modelo.addColumn("Monto por Noche");
         modelo.addColumn("Tipo");
         cargarComboTipo();
@@ -83,15 +83,15 @@ public class ABMHabitacion extends javax.swing.JInternalFrame {
             
             misHabitaciones = unaControladoraVisual.mostrarHabitaciones(); ///CARGO EN UNA COLECCION LOS ELEMENTOS QUE DESEO CARGAR; EN ESTE CASO LOS TRAIGO DESDE LA CONTROLADORA 													    VISUAL
             
-            Object[] fila = new Object[4];  ///GENERO UN VECTOR DE TIPO OBJECT DADO QUE EN EL VOY A CARGAR DISTINTOS TIPOS DE DATOS
+            Object[] fila = new Object[3];  ///GENERO UN VECTOR DE TIPO OBJECT DADO QUE EN EL VOY A CARGAR DISTINTOS TIPOS DE DATOS
 
             for (Habitacion unaHabitacion : misHabitaciones) { ///RECORRO LA LISTA UTILIZANDO UN FOR EACH
                 
                 ////AQUI LE ASIGNO A CADA ELEMENTO DE UN VECTOR LOS DATOS QUE QUIERO QUE SE MUESTREN
                 fila[0] = unaHabitacion.getId();
-                fila[1] = unaHabitacion.getEstado();
-                fila[2] = unaHabitacion.getMontoPorNoche();
-                fila[3] = unaHabitacion.getUnTipo().getNombre();
+                //fila[1] = unaHabitacion.getEstado();
+                fila[1] = unaHabitacion.getMontoPorNoche();
+                fila[2] = unaHabitacion.getUnTipo().getNombre();
 
                 modelo.addRow(fila);  ////AGREGO A MI MODELO UNA FILA (ES IMPORTANTE SABER QUE CADA VECTOR ES UNA FILA DA LA TABLA)
                 
@@ -104,7 +104,7 @@ public class ABMHabitacion extends javax.swing.JInternalFrame {
             tblHabitacion.setRowSorter(ordenar);
             
             txtID.setText(null);
-            txtEstado.setText(null);
+            //txtEstado.setText(null);
             txtMontoPorNoche.setText(null);
             
             
@@ -129,12 +129,10 @@ public class ABMHabitacion extends javax.swing.JInternalFrame {
         tblHabitacion = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         txtID = new javax.swing.JTextField();
         txtMontoPorNoche = new javax.swing.JTextField();
-        txtEstado = new javax.swing.JTextField();
         btnAgregar = new javax.swing.JButton();
         cmbTipo = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
@@ -157,19 +155,19 @@ public class ABMHabitacion extends javax.swing.JInternalFrame {
 
         tblHabitacion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "ID", "Estado", "Monto por Noche", "Tipo"
+                "Número", "Monto por Noche", "Tipo"
             }
         ));
         tblHabitacion.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -179,11 +177,9 @@ public class ABMHabitacion extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tblHabitacion);
 
-        jLabel1.setText("ID:");
+        jLabel1.setText("Número:");
 
         jLabel4.setText("HABITACIONES");
-
-        jLabel2.setText("Estado:");
 
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -210,39 +206,39 @@ public class ABMHabitacion extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnCancelar)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(btnAgregar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnModificar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBorrar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCancelar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(118, 118, 118)
-                        .addComponent(jLabel4))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(56, 56, 56)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtID, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                            .addComponent(txtEstado, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                            .addComponent(txtMontoPorNoche, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                            .addComponent(cmbTipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(118, 118, 118)
+                                .addComponent(jLabel4))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(56, 56, 56)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel5))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(txtMontoPorNoche, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
+                                        .addComponent(txtID, javax.swing.GroupLayout.Alignment.LEADING))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(14, 14, 14)
+                                .addComponent(btnAgregar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnModificar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnBorrar)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -251,28 +247,25 @@ public class ABMHabitacion extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
                             .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(22, 22, 22)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(21, 21, 21)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(txtMontoPorNoche, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtMontoPorNoche, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnAgregar)
                             .addComponent(btnModificar)
-                            .addComponent(btnBorrar)
-                            .addComponent(btnCancelar))
-                        .addGap(34, 34, 34))
+                            .addComponent(btnBorrar))
+                        .addGap(71, 71, 71))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(36, Short.MAX_VALUE))))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnCancelar)
+                        .addContainerGap())))
         );
 
         pack();
@@ -323,42 +316,39 @@ public class ABMHabitacion extends javax.swing.JInternalFrame {
 
     private void tblHabitacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHabitacionMouseClicked
         txtID.setText(tblHabitacion.getValueAt(tblHabitacion.getSelectedRow(), 0).toString());
-        txtEstado.setText(tblHabitacion.getValueAt(tblHabitacion.getSelectedRow(), 1).toString());
-        txtMontoPorNoche.setText(tblHabitacion.getValueAt(tblHabitacion.getSelectedRow(), 2).toString());
-        cmbTipo.setSelectedItem((String)tblHabitacion.getValueAt(tblHabitacion.getSelectedRow(), 3));
+        //txtEstado.setText(tblHabitacion.getValueAt(tblHabitacion.getSelectedRow(), 1).toString());
+        txtMontoPorNoche.setText(tblHabitacion.getValueAt(tblHabitacion.getSelectedRow(), 1).toString());
+        cmbTipo.setSelectedItem((String)tblHabitacion.getValueAt(tblHabitacion.getSelectedRow(), 2));
     }//GEN-LAST:event_tblHabitacionMouseClicked
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         txtID.setText(null);
-        txtEstado.setText(null);
+        //txtEstado.setText(null);
         txtMontoPorNoche.setText(null);
         cargarTabla();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        
+        /*
         int id = Integer.parseInt(txtID.getText());
         boolean estado = false; //txtEstado.getText();
         int montoPorNoche = Integer.parseInt(txtMontoPorNoche.getText());
         String tipo = (String)cmbTipo.getSelectedItem();
         Tipo unTipo2 = null;
-
         List <Tipo> misTipos = unaControladoraVisual.mostrarTipos();
-        
         for (Tipo unTipo : misTipos) {
             if(unTipo.getNombre().equals(tipo)){
                 unTipo2 = unTipo;
             }
         }
-        
         try {
             unaControladoraVisual.altaHabitacion(id, estado, montoPorNoche, unTipo2);
         } catch (Exception ex) {
             Logger.getLogger(ABMHabitacion.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        */
+        this.unaControladoraVisual.altaHabitacion(false, Integer.parseInt(this.txtMontoPorNoche.getText()), (String)this.comboTipo.getSelectedItem());
         cargarTabla();
-
     }//GEN-LAST:event_btnAgregarActionPerformed
 
 
@@ -369,13 +359,11 @@ public class ABMHabitacion extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnModificar;
     private javax.swing.JComboBox<String> cmbTipo;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblHabitacion;
-    private javax.swing.JTextField txtEstado;
     private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtMontoPorNoche;
     // End of variables declaration//GEN-END:variables
