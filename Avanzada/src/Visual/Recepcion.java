@@ -25,23 +25,25 @@ public class Recepcion extends javax.swing.JInternalFrame {
      * Creates new form Recepcion
      */
     public Recepcion(ControladoraVisual unaControladoraVisual) {
-       
-       
-        this.unaControladoraVisual = unaControladoraVisual;
-        this.cargarLista();
         initComponents();
+        this.unaControladoraVisual = unaControladoraVisual;
+        this.cargarLista(); 
     }
 
     public void cargarLista(){
+        this.unVerificador.lipiarTabla(tblHabitaciones);
         DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("Número");
+        modelo.addColumn("Tipo");
+        modelo.addColumn("Estado");
         Object[] fila = new Object[this.unaControladoraVisual.mostrarHabitaciones().size()];
-        Habitacion unaHabitacion = new Habitacion();
-        Iterator it = this.unaControladoraVisual.mostrarHabitaciones().iterator();
-        while(it.hasNext()){
-            unaHabitacion = (Habitacion) it.next();
-            fila[0] = unaHabitacion.getId();
-            fila[1] = unaHabitacion.getUnTipo().getNombre();
-            fila[2] = unaHabitacion.verificarEstado();
+        Object[] cod = new Object[this.unaControladoraVisual.mostrarHabitaciones().size()];
+        cod = this.unaControladoraVisual.mostrarHabitaciones().toArray();
+        for (int i=0;i < this.unaControladoraVisual.mostrarHabitaciones().size();i++){
+            fila[0]=cod[i];
+            int id = Integer.parseInt(cod[i].toString());
+            fila[1]=this.unaControladoraVisual.DameLaHabitacion(id).getUnTipo().getNombre();
+            fila[2]=this.unaControladoraVisual.DameLaHabitacion(id).verificarEstado();
             modelo.addRow(fila);
         }
         this.tblHabitaciones.setModel(modelo);
