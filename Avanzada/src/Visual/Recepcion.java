@@ -5,9 +5,12 @@
  */
 package Visual;
 
+import Logica.Habitacion;
+import java.lang.reflect.Array;
 import java.util.Iterator;
 import javax.swing.DefaultListModel;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -15,16 +18,34 @@ import javax.swing.JTable;
  */
 public class Recepcion extends javax.swing.JInternalFrame {
     private ControladoraVisual unaControladoraVisual = null;
+    private Verificador unVerificador = new Verificador();
+    
+    
     /**
      * Creates new form Recepcion
      */
     public Recepcion(ControladoraVisual unaControladoraVisual) {
+       
+       
         this.unaControladoraVisual = unaControladoraVisual;
+        this.cargarLista();
         initComponents();
-  
-        
     }
 
+    public void cargarLista(){
+        DefaultTableModel modelo = new DefaultTableModel();
+        Object[] fila = new Object[this.unaControladoraVisual.mostrarHabitaciones().size()];
+        Habitacion unaHabitacion = new Habitacion();
+        Iterator it = this.unaControladoraVisual.mostrarHabitaciones().iterator();
+        while(it.hasNext()){
+            unaHabitacion = (Habitacion) it.next();
+            fila[0] = unaHabitacion.getId();
+            fila[1] = unaHabitacion.getUnTipo().getNombre();
+            fila[2] = unaHabitacion.verificarEstado();
+            modelo.addRow(fila);
+        }
+        this.tblHabitaciones.setModel(modelo);
+    }
     
     
     
@@ -50,7 +71,7 @@ public class Recepcion extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
         lblCliente = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblHabitaciones = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
 
         setClosable(true);
@@ -70,7 +91,7 @@ public class Recepcion extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Cliente:");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblHabitaciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -81,7 +102,7 @@ public class Recepcion extends javax.swing.JInternalFrame {
                 "Número", "Tipo", "Estado"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblHabitaciones);
 
         jButton1.setText("Buscar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -139,12 +160,13 @@ public class Recepcion extends javax.swing.JInternalFrame {
                     .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
                     .addComponent(lblCliente))
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(7, 7, 7)
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -168,10 +190,12 @@ public class Recepcion extends javax.swing.JInternalFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
         // TODO add your handling code here:
-        int dni = Integer.parseInt(this.txtDni.getText());
-        String nombre  = this.unaControladoraVisual.DameElCliente(dni).getNombre();
-        String apellido = this.unaControladoraVisual.DameElCliente(dni).getApellido();
-        this.lblCliente.setText(nombre + " " + apellido);
+        if(this.unVerificador.campoVacio(txtDni)){
+            int dni = Integer.parseInt(this.txtDni.getText());
+            String nombre  = this.unaControladoraVisual.DameElCliente(dni).getNombre();
+            String apellido = this.unaControladoraVisual.DameElCliente(dni).getApellido();
+            this.lblCliente.setText(nombre + " " + apellido);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     
@@ -189,8 +213,8 @@ public class Recepcion extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblCliente;
+    private javax.swing.JTable tblHabitaciones;
     private javax.swing.JTextField txtDni;
     // End of variables declaration//GEN-END:variables
 }
