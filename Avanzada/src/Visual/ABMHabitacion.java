@@ -368,6 +368,7 @@ public class ABMHabitacion extends javax.swing.JInternalFrame {
         if(unVerificador.campoVacio(txtMontoPorNoche)&& unVerificador.datoNumerico(txtMontoPorNoche)){
             this.unaControladoraVisual.altaHabitacion(false, Integer.parseInt(this.txtMontoPorNoche.getText()), (String)this.comboTipo.getSelectedItem());
             cargarTabla();
+            //
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
