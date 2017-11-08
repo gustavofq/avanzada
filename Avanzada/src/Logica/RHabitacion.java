@@ -46,6 +46,15 @@ public class RHabitacion extends Reservas implements Serializable{
         this.unCliente = unCliente;
     }
     
+    public RHabitacion(Calendar fechaEntrada, Calendar FechaSalida, Habitacion unaHabitacion, Cliente unCliente){
+        super();
+        this.fechaEntrada = fechaEntrada;
+        this.fechaSalida = fechaSalida;
+        this.cantidad = cantidad;
+        this.unaHabitacion = unaHabitacion;
+        this.unCliente = unCliente;
+    }
+    
     public RHabitacion(Calendar fechaEntrada, Calendar fechaSalida, Habitacion unaHabitacion, Cliente unCliente, int id) {
         super(id);
         this.fechaEntrada = fechaEntrada;

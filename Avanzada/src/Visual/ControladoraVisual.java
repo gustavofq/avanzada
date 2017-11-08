@@ -263,6 +263,10 @@ public class ControladoraVisual {
         this.unHotel.altaRHabitacion(fechaEntrada, fechaSalida, cantidad, unaHabitacion, unCliente, id);
     }
     
+    public void altaRHabitacion(Calendar fechaEntrada, Calendar fechaSalida, Habitacion unaHabitacion, Cliente unCliente){
+        this.unHotel.altaRHabitacion(fechaEntrada, fechaSalida, unaHabitacion, unCliente);
+    }
+    
     public RHabitacion DameLaRHabitacion(int ID) {
         return this.unHotel.DameLaRHabitacion(ID);
     }

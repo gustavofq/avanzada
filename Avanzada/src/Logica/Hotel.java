@@ -639,6 +639,12 @@ public class Hotel {
         }
     }
     
+    public void altaRHabitacion(Calendar fechaEntrada, Calendar fechaSalida, Habitacion unaHabitacion, Cliente unCliente){
+        RHabitacion unaRHabitacion = new RHabitacion(fechaEntrada, fechaSalida, unaHabitacion, unCliente);
+        this.miPersistencia.AltaRHabitacion(unaRHabitacion);
+        this.misRHabitaciones.add(unaRHabitacion);
+    }
+    
     public RHabitacion DameLaRHabitacion(int ID) {
         return this.miPersistencia.dameUnaRHabitacion(ID);
     }
