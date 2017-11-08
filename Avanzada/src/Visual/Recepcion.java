@@ -203,7 +203,7 @@ public class Recepcion extends javax.swing.JInternalFrame {
 
     private void btnReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservarActionPerformed
 
-        this.unaControladoraVisual(this.jdcInicio.getCalendar(),this.jdcSalida.getCalendar(), this.unaControladoraVisual.DameLaHabitacion(this.unaControladoraVisual.DameLaHabitacion(this.tblHabitaciones.getValueAt(tblHabitaciones.getSelectedRow(),0))))
+        //this.unaControladoraVisual(this.jdcInicio.getCalendar(),this.jdcSalida.getCalendar(), this.unaControladoraVisual.DameLaHabitacion(this.unaControladoraVisual.DameLaHabitacion(this.tblHabitaciones.getValueAt(tblHabitaciones.getSelectedRow(),0))))
     }//GEN-LAST:event_btnReservarActionPerformed
 
     
