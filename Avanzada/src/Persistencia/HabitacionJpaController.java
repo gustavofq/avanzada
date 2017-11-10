@@ -31,7 +31,6 @@ public class HabitacionJpaController implements Serializable {
         emf = Persistence.createEntityManagerFactory("AvanzadaPU");
     }
     
-    
     private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {

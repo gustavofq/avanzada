@@ -220,10 +220,9 @@ public class ABMTipo extends javax.swing.JInternalFrame {
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         //int ID = Integer.parseInt(txtID.getText());
         try {
-            if(this.unVerificador.campoVacio(txtNombre)){
                 String nombre = txtNombre.getText();
                 unaControladoraVisual.altaTipo(nombre);
-            }
+            
         } catch (Exception ex) {
             Logger.getLogger(ABMTipo.class.getName()).log(Level.SEVERE, null, ex);
         }

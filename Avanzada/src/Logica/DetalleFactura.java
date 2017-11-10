@@ -43,6 +43,13 @@ public class DetalleFactura implements Serializable {
         this.unaHabitacion = unaHabitacion;
     }
 
+    public DetalleFactura(String descripcion, int cantidad, Double Subtotal, Habitacion unaHabitacion) {
+        this.descripcion = descripcion;
+        this.cantidad = cantidad;
+        this.Subtotal = Subtotal;
+        this.unaHabitacion = unaHabitacion;
+    }
+
     public int getId() {
         return id;
     }

@@ -428,11 +428,11 @@ public class Hotel {
      * @param nombreTipo
      */
     public void altaHabitacion(boolean ocupado, int montoPorNoche, String nombreTipo){
-        if(this.misHabitaciones.isEmpty() != true){
+        
             Habitacion unaHabitacion = new Habitacion(ocupado, montoPorNoche, this.DameElTipo(this.buscarTipoPorNombre(nombreTipo)));
             this.misHabitaciones.add(unaHabitacion);
             this.miPersistencia.AltaHabitacion(unaHabitacion);
-        }
+        
     }
     
     
