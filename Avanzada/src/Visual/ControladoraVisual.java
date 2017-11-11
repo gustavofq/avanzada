@@ -124,10 +124,10 @@ public class ControladoraVisual {
     
     //FACTURA
     
-    public void altaFactura(int id, String Tipo, Double total, Cliente unCliente, List<DetalleFactura> unosDetalles) throws Exception {
-        this.unHotel.altaFactura(id, Tipo, total, unCliente, unosDetalles);
+    public void altaFactura(String Tipo, Double total, Cliente unCliente, List<DetalleFactura> unosDetalles) throws Exception {
+        this.unHotel.altaFactura(Tipo, total, unCliente, unosDetalles);
     }
-    
+        
     public  Factura DameLaFactura(int ID) {
         return this.unHotel.DameLaFactura(ID);
     }

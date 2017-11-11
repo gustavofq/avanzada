@@ -19,7 +19,7 @@ import javax.persistence.criteria.Root;
 
 /**
  *
- * @author Facundo
+ * @author Facu
  */
 public class HabitacionJpaController implements Serializable {
 
@@ -30,7 +30,7 @@ public class HabitacionJpaController implements Serializable {
     public HabitacionJpaController() {
         emf = Persistence.createEntityManagerFactory("AvanzadaPU");
     }
-    
+        
     private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {

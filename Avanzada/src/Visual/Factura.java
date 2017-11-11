@@ -8,7 +8,10 @@ package Visual;
 import Logica.Cliente;
 import Logica.DetalleFactura;
 import Logica.Habitacion;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
@@ -23,6 +26,7 @@ public class Factura extends javax.swing.JInternalFrame {
     DefaultTableModel modelo = new DefaultTableModel();
     DefaultComboBoxModel comboCliente = new DefaultComboBoxModel();
     DefaultComboBoxModel comboHabitacion = new DefaultComboBoxModel();
+    Verificador unVerificador = new Verificador();
 
     /**
      * Creates new form Factura
@@ -30,8 +34,7 @@ public class Factura extends javax.swing.JInternalFrame {
     public Factura(ControladoraVisual unaControladora) {
         initComponents();
         unaControladoraVisual = unaControladora;
-        modelo.addColumn("ID");
-        modelo.addColumn("Estado");
+        modelo.addColumn("Descripcion");
         modelo.addColumn("Cantidad");
         modelo.addColumn("Subtotal");
         cargarComboCliente();
@@ -120,13 +123,13 @@ public class Factura extends javax.swing.JInternalFrame {
 
         tblDetalle.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "ID Detalle", "Descripcion", "Cantidad", "Subtotal"
+                "Descripcion", "Cantidad", "Subtotal"
             }
         ));
         tblDetalle.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -299,9 +302,7 @@ public class Factura extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        int id = Integer.parseInt(txtIDdetalle.getText());
-        String descripcion = txtDescripcion.getText();
-        int cantidad = Integer.parseInt(txtCantidad.getText());
+        
         Double subtotal;
         Double total = 0.0;
         
@@ -313,25 +314,23 @@ public class Factura extends javax.swing.JInternalFrame {
         
         subtotal = Double.parseDouble(cadena);
         
-        Object[] fila = new Object[4];
+        Object[] fila = new Object[3];
 
-        fila[0] = id;
-        fila[1] = descripcion;
-        fila[2] = cantidad;
-        fila[3] = subtotal;
+        fila[0] = txtDescripcion.getText();
+        fila[1] = Integer.parseInt(txtCantidad.getText());
+        fila[2] = subtotal;
 
         modelo.addRow(fila);
         
         tblDetalle.setModel(modelo);
         
-        txtIDdetalle.setText(null);
         txtDescripcion.setText(null);
         txtCantidad.setText(null);
         
         int filas = tblDetalle.getRowCount();
 
         for (int i = 0; i < filas; i++) {
-            total = total + Double.parseDouble(tblDetalle.getValueAt(i, 3).toString());
+            total = total + Double.parseDouble(tblDetalle.getValueAt(i, 2).toString());
         }
         
         lblTotal.setText(String.valueOf(total));
@@ -339,13 +338,12 @@ public class Factura extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void tblDetalleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDetalleMouseClicked
-        txtIDdetalle.setText(tblDetalle.getValueAt(tblDetalle.getSelectedRow(), 0).toString());
-        txtDescripcion.setText(tblDetalle.getValueAt(tblDetalle.getSelectedRow(), 1).toString());
-        txtCantidad.setText(tblDetalle.getValueAt(tblDetalle.getSelectedRow(), 2).toString());
+        txtDescripcion.setText(tblDetalle.getValueAt(tblDetalle.getSelectedRow(), 0).toString());
+        txtCantidad.setText(tblDetalle.getValueAt(tblDetalle.getSelectedRow(), 1).toString());
     }//GEN-LAST:event_tblDetalleMouseClicked
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        int id = Integer.parseInt(txtIDdetalle.getText());
+        
         String descripcion = txtDescripcion.getText();
         int cantidad = Integer.parseInt(txtCantidad.getText());
         Double subtotal;
@@ -358,20 +356,18 @@ public class Factura extends javax.swing.JInternalFrame {
         String cadena = Integer.toString(unaHabitacion.getMontoPorNoche());
         
         subtotal = Double.parseDouble(cadena);
+
+        tblDetalle.setValueAt(descripcion, tblDetalle.getSelectedRow(), 0);
+        tblDetalle.setValueAt(cantidad, tblDetalle.getSelectedRow(), 1);
+        tblDetalle.setValueAt(subtotal, tblDetalle.getSelectedRow(), 2);
         
-        tblDetalle.setValueAt(id, tblDetalle.getSelectedRow(), 0);
-        tblDetalle.setValueAt(descripcion, tblDetalle.getSelectedRow(), 1);
-        tblDetalle.setValueAt(cantidad, tblDetalle.getSelectedRow(), 2);
-        tblDetalle.setValueAt(subtotal, tblDetalle.getSelectedRow(), 3);
-        
-        txtIDdetalle.setText(null);
         txtDescripcion.setText(null);
         txtCantidad.setText(null);
         
         int filas = tblDetalle.getRowCount();
 
         for (int i = 0; i < filas; i++) {
-            total = total + Double.parseDouble(tblDetalle.getValueAt(i, 3).toString());
+            total = total + Double.parseDouble(tblDetalle.getValueAt(i, 2).toString());
         }
         
         lblTotal.setText(String.valueOf(total));
@@ -400,7 +396,6 @@ public class Factura extends javax.swing.JInternalFrame {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         tblDetalle.clearSelection();
-        txtIDdetalle.setText(null);
         txtDescripcion.setText(null);
         txtCantidad.setText(null);
     }//GEN-LAST:event_btnCancelarActionPerformed
@@ -423,21 +418,35 @@ public class Factura extends javax.swing.JInternalFrame {
 
     private void btnFacturarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFacturarActionPerformed
         
-        int id = Integer.parseInt(txtID.getText());
         String tipo = txtTipo.getText();
         Double total = Double.parseDouble(lblTotal.getText());
-        int dni = Integer.parseInt(cmbDNI.getSelectedItem().toString());
         
+        int dni = Integer.parseInt(cmbDNI.getSelectedItem().toString());
         Cliente unCliente = unaControladoraVisual.DameElCliente(dni);
         
-        List <DetalleFactura> unosDetalles = null;
+        List <DetalleFactura> unosDetalles = new LinkedList();
         
         int filas = tblDetalle.getRowCount();
         
         for (int i = 0; i < filas; i++) {
             
-            int idDetalle = Integer.parseInt(tblDetalle.getValueAt(i, 0).toString());
+            String descripcion = tblDetalle.getValueAt(i, 0).toString();
+            int cantidad = Integer.parseInt(tblDetalle.getValueAt(i, 1).toString());
+            Double subtotal = Double.parseDouble(tblDetalle.getValueAt(i, 2).toString());
             
+            int numHabitacion = Integer.parseInt(cmbHabitacion.getSelectedItem().toString());
+            Habitacion unaHabitacion = unaControladoraVisual.DameLaHabitacion(numHabitacion);
+            
+            DetalleFactura unDetalleFactura = new DetalleFactura(descripcion, cantidad, subtotal, unaHabitacion);
+            
+            unosDetalles.add(unDetalleFactura);
+            
+        }
+        
+        try {
+            unaControladoraVisual.altaFactura(tipo, total, unCliente, unosDetalles);
+        } catch (Exception ex) {
+            Logger.getLogger(Factura.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }//GEN-LAST:event_btnFacturarActionPerformed

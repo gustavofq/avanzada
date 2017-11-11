@@ -361,18 +361,18 @@ public class Hotel {
     
     //FACTURA
     
-    public void altaFactura(int id, String Tipo, Double total, Cliente unCliente, List<DetalleFactura> unosDetalles) throws Exception {
-        if (comprobarFactura(id) == false) {
-            Factura unaFactura = new Factura(id, Tipo, total, unCliente);
+    public void altaFactura(String Tipo, Double total, Cliente unCliente, List<DetalleFactura> unosDetalles) throws Exception {
+         
+            Factura unaFactura = new Factura(Tipo, total, unCliente);
             misFacturas.add(unaFactura);
             miPersistencia.AltaFactura(unaFactura);
             
             for (DetalleFactura unDetalle : unosDetalles) {
-                unaFactura.agregarDetalleFactura(unDetalle.getId(), unDetalle.getDescripcion(), unDetalle.getCantidad(), unDetalle.getSubtotal(), unDetalle.getUnaHabitacion());
+                unaFactura.agregarDetalleFactura(unDetalle.getDescripcion(), unDetalle.getCantidad(), unDetalle.getSubtotal(), unDetalle.getUnaHabitacion());
                 miPersistencia.AltaDetalleFactura(unDetalle);
             }
             
-        }
+        
     }
     
     

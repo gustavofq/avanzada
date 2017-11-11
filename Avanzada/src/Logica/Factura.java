@@ -44,25 +44,12 @@ public class Factura implements Serializable {
         this.unosDetalles = unosDetalles;
     }
 
-    public Factura(int id, String Tipo, Double total, Cliente unCliente) {
-        this.id = id;
+    public Factura(String Tipo, Double total, Cliente unCliente) {
         this.Tipo = Tipo;
         this.total = total;
         this.unCliente = unCliente;
-    }
-
-    public Factura(String Tipo, Double total, Cliente unCliente, List<DetalleFactura> unosDetalles) {
-        this.Tipo = Tipo;
-        this.total = total;
-        this.unCliente = unCliente;
-        this.unosDetalles = unosDetalles;
-    }
+    }  
     
-
-    public Factura(int id, String Tipo, Double total) {
-    }
-    
-
     public int getId() {
         return id;
     }
@@ -103,8 +90,8 @@ public class Factura implements Serializable {
         this.unosDetalles = unosDetalles;
     }
 
-    public void agregarDetalleFactura(int id, String descripcion, int cantidad, Double Subtotal, Habitacion unaHabitacion){
-        DetalleFactura unDetalleFactura = new DetalleFactura(id, descripcion, cantidad, Subtotal, unaHabitacion);
+    public void agregarDetalleFactura(String descripcion, int cantidad, Double Subtotal, Habitacion unaHabitacion){
+        DetalleFactura unDetalleFactura = new DetalleFactura(descripcion, cantidad, Subtotal, unaHabitacion);
         unosDetalles.add(unDetalleFactura);
     }
     
