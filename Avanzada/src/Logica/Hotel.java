@@ -370,9 +370,10 @@ public class Hotel {
             for (DetalleFactura unDetalle : unosDetalles) {
                 unaFactura.agregarDetalleFactura(unDetalle.getDescripcion(), unDetalle.getCantidad(), unDetalle.getSubtotal(), unDetalle.getUnaHabitacion());
                 miPersistencia.AltaDetalleFactura(unDetalle);
+                miPersistencia.EditarFactura(unaFactura);
             }
             
-        
+            
     }
     
     
