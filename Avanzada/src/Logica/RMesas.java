@@ -34,6 +34,12 @@ public class RMesas extends Reservas implements Serializable{
     public RMesas() {
     }
 
+    public RMesas(int numeroMesa, Calendar fecha, Cliente unCliente) {
+        this.numeroMesa = numeroMesa;
+        this.fecha = fecha;
+        this.unCliente = unCliente;
+    }
+
     public RMesas(int numeroMesa, Calendar fecha, Cliente unCliente, int id) {
         super(id);
         this.numeroMesa = numeroMesa;

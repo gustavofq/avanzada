@@ -34,6 +34,7 @@ public class Factura extends javax.swing.JInternalFrame {
     public Factura(ControladoraVisual unaControladora) {
         initComponents();
         unaControladoraVisual = unaControladora;
+        modelo.addColumn("Habitacion");
         modelo.addColumn("Descripcion");
         modelo.addColumn("Cantidad");
         modelo.addColumn("Subtotal");
@@ -123,13 +124,13 @@ public class Factura extends javax.swing.JInternalFrame {
 
         tblDetalle.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Descripcion", "Cantidad", "Subtotal"
+                "Habitacion", "Descripcion", "Cantidad", "Subtotal"
             }
         ));
         tblDetalle.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -314,11 +315,12 @@ public class Factura extends javax.swing.JInternalFrame {
         
         subtotal = Double.parseDouble(cadena);
         
-        Object[] fila = new Object[3];
+        Object[] fila = new Object[4];
 
-        fila[0] = txtDescripcion.getText();
-        fila[1] = Integer.parseInt(txtCantidad.getText());
-        fila[2] = subtotal;
+        fila[0] = numHabitacion;
+        fila[1] = txtDescripcion.getText();
+        fila[2] = Integer.parseInt(txtCantidad.getText());
+        fila[3] = subtotal;
 
         modelo.addRow(fila);
         
@@ -330,7 +332,7 @@ public class Factura extends javax.swing.JInternalFrame {
         int filas = tblDetalle.getRowCount();
 
         for (int i = 0; i < filas; i++) {
-            total = total + Double.parseDouble(tblDetalle.getValueAt(i, 2).toString());
+            total = total + Double.parseDouble(tblDetalle.getValueAt(i, 3).toString());
         }
         
         lblTotal.setText(String.valueOf(total));
@@ -338,8 +340,8 @@ public class Factura extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void tblDetalleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDetalleMouseClicked
-        txtDescripcion.setText(tblDetalle.getValueAt(tblDetalle.getSelectedRow(), 0).toString());
-        txtCantidad.setText(tblDetalle.getValueAt(tblDetalle.getSelectedRow(), 1).toString());
+        txtDescripcion.setText(tblDetalle.getValueAt(tblDetalle.getSelectedRow(), 1).toString());
+        txtCantidad.setText(tblDetalle.getValueAt(tblDetalle.getSelectedRow(), 2).toString());
     }//GEN-LAST:event_tblDetalleMouseClicked
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
@@ -356,10 +358,11 @@ public class Factura extends javax.swing.JInternalFrame {
         String cadena = Integer.toString(unaHabitacion.getMontoPorNoche());
         
         subtotal = Double.parseDouble(cadena);
-
-        tblDetalle.setValueAt(descripcion, tblDetalle.getSelectedRow(), 0);
-        tblDetalle.setValueAt(cantidad, tblDetalle.getSelectedRow(), 1);
-        tblDetalle.setValueAt(subtotal, tblDetalle.getSelectedRow(), 2);
+        
+        tblDetalle.setValueAt(numHabitacion, tblDetalle.getSelectedRow(), 0);
+        tblDetalle.setValueAt(descripcion, tblDetalle.getSelectedRow(), 1);
+        tblDetalle.setValueAt(cantidad, tblDetalle.getSelectedRow(), 2);
+        tblDetalle.setValueAt(subtotal, tblDetalle.getSelectedRow(), 3);
         
         txtDescripcion.setText(null);
         txtCantidad.setText(null);
@@ -367,7 +370,7 @@ public class Factura extends javax.swing.JInternalFrame {
         int filas = tblDetalle.getRowCount();
 
         for (int i = 0; i < filas; i++) {
-            total = total + Double.parseDouble(tblDetalle.getValueAt(i, 2).toString());
+            total = total + Double.parseDouble(tblDetalle.getValueAt(i, 3).toString());
         }
         
         lblTotal.setText(String.valueOf(total));
@@ -430,11 +433,12 @@ public class Factura extends javax.swing.JInternalFrame {
         
         for (int i = 0; i < filas; i++) {
             
-            String descripcion = tblDetalle.getValueAt(i, 0).toString();
-            int cantidad = Integer.parseInt(tblDetalle.getValueAt(i, 1).toString());
-            Double subtotal = Double.parseDouble(tblDetalle.getValueAt(i, 2).toString());
             
-            int numHabitacion = Integer.parseInt(cmbHabitacion.getSelectedItem().toString());
+            String descripcion = tblDetalle.getValueAt(i, 1).toString();
+            int cantidad = Integer.parseInt(tblDetalle.getValueAt(i, 2).toString());
+            Double subtotal = Double.parseDouble(tblDetalle.getValueAt(i, 3).toString());
+            
+            int numHabitacion = Integer.parseInt(tblDetalle.getValueAt(i, 0).toString());
             Habitacion unaHabitacion = unaControladoraVisual.DameLaHabitacion(numHabitacion);
             
             DetalleFactura unDetalleFactura = new DetalleFactura(descripcion, cantidad, subtotal, unaHabitacion);

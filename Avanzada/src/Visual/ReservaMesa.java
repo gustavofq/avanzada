@@ -5,19 +5,125 @@
  */
 package Visual;
 
+import Logica.Cliente;
+import Logica.Mesa;
+import Logica.RMesas;
+import java.util.Calendar;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+
 /**
  *
  * @author maquinola
  */
 public class ReservaMesa extends javax.swing.JInternalFrame {
 
+    ControladoraVisual unaControladoraVisual = null;
+    DefaultTableModel modelo = new DefaultTableModel();
+    DefaultComboBoxModel comboMesa = new DefaultComboBoxModel();
+    DefaultComboBoxModel comboCliente = new DefaultComboBoxModel();
+    Verificador unVerificador = new Verificador();
+    
     /**
      * Creates new form ReservaMesa
      */
-    public ReservaMesa() {
+    
+    public ReservaMesa(ControladoraVisual unaControladora) {
         initComponents();
+        unaControladoraVisual = unaControladora;
+        modelo.addColumn("Mesa");
+        modelo.addColumn("Fecha");
+        modelo.addColumn("Cliente");
+        cargarComboCliente();
+        cargarComboMesa();
     }
+    
+    
+    public void cargarComboMesa(){
+        
+        List <Mesa> misMesas = unaControladoraVisual.mostrarMesas();
+        
+        for (Mesa unaMesa : misMesas) {
+            comboMesa.addElement(unaMesa.getId());
+        }
+        
+        cmbMesa.setModel(comboMesa);
+        
+    }
+    
+    public void cargarComboCliente(){
+        
+        List <Cliente> misClientes = unaControladoraVisual.mostrarClientes();
+        
+        for (Cliente unCliente : misClientes) {
+            comboCliente.addElement(unCliente.getDni());
+        }
+        
+        cmbCliente.setModel(comboCliente);
+        
+    }
+    
+    
+    private void cargarTabla() {
+        try {
+            
+            //ACA LIMPIAMOS LA TABLA ANTES DE CARGARLA
+            
+            DefaultTableModel modelo2 = (DefaultTableModel) tblReservaMesa.getModel(); //GENERO UN NUEVO TABLE MODEL.. AL CUAL LE ASIGNO EL MODELO DE LA TABLA QUE CARGAMOS 																			CON ANTERIORIDAD
 
+            int filas = tblReservaMesa.getRowCount(); ///GENERO UN INDICE PARA SABER CUANTAS FILAS TIENE MI TABLA
+
+            for (int i = 0; i < filas; i++) {    ////RECORRO EL INDICE A TRAVES DE UN CICLO FOR
+
+                modelo2.removeRow(0);   /////DE ESTA MANERA VOY QUITANDO EL SIEMPRE LA PRIMER FILA DEL MODELO...ESTO UNA VEZ FINALIZADO EL RECORRIDO DEL FOR NOS 								     ELIMINA TODOS LOS ELEMENTOS DE LA TABLA
+
+            }
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "HA OCURRIDO UN ERROR" + ex);
+        }
+
+        //ACA LA CARGAMOS
+        
+        List<RMesas> misRMesas = new LinkedList();
+        
+        try {
+            
+            misRMesas = unaControladoraVisual.mostrarRMesas(); ///CARGO EN UNA COLECCION LOS ELEMENTOS QUE DESEO CARGAR; EN ESTE CASO LOS TRAIGO DESDE LA CONTROLADORA 													    VISUAL
+            
+            Object[] fila = new Object[3];  ///GENERO UN VECTOR DE TIPO OBJECT DADO QUE EN EL VOY A CARGAR DISTINTOS TIPOS DE DATOS
+
+            for (RMesas unaRMesa : misRMesas) { ///RECORRO LA LISTA UTILIZANDO UN FOR EACH
+                
+                ////AQUI LE ASIGNO A CADA ELEMENTO DE UN VECTOR LOS DATOS QUE QUIERO QUE SE MUESTREN
+                fila[0] = unaRMesa.getNumeroMesa();
+                fila[1] = unaRMesa.getFecha();
+                fila[2] = unaRMesa.getUnCliente();
+
+                modelo.addRow(fila);  ////AGREGO A MI MODELO UNA FILA (ES IMPORTANTE SABER QUE CADA VECTOR ES UNA FILA DA LA TABLA)
+                
+            }
+            
+
+            tblReservaMesa.setModel(modelo); ////UNA VEZ FINALIZADO LE ASIGNO A MI TABLA EL MODELO Y ESTO MOSTRARIA LOS DATOS 
+            
+            TableRowSorter <TableModel> ordenar = new TableRowSorter <TableModel> (modelo);
+            tblReservaMesa.setRowSorter(ordenar);
+            
+
+        } catch (Exception EX) {
+            JOptionPane.showMessageDialog(null, "HA OCURRIDO UN ERROR" + EX);
+        }
+}
+
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,21 +133,157 @@ public class ReservaMesa extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jDateFecha = new com.toedter.calendar.JDateChooser();
+        jLabel2 = new javax.swing.JLabel();
+        cmbMesa = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
+        cmbCliente = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblReservaMesa = new javax.swing.JTable();
+        btnReservar = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
+        btnBorrar = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+
+        setClosable(true);
+        setIconifiable(true);
+
+        jLabel1.setText("Mesa:");
+
+        jLabel2.setText("Fecha:");
+
+        cmbMesa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel3.setText("Cliente:");
+
+        cmbCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        tblReservaMesa.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Mesa", "Fecha", "Cliente"
+            }
+        ));
+        jScrollPane1.setViewportView(tblReservaMesa);
+
+        btnReservar.setText("Reservar");
+        btnReservar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReservarActionPerformed(evt);
+            }
+        });
+
+        btnModificar.setText("Modificar");
+
+        btnBorrar.setText("Borrar");
+
+        jLabel4.setText("Reservas Mesas");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel3)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(cmbCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jDateFecha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(cmbMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel4)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnReservar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnModificar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnBorrar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel4)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(cmbMesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jDateFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(cmbCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnReservar)
+                    .addComponent(btnModificar)
+                    .addComponent(btnBorrar))
+                .addGap(30, 30, 30))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservarActionPerformed
+        int id = Integer.parseInt(cmbMesa.getSelectedItem().toString());
+        Calendar fecha = jDateFecha.getCalendar();
+        int DNI = Integer.parseInt(cmbCliente.getSelectedItem().toString());
+        Cliente unCliente = unaControladoraVisual.DameElCliente(DNI);
+        
+        try {
+            unaControladoraVisual.altaRMesa(,fecha, unCliente, id);
+        } catch (Exception ex) {
+            Logger.getLogger(ReservaMesa.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_btnReservarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBorrar;
+    private javax.swing.JButton btnModificar;
+    private javax.swing.JButton btnReservar;
+    private javax.swing.JComboBox<String> cmbCliente;
+    private javax.swing.JComboBox<String> cmbMesa;
+    private com.toedter.calendar.JDateChooser jDateFecha;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblReservaMesa;
     // End of variables declaration//GEN-END:variables
 }

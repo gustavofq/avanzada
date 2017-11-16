@@ -686,9 +686,9 @@ public class Hotel {
     
     //R MESAS
     
-    public void altaRMesa(int numeroMesa, Calendar fecha, Cliente unCliente, int id) throws Exception {
-        if (comprobarRMesa(id) == false) {
-            RMesas unaRMesas = new RMesas(numeroMesa, fecha, unCliente, id);
+    public void altaRMesa(int numeroMesa, Calendar fecha, Cliente unCliente) throws Exception {
+        if (comprobarRMesa() == false) {
+            RMesas unaRMesas = new RMesas(numeroMesa, fecha, unCliente);
             misRMesas.add(unaRMesas);
             miPersistencia.AltaRMesas(unaRMesas);
         }
