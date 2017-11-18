@@ -289,8 +289,8 @@ public class ControladoraVisual {
     
     //R MESAS
     
-    public void altaRMesa(int numeroMesa, Calendar fecha, Cliente unCliente, int id) throws Exception {
-        this.unHotel.altaRMesa(numeroMesa, fecha, unCliente, id);
+    public void altaRMesa(int numeroMesa, Calendar fecha, Cliente unCliente) throws Exception {
+        this.unHotel.altaRMesa(numeroMesa, fecha, unCliente);
     }
     
     public RMesas DameLaRMesa(int ID) {

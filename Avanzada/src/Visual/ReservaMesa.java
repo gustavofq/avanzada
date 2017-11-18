@@ -9,6 +9,7 @@ import Logica.Cliente;
 import Logica.Mesa;
 import Logica.RMesas;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
@@ -170,6 +171,11 @@ public class ReservaMesa extends javax.swing.JInternalFrame {
                 "Mesa", "Fecha", "Cliente"
             }
         ));
+        tblReservaMesa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblReservaMesaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblReservaMesa);
 
         btnReservar.setText("Reservar");
@@ -180,6 +186,11 @@ public class ReservaMesa extends javax.swing.JInternalFrame {
         });
 
         btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
 
         btnBorrar.setText("Borrar");
 
@@ -251,25 +262,36 @@ public class ReservaMesa extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservarActionPerformed
-        int id = Integer.parseInt(cmbMesa.getSelectedItem().toString());
+        int numeroMesa = Integer.parseInt(cmbMesa.getSelectedItem().toString());
         Calendar fecha = jDateFecha.getCalendar();
         int DNI = Integer.parseInt(cmbCliente.getSelectedItem().toString());
         Cliente unCliente = unaControladoraVisual.DameElCliente(DNI);
         
         try {
-            unaControladoraVisual.altaRMesa(,fecha, unCliente, id);
+            unaControladoraVisual.altaRMesa(numeroMesa, fecha, unCliente);
         } catch (Exception ex) {
             Logger.getLogger(ReservaMesa.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        
-        
-        
-        
-        
-        
-        
+        cargarTabla();
+          
     }//GEN-LAST:event_btnReservarActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        int numeroMesa = Integer.parseInt(cmbMesa.getSelectedItem().toString());
+        Calendar fecha = jDateFecha.getCalendar();
+        int DNI = Integer.parseInt(cmbCliente.getSelectedItem().toString());
+        Cliente unCliente = unaControladoraVisual.DameElCliente(DNI);
+        
+        unaControladoraVisual.modificarRMesa(numeroMesa, fecha, unCliente, DNI, unaRMesas);
+        
+    }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void tblReservaMesaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblReservaMesaMouseClicked
+        cmbMesa.setSelectedItem(tblReservaMesa.getValueAt(tblReservaMesa.getSelectedRow(), 0));
+        jDateFecha.setDate((Date)tblReservaMesa.getValueAt(tblReservaMesa.getSelectedRow(), 1));
+        cmbCliente.setSelectedItem(tblReservaMesa.getValueAt(tblReservaMesa.getSelectedRow(), 2));
+    }//GEN-LAST:event_tblReservaMesaMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
