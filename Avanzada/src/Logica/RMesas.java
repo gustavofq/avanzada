@@ -71,5 +71,10 @@ public class RMesas extends Reservas implements Serializable{
         this.unCliente = unCliente;
     }
     
+    public int getID(){
+        return super.getId();
+    }
+    
+    
     
 }

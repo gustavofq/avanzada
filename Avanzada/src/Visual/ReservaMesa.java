@@ -8,6 +8,8 @@ package Visual;
 import Logica.Cliente;
 import Logica.Mesa;
 import Logica.RMesas;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
@@ -39,6 +41,7 @@ public class ReservaMesa extends javax.swing.JInternalFrame {
     public ReservaMesa(ControladoraVisual unaControladora) {
         initComponents();
         unaControladoraVisual = unaControladora;
+        modelo.addColumn("Padre ID");
         modelo.addColumn("Mesa");
         modelo.addColumn("Fecha");
         modelo.addColumn("Cliente");
@@ -99,14 +102,19 @@ public class ReservaMesa extends javax.swing.JInternalFrame {
             
             misRMesas = unaControladoraVisual.mostrarRMesas(); ///CARGO EN UNA COLECCION LOS ELEMENTOS QUE DESEO CARGAR; EN ESTE CASO LOS TRAIGO DESDE LA CONTROLADORA 													    VISUAL
             
-            Object[] fila = new Object[3];  ///GENERO UN VECTOR DE TIPO OBJECT DADO QUE EN EL VOY A CARGAR DISTINTOS TIPOS DE DATOS
+            Object[] fila = new Object[4];  ///GENERO UN VECTOR DE TIPO OBJECT DADO QUE EN EL VOY A CARGAR DISTINTOS TIPOS DE DATOS
 
             for (RMesas unaRMesa : misRMesas) { ///RECORRO LA LISTA UTILIZANDO UN FOR EACH
                 
                 ////AQUI LE ASIGNO A CADA ELEMENTO DE UN VECTOR LOS DATOS QUE QUIERO QUE SE MUESTREN
-                fila[0] = unaRMesa.getNumeroMesa();
-                fila[1] = unaRMesa.getFecha();
-                fila[2] = unaRMesa.getUnCliente();
+                fila[0] = unaRMesa.getID();
+                fila[1] = unaRMesa.getNumeroMesa();
+                Calendar cal = unaRMesa.getFecha();
+                Date dat = cal.getTime();
+                Format formatter = new SimpleDateFormat("yyyy-MM-dd");
+                String s = formatter.format(dat);
+                fila[2] = s;
+                fila[3] = unaRMesa.getUnCliente().getNombre() + " " + unaRMesa.getUnCliente().getApellido();
 
                 modelo.addRow(fila);  ////AGREGO A MI MODELO UNA FILA (ES IMPORTANTE SABER QUE CADA VECTOR ES UNA FILA DA LA TABLA)
                 
@@ -162,13 +170,13 @@ public class ReservaMesa extends javax.swing.JInternalFrame {
 
         tblReservaMesa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Mesa", "Fecha", "Cliente"
+                "ID RMesa", "Mesa", "Fecha", "Cliente"
             }
         ));
         tblReservaMesa.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -193,6 +201,11 @@ public class ReservaMesa extends javax.swing.JInternalFrame {
         });
 
         btnBorrar.setText("Borrar");
+        btnBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBorrarActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Reservas Mesas");
 
@@ -262,6 +275,7 @@ public class ReservaMesa extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservarActionPerformed
+        
         int numeroMesa = Integer.parseInt(cmbMesa.getSelectedItem().toString());
         Calendar fecha = jDateFecha.getCalendar();
         int DNI = Integer.parseInt(cmbCliente.getSelectedItem().toString());
@@ -278,12 +292,22 @@ public class ReservaMesa extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnReservarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        int padreID = Integer.parseInt(tblReservaMesa.getValueAt(tblReservaMesa.getSelectedRow(), 0).toString());
         int numeroMesa = Integer.parseInt(cmbMesa.getSelectedItem().toString());
         Calendar fecha = jDateFecha.getCalendar();
+        
         int DNI = Integer.parseInt(cmbCliente.getSelectedItem().toString());
         Cliente unCliente = unaControladoraVisual.DameElCliente(DNI);
         
-        unaControladoraVisual.modificarRMesa(numeroMesa, fecha, unCliente, DNI, unaRMesas);
+        RMesas unaRMesa = unaControladoraVisual.DameLaRMesa(padreID);
+        
+        try {
+            unaControladoraVisual.modificarRMesa(numeroMesa, fecha, unCliente, unaRMesa);
+        } catch (Exception ex) {
+            Logger.getLogger(ReservaMesa.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        cargarTabla();
         
     }//GEN-LAST:event_btnModificarActionPerformed
 
@@ -292,6 +316,21 @@ public class ReservaMesa extends javax.swing.JInternalFrame {
         jDateFecha.setDate((Date)tblReservaMesa.getValueAt(tblReservaMesa.getSelectedRow(), 1));
         cmbCliente.setSelectedItem(tblReservaMesa.getValueAt(tblReservaMesa.getSelectedRow(), 2));
     }//GEN-LAST:event_tblReservaMesaMouseClicked
+
+    private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
+        int padreID = Integer.parseInt(tblReservaMesa.getValueAt(tblReservaMesa.getSelectedRow(), 0).toString());
+        
+        RMesas unaRMesa = unaControladoraVisual.DameLaRMesa(padreID);
+        
+        try {
+            unaControladoraVisual.borrarRMesa(unaRMesa);
+        } catch (Exception ex) {
+            Logger.getLogger(ReservaMesa.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        cargarTabla();
+        
+    }//GEN-LAST:event_btnBorrarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -711,7 +711,7 @@ public class Hotel {
     }
     
 
-    public void modificarRMesa(int numeroMesa, Calendar fecha, Cliente unCliente, int id, RMesas unaRMesas) throws Exception {
+    public void modificarRMesa(int numeroMesa, Calendar fecha, Cliente unCliente, RMesas unaRMesas) throws Exception {
         misRMesas.remove(unaRMesas);
         unaRMesas.setNumeroMesa(numeroMesa);
         unaRMesas.setFecha(fecha);

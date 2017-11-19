@@ -297,8 +297,8 @@ public class ControladoraVisual {
         return this.unHotel.DameLaRMesa(ID);
     }
 
-    public void modificarRMesa(int numeroMesa, Calendar fecha, Cliente unCliente, int id, RMesas unaRMesas) throws Exception {
-        this.unHotel.modificarRMesa(numeroMesa, fecha, unCliente, id, unaRMesas);
+    public void modificarRMesa(int numeroMesa, Calendar fecha, Cliente unCliente, RMesas unaRMesas) throws Exception {
+        this.unHotel.modificarRMesa(numeroMesa, fecha, unCliente, unaRMesas);
     }
 
     public void borrarRMesa(RMesas unaRMesas) throws Exception {
@@ -398,6 +398,6 @@ public class ControladoraVisual {
     public void modificarTipo(String oldName, String newName) throws Exception{
         this.unHotel.modificarTipo(oldName, newName);
     }
- 
+
     
 }
