@@ -37,32 +37,13 @@ public class RHabitacion extends Reservas implements Serializable{
     public RHabitacion() {
     }
 
-    public RHabitacion(Calendar fechaEntrada, Calendar fechaSalida, int cantidad, Habitacion unaHabitacion, Cliente unCliente, int id) {
-        super(id);
+    public RHabitacion(Calendar fechaEntrada, Calendar fechaSalida, int cantidad, Habitacion unaHabitacion, Cliente unCliente) {
         this.fechaEntrada = fechaEntrada;
         this.fechaSalida = fechaSalida;
         this.cantidad = cantidad;
         this.unaHabitacion = unaHabitacion;
         this.unCliente = unCliente;
     }
-    
-    public RHabitacion(Calendar fechaEntrada, Calendar FechaSalida, Habitacion unaHabitacion, Cliente unCliente){
-        super();
-        this.fechaEntrada = fechaEntrada;
-        this.fechaSalida = fechaSalida;
-        this.cantidad = cantidad;
-        this.unaHabitacion = unaHabitacion;
-        this.unCliente = unCliente;
-    }
-    
-    public RHabitacion(Calendar fechaEntrada, Calendar fechaSalida, Habitacion unaHabitacion, Cliente unCliente, int id) {
-        super(id);
-        this.fechaEntrada = fechaEntrada;
-        this.fechaSalida = fechaSalida;
-        this.unaHabitacion = unaHabitacion;
-        this.unCliente = unCliente;
-    }
-    
 
     public Calendar getFechaEntrada() {
         return fechaEntrada;
@@ -104,8 +85,6 @@ public class RHabitacion extends Reservas implements Serializable{
         this.unCliente = unCliente;
     }
 
-    public void cambiarEstado(boolean estado){
     
-    }
 
 }

@@ -436,6 +436,11 @@ public class Hotel {
         
     }
     
+    public void cambiarEstadoHabitacion(Habitacion unaHabitacion, boolean estado) throws Exception{
+           misHabitaciones.remove(unaHabitacion);
+           unaHabitacion.setEstado(estado);
+           miPersistencia.EditarHabitacion(unaHabitacion);
+    }
     
     public Habitacion DameLaHabitacion(int ID) {
         return this.miPersistencia.dameUnaHabitacion(ID);
@@ -632,19 +637,12 @@ public class Hotel {
     
     //RH HABITACION
     
-    public void altaRHabitacion(Calendar fechaEntrada, Calendar fechaSalida, int cantidad, Habitacion unaHabitacion, Cliente unCliente, int id) throws Exception {
-        if (comprobarRHabitacion(id) == false) {
-            RHabitacion unaRHabitacion = new RHabitacion(fechaEntrada, fechaSalida, cantidad, unaHabitacion, unCliente, id);
+    public void altaRHabitacion(Calendar fechaEntrada, Calendar fechaSalida, int cantidad, Habitacion unaHabitacion, Cliente unCliente) throws Exception {
+            RHabitacion unaRHabitacion = new RHabitacion(fechaEntrada, fechaSalida, cantidad, unaHabitacion, unCliente);
             misRHabitaciones.add(unaRHabitacion);
             miPersistencia.AltaRHabitacion(unaRHabitacion);
-        }
     }
     
-    public void altaRHabitacion(Calendar fechaEntrada, Calendar fechaSalida, Habitacion unaHabitacion, Cliente unCliente){
-        RHabitacion unaRHabitacion = new RHabitacion(fechaEntrada, fechaSalida, unaHabitacion, unCliente);
-        this.miPersistencia.AltaRHabitacion(unaRHabitacion);
-        this.misRHabitaciones.add(unaRHabitacion);
-    }
     
     public RHabitacion DameLaRHabitacion(int ID) {
         return this.miPersistencia.dameUnaRHabitacion(ID);

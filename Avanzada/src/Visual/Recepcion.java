@@ -5,10 +5,18 @@
  */
 package Visual;
 
+import Logica.Cliente;
+import Logica.Habitacion;
 import java.util.Calendar;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -17,6 +25,7 @@ import javax.swing.table.DefaultTableModel;
 public class Recepcion extends javax.swing.JInternalFrame {
     private ControladoraVisual unaControladoraVisual = null;
     private Verificador unVerificador = new Verificador();
+    DefaultTableModel modelo = new DefaultTableModel();
     
     
     /**
@@ -25,10 +34,13 @@ public class Recepcion extends javax.swing.JInternalFrame {
     public Recepcion(ControladoraVisual unaControladoraVisual) {
         initComponents();
         this.unaControladoraVisual = unaControladoraVisual;
-        this.cargarLista(); 
+        modelo.addColumn("Numero");
+        modelo.addColumn("Tipo");
+        modelo.addColumn("Estado");
+        this.cargarTabla(); 
     }
 
-    public void cargarLista(){
+    /*public void cargarLista(){
         this.unVerificador.lipiarTabla(tblHabitaciones);
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("Número");
@@ -45,9 +57,62 @@ public class Recepcion extends javax.swing.JInternalFrame {
             modelo.addRow(fila);
         }
         this.tblHabitaciones.setModel(modelo);
-    }
+    }*/
     
-    
+    private void cargarTabla() {
+        try {
+            
+            //ACA LIMPIAMOS LA TABLA ANTES DE CARGARLA
+            
+            DefaultTableModel modelo2 = (DefaultTableModel) tblHabitaciones.getModel(); //GENERO UN NUEVO TABLE MODEL.. AL CUAL LE ASIGNO EL MODELO DE LA TABLA QUE CARGAMOS 																			CON ANTERIORIDAD
+
+            int filas = tblHabitaciones.getRowCount(); ///GENERO UN INDICE PARA SABER CUANTAS FILAS TIENE MI TABLA
+
+            for (int i = 0; i < filas; i++) {    ////RECORRO EL INDICE A TRAVES DE UN CICLO FOR
+
+                modelo2.removeRow(0);   /////DE ESTA MANERA VOY QUITANDO EL SIEMPRE LA PRIMER FILA DEL MODELO...ESTO UNA VEZ FINALIZADO EL RECORRIDO DEL FOR NOS 								     ELIMINA TODOS LOS ELEMENTOS DE LA TABLA
+
+            }
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "HA OCURRIDO UN ERROR" + ex);
+        }
+
+        //ACA LA CARGAMOS
+        
+        List<Habitacion> misHabitaciones = new LinkedList();
+        
+        try {
+            
+            misHabitaciones = unaControladoraVisual.mostrarHabitaciones();///CARGO EN UNA COLECCION LOS ELEMENTOS QUE DESEO CARGAR; EN ESTE CASO LOS TRAIGO DESDE LA CONTROLADORA 													    VISUAL
+            
+            Object[] fila = new Object[3];   ///GENERO UN VECTOR DE TIPO OBJECT DADO QUE EN EL VOY A CARGAR DISTINTOS TIPOS DE DATOS
+
+            for (Habitacion unaHabitacion : misHabitaciones) { ///RECORRO LA LISTA UTILIZANDO UN FOR EACH
+                
+                ////AQUI LE ASIGNO A CADA ELEMENTO DE UN VECTOR LOS DATOS QUE QUIERO QUE SE MUESTREN
+                fila[0] = unaHabitacion.getId();
+                fila[1] = unaHabitacion.getUnTipo().getNombre();
+                fila[2] = unaHabitacion.getEstado();
+
+                modelo.addRow(fila);  ////AGREGO A MI MODELO UNA FILA (ES IMPORTANTE SABER QUE CADA VECTOR ES UNA FILA DA LA TABLA)
+                
+            }
+            
+
+            tblHabitaciones.setModel(modelo); ////UNA VEZ FINALIZADO LE ASIGNO A MI TABLA EL MODELO Y ESTO MOSTRARIA LOS DATOS 
+            
+            TableRowSorter <TableModel> ordenar = new TableRowSorter <TableModel> (modelo);
+            tblHabitaciones.setRowSorter(ordenar);
+            
+            //txtID.setText(null);
+            txtDni.setText(null);
+            lblCliente.setText(null);
+            
+        } catch (Exception EX) {
+            JOptionPane.showMessageDialog(null, "HA OCURRIDO UN ERROR" + EX);
+        }
+}
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -107,6 +172,11 @@ public class Recepcion extends javax.swing.JInternalFrame {
                 "Número", "Tipo", "Estado"
             }
         ));
+        tblHabitaciones.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblHabitacionesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblHabitaciones);
 
         btnBuscar.setText("Buscar");
@@ -209,9 +279,35 @@ public class Recepcion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservarActionPerformed
-
-        //this.unaControladoraVisual(this.jdcInicio.getCalendar(),this.jdcSalida.getCalendar(), this.unaControladoraVisual.DameLaHabitacion(this.unaControladoraVisual.DameLaHabitacion(this.tblHabitaciones.getValueAt(tblHabitaciones.getSelectedRow(),0))))
+        Calendar fechaEntrada = jdcInicio.getCalendar();
+        Calendar fechaSalida = jdcSalida.getCalendar();
+        int cantidad = 1;
+        int dni = Integer.parseInt(txtDni.getText());
+        
+        Habitacion unaHabitacion = unaControladoraVisual.DameLaHabitacion(Integer.parseInt(tblHabitaciones.getValueAt(tblHabitaciones.getSelectedRow(), 0).toString()));
+        
+        try {
+            unaControladoraVisual.cambiarEstadoHabitacion(unaHabitacion, true);
+        } catch (Exception ex) {
+            Logger.getLogger(Recepcion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        Cliente unCliente = unaControladoraVisual.DameElCliente(dni);
+        
+        try {
+            unaControladoraVisual.altaRHabitacion(fechaEntrada, fechaSalida, cantidad, unaHabitacion, unCliente);
+        } catch (Exception ex) {
+            Logger.getLogger(Recepcion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        cargarTabla();
     }//GEN-LAST:event_btnReservarActionPerformed
+
+    private void tblHabitacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHabitacionesMouseClicked
+        int numeroHabitacion = Integer.parseInt(tblHabitaciones.getValueAt(tblHabitaciones.getSelectedRow(), 0).toString());
+        
+        
+    }//GEN-LAST:event_tblHabitacionesMouseClicked
 
     
    

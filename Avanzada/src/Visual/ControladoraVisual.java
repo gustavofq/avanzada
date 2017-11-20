@@ -259,12 +259,12 @@ public class ControladoraVisual {
     
     //RH HABITACION
     
-    public void altaRHabitacion(Calendar fechaEntrada, Calendar fechaSalida, int cantidad, Habitacion unaHabitacion, Cliente unCliente, int id) throws Exception {
-        this.unHotel.altaRHabitacion(fechaEntrada, fechaSalida, cantidad, unaHabitacion, unCliente, id);
+    public void altaRHabitacion(Calendar fechaEntrada, Calendar fechaSalida, int cantidad, Habitacion unaHabitacion, Cliente unCliente) throws Exception {
+        this.unHotel.altaRHabitacion(fechaEntrada, fechaSalida, cantidad, unaHabitacion, unCliente);
     }
     
-    public void altaRHabitacion(Calendar fechaEntrada, Calendar fechaSalida, Habitacion unaHabitacion, Cliente unCliente){
-        this.unHotel.altaRHabitacion(fechaEntrada, fechaSalida, unaHabitacion, unCliente);
+    public void cambiarEstadoHabitacion(Habitacion unaHabitacion, boolean estado) throws Exception{
+        this.unHotel.cambiarEstadoHabitacion(unaHabitacion, estado);
     }
     
     public RHabitacion DameLaRHabitacion(int ID) {
