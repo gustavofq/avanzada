@@ -660,10 +660,11 @@ public class Hotel {
         return aux;
     }
     
-    public void modificarFechas(Habitacion unaHabitacion, Calendar fechaEntrada, Calendar fechaSalida) throws Exception{
-
+    public void modificarFechas(int numHabitacion, Calendar fechaEntrada, Calendar fechaSalida) throws Exception{
+        
         for (RHabitacion unaRHabitacion : misRHabitaciones) {
-            if(unaRHabitacion.getUnaHabitacion().equals(unaHabitacion)){
+            
+            if(unaRHabitacion.getUnaHabitacion().getId() == numHabitacion){
                 
                 misRHabitaciones.remove(unaRHabitacion);
                 unaRHabitacion.setFechaEntrada(fechaEntrada);
@@ -675,10 +676,10 @@ public class Hotel {
 
     }
     
-    public void BorrarRHabitacion(Habitacion unaHabitacion) throws Exception{
+    public void BorrarRHabitacion(int numHabitacion) throws Exception{
         
         for (RHabitacion unaRHabitacion : misRHabitaciones) {
-            if(unaRHabitacion.getUnaHabitacion().equals(unaHabitacion)){
+            if(unaRHabitacion.getUnaHabitacion().getId() == numHabitacion){
                 
                 misRHabitaciones.remove(unaRHabitacion);
                 miPersistencia.BajaRHabitacion(unaRHabitacion);
@@ -686,11 +687,11 @@ public class Hotel {
             }
         }
         
-        for (Habitacion unaHabitacion2 : misHabitaciones) {
-            if(unaHabitacion2.equals(unaHabitacion)){
-                misHabitaciones.remove(unaHabitacion2);
-                unaHabitacion2.setEstado(false);
-                miPersistencia.EditarHabitacion(unaHabitacion2);
+        for (Habitacion unaHabitacion : misHabitaciones) {
+            if(unaHabitacion.getId() == numHabitacion){
+                misHabitaciones.remove(unaHabitacion);
+                unaHabitacion.setEstado(false);
+                miPersistencia.EditarHabitacion(unaHabitacion);
             }
         }
         

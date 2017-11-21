@@ -322,14 +322,12 @@ public class Recepcion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tblHabitacionesMouseClicked
 
     private void btnModficarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModficarActionPerformed
-        int numeroHabitacion = Integer.parseInt(tblHabitaciones.getValueAt(tblHabitaciones.getSelectedRow(), 0).toString());
+        int numHabitacion = Integer.parseInt(tblHabitaciones.getValueAt(tblHabitaciones.getSelectedRow(), 0).toString());
         Calendar fechaEntrada = jdcInicio.getCalendar();
         Calendar fechaSalida = jdcSalida.getCalendar();
         
-        Habitacion unaHabitacion = unaControladoraVisual.DameLaHabitacion(numeroHabitacion);
-        
         try {
-            unaControladoraVisual.modificarFechas(unaHabitacion, fechaEntrada, fechaSalida);
+            unaControladoraVisual.modificarFechas(numHabitacion, fechaEntrada, fechaSalida);
         } catch (Exception ex) {
             Logger.getLogger(Recepcion.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -338,12 +336,10 @@ public class Recepcion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnModficarActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
-        int numeroHabitacion = Integer.parseInt(tblHabitaciones.getValueAt(tblHabitaciones.getSelectedRow(), 0).toString());
-        
-        Habitacion unaHabitacion = unaControladoraVisual.DameLaHabitacion(numeroHabitacion);
+        int numHabitacion = Integer.parseInt(tblHabitaciones.getValueAt(tblHabitaciones.getSelectedRow(), 0).toString());
         
         try {
-            unaControladoraVisual.BorrarRHabitacion(unaHabitacion);
+            unaControladoraVisual.BorrarRHabitacion(numHabitacion);
         } catch (Exception ex) {
             Logger.getLogger(Recepcion.class.getName()).log(Level.SEVERE, null, ex);
         }
