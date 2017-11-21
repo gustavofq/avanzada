@@ -7,6 +7,8 @@ package Visual;
 
 import Logica.Cliente;
 import Logica.Habitacion;
+import Logica.RHabitacion;
+import Persistencia.exceptions.NonexistentEntityException;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
@@ -152,8 +154,18 @@ public class Recepcion extends javax.swing.JInternalFrame {
         });
 
         btnModficar.setText("Modificar");
+        btnModficar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModficarActionPerformed(evt);
+            }
+        });
 
         btnBorrar.setText("Borrar");
+        btnBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBorrarActionPerformed(evt);
+            }
+        });
 
         jLFechaFin.setText("Fecha de Finalizacion:");
 
@@ -304,10 +316,40 @@ public class Recepcion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnReservarActionPerformed
 
     private void tblHabitacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHabitacionesMouseClicked
-        int numeroHabitacion = Integer.parseInt(tblHabitaciones.getValueAt(tblHabitaciones.getSelectedRow(), 0).toString());
+        //int numeroHabitacion = Integer.parseInt();
         
         
     }//GEN-LAST:event_tblHabitacionesMouseClicked
+
+    private void btnModficarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModficarActionPerformed
+        int numeroHabitacion = Integer.parseInt(tblHabitaciones.getValueAt(tblHabitaciones.getSelectedRow(), 0).toString());
+        Calendar fechaEntrada = jdcInicio.getCalendar();
+        Calendar fechaSalida = jdcSalida.getCalendar();
+        
+        Habitacion unaHabitacion = unaControladoraVisual.DameLaHabitacion(numeroHabitacion);
+        
+        try {
+            unaControladoraVisual.modificarFechas(unaHabitacion, fechaEntrada, fechaSalida);
+        } catch (Exception ex) {
+            Logger.getLogger(Recepcion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        cargarTabla();
+    }//GEN-LAST:event_btnModficarActionPerformed
+
+    private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
+        int numeroHabitacion = Integer.parseInt(tblHabitaciones.getValueAt(tblHabitaciones.getSelectedRow(), 0).toString());
+        
+        Habitacion unaHabitacion = unaControladoraVisual.DameLaHabitacion(numeroHabitacion);
+        
+        try {
+            unaControladoraVisual.BorrarRHabitacion(unaHabitacion);
+        } catch (Exception ex) {
+            Logger.getLogger(Recepcion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        cargarTabla();
+    }//GEN-LAST:event_btnBorrarActionPerformed
 
     
    

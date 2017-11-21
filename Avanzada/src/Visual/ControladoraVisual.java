@@ -400,4 +400,16 @@ public class ControladoraVisual {
     }
 
     
+    public void modificarFechas(Habitacion unaHabitacion, Calendar fechaEntrada, Calendar fechaSalida) throws Exception{
+        this.unHotel.modificarFechas(unaHabitacion, fechaEntrada, fechaSalida);
+    }
+    
+    public void BorrarRHabitacion(Habitacion unaHabitacion) throws Exception{
+        this.unHotel.BorrarRHabitacion(unaHabitacion);
+    }
+    
+    
+    
+    
+    
 }

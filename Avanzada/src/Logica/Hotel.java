@@ -660,6 +660,42 @@ public class Hotel {
         return aux;
     }
     
+    public void modificarFechas(Habitacion unaHabitacion, Calendar fechaEntrada, Calendar fechaSalida) throws Exception{
+
+        for (RHabitacion unaRHabitacion : misRHabitaciones) {
+            if(unaRHabitacion.getUnaHabitacion().equals(unaHabitacion)){
+                
+                misRHabitaciones.remove(unaRHabitacion);
+                unaRHabitacion.setFechaEntrada(fechaEntrada);
+                unaRHabitacion.setFechaSalida(fechaSalida);
+                miPersistencia.EditarRHabitacion(unaRHabitacion);
+                
+            }
+        }
+
+    }
+    
+    public void BorrarRHabitacion(Habitacion unaHabitacion) throws Exception{
+        
+        for (RHabitacion unaRHabitacion : misRHabitaciones) {
+            if(unaRHabitacion.getUnaHabitacion().equals(unaHabitacion)){
+                
+                misRHabitaciones.remove(unaRHabitacion);
+                miPersistencia.BajaRHabitacion(unaRHabitacion);
+                
+            }
+        }
+        
+        for (Habitacion unaHabitacion2 : misHabitaciones) {
+            if(unaHabitacion2.equals(unaHabitacion)){
+                misHabitaciones.remove(unaHabitacion2);
+                unaHabitacion2.setEstado(false);
+                miPersistencia.EditarHabitacion(unaHabitacion2);
+            }
+        }
+        
+    }
+    
 
     public void modificarRHabitacion(Calendar fechaEntrada, Calendar fechaSalida, int cantidad, Habitacion unaHabitacion, Cliente unCliente, int id, RHabitacion unaRHabitacion) throws Exception {
         misRHabitaciones.remove(unaRHabitacion);
