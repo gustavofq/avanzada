@@ -33,6 +33,11 @@ public class Cliente implements Serializable {
     public Cliente() {
     }
 
+    public Cliente(String nombre, int dni){
+        this.nombre = nombre;
+        this.dni = dni;
+    }
+    
     public Cliente(int dni, String nombre, String apellido, Double tarjetaDeCredito, String usuario, String contraseña) {
         this.dni = dni;
         this.nombre = nombre;

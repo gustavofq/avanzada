@@ -295,6 +295,18 @@ public class Hotel {
         return miPersistencia.obtenerClientes();
     }
     
+    public boolean existeUsuario(String user, String pass){
+        boolean existe = false;
+        Cliente unCliente = new Cliente();
+        Iterator it = this.misClientes.iterator();
+        while ((it.hasNext()) && (existe == false)){
+            unCliente = (Cliente) it.next();
+            if( (unCliente.getUsuario().equals(user)) && (unCliente.getContraseña().equals(pass))){
+                existe = true;
+            }
+        }
+        return existe;
+    }
     
     
     
