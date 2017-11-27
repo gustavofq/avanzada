@@ -380,7 +380,7 @@ public class Hotel {
             miPersistencia.AltaFactura(unaFactura);
             
             for (DetalleFactura unDetalle : unosDetalles) {
-                unaFactura.agregarDetalleFactura(unDetalle.getDescripcion(), unDetalle.getCantidad(), unDetalle.getSubtotal(), unDetalle.getUnaHabitacion());
+                unaFactura.agregarDetalleFactura(unDetalle);
                 miPersistencia.AltaDetalleFactura(unDetalle);
                 miPersistencia.EditarFactura(unaFactura);
             }
@@ -559,16 +559,28 @@ public class Hotel {
     
     //PLATOS
     
-    public void altaPlato(int id, String nombre, String descripcion, int precio) throws Exception {
-        if (comprobarPlato(id) == false) {
-            Plato unPlato = new Plato(id, nombre, descripcion, precio);
+    public void altaPlato(String nombre, String descripcion, int precio) throws Exception {
+        
+            Plato unPlato = new Plato(nombre, descripcion, precio);
             misPlatos.add(unPlato);
             miPersistencia.AltaPlato(unPlato);
-        }
+        
     }
     
     public Plato DameElPlato(int ID) {
         return this.miPersistencia.dameUnPlato(ID);
+    }
+    
+    public Plato DameElPlato(String nombrePlato) {
+        List<Plato> misPlatos = mostrarPlatos();
+        Plato unPlato2 = null;
+        
+        for (Plato unPlato : misPlatos) {
+            if(unPlato.getNombre().equals(nombrePlato)){
+                unPlato2 = unPlato;
+            }
+        }
+        return unPlato2;
     }
 
     public boolean comprobarPlato(int id) {
@@ -957,7 +969,17 @@ public class Hotel {
     }
     
     
-    
+    public RHabitacion dameUnaReservaHabitacion(int numHabitacion){
+        List<RHabitacion> misRHabitacions = mostrarRHabitaciones();
+        RHabitacion unaRHabitacion2 = null;
+        
+        for (RHabitacion unaRHabitacion : misRHabitacions) {
+            if(unaRHabitacion.getUnaHabitacion().getId() == numHabitacion){
+                unaRHabitacion2 = unaRHabitacion;
+            }
+        }
+        return unaRHabitacion2;
+    }
     
     
     

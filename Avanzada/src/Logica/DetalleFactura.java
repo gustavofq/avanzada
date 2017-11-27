@@ -30,7 +30,8 @@ public class DetalleFactura implements Serializable {
     private Double Subtotal;
     @OneToOne
     private Habitacion unaHabitacion;
-    
+    @OneToOne
+    private Plato unPlato;
     
     public DetalleFactura() {
     }
@@ -48,6 +49,27 @@ public class DetalleFactura implements Serializable {
         this.cantidad = cantidad;
         this.Subtotal = Subtotal;
         this.unaHabitacion = unaHabitacion;
+    }
+
+    public DetalleFactura(String descripcion, int cantidad, Double Subtotal, Plato unPlato) {
+        this.descripcion = descripcion;
+        this.cantidad = cantidad;
+        this.Subtotal = Subtotal;
+        this.unPlato = unPlato;
+    }
+
+    public DetalleFactura(String descripcion, int cantidad, Double Subtotal) {
+        this.descripcion = descripcion;
+        this.cantidad = cantidad;
+        this.Subtotal = Subtotal;
+    }
+
+    public Plato getUnPlato() {
+        return unPlato;
+    }
+
+    public void setUnPlato(Plato unPlato) {
+        this.unPlato = unPlato;
     }
 
     public int getId() {

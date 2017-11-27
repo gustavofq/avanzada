@@ -61,19 +61,14 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Plato"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ABMPlatoActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="ABMProveedor">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Proveedor"/>
               </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="ABMRHabitacion">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="RHabitacion"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ABMRHabitacionActionPerformed"/>
-              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="ABMRMesas">
               <Properties>

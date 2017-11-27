@@ -90,9 +90,8 @@ public class Factura implements Serializable {
         this.unosDetalles = unosDetalles;
     }
 
-    public void agregarDetalleFactura(String descripcion, int cantidad, Double Subtotal, Habitacion unaHabitacion){
-        DetalleFactura unDetalleFactura = new DetalleFactura(descripcion, cantidad, Subtotal, unaHabitacion);
-        unosDetalles.add(unDetalleFactura);
+    public void agregarDetalleFactura(DetalleFactura unDetalle){
+        unosDetalles.add(unDetalle);
     }
     
 }

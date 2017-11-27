@@ -42,7 +42,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         ABMMesa = new javax.swing.JMenuItem();
         ABMPlato = new javax.swing.JMenuItem();
         ABMProveedor = new javax.swing.JMenuItem();
-        ABMRHabitacion = new javax.swing.JMenuItem();
         ABMRMesas = new javax.swing.JMenuItem();
         ABMRecepcionista = new javax.swing.JMenuItem();
         ABMServicio = new javax.swing.JMenuItem();
@@ -113,18 +112,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu2.add(ABMMesa);
 
         ABMPlato.setText("Plato");
+        ABMPlato.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ABMPlatoActionPerformed(evt);
+            }
+        });
         jMenu2.add(ABMPlato);
 
         ABMProveedor.setText("Proveedor");
         jMenu2.add(ABMProveedor);
-
-        ABMRHabitacion.setText("RHabitacion");
-        ABMRHabitacion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ABMRHabitacionActionPerformed(evt);
-            }
-        });
-        jMenu2.add(ABMRHabitacion);
 
         ABMRMesas.setText("RMesas");
         ABMRMesas.addActionListener(new java.awt.event.ActionListener() {
@@ -233,15 +229,17 @@ public class MenuPrincipal extends javax.swing.JFrame {
         miReservaMesa.show();
     }//GEN-LAST:event_ABMRMesasActionPerformed
 
-    private void ABMRHabitacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ABMRHabitacionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ABMRHabitacionActionPerformed
-
     private void RecepcionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RecepcionMouseClicked
         Recepcion miRecepcion = new Recepcion(unaControladora);
         this.Escritorio.add(miRecepcion);
         miRecepcion.show();
     }//GEN-LAST:event_RecepcionMouseClicked
+
+    private void ABMPlatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ABMPlatoActionPerformed
+        ABMPlato miABMPlato = new ABMPlato(unaControladora);
+        this.Escritorio.add(miABMPlato);
+        miABMPlato.show();
+    }//GEN-LAST:event_ABMPlatoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -287,7 +285,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem ABMMesa;
     private javax.swing.JMenuItem ABMPlato;
     private javax.swing.JMenuItem ABMProveedor;
-    private javax.swing.JMenuItem ABMRHabitacion;
     private javax.swing.JMenuItem ABMRMesas;
     private javax.swing.JMenuItem ABMRecepcionista;
     private javax.swing.JMenuItem ABMServicio;

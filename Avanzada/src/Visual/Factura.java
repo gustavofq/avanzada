@@ -8,6 +8,7 @@ package Visual;
 import Logica.Cliente;
 import Logica.DetalleFactura;
 import Logica.Habitacion;
+import Logica.Plato;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
@@ -26,6 +27,7 @@ public class Factura extends javax.swing.JInternalFrame {
     DefaultTableModel modelo = new DefaultTableModel();
     DefaultComboBoxModel comboCliente = new DefaultComboBoxModel();
     DefaultComboBoxModel comboHabitacion = new DefaultComboBoxModel();
+    DefaultComboBoxModel comboPlato = new DefaultComboBoxModel();
     Verificador unVerificador = new Verificador();
 
     /**
@@ -34,12 +36,12 @@ public class Factura extends javax.swing.JInternalFrame {
     public Factura(ControladoraVisual unaControladora) {
         initComponents();
         unaControladoraVisual = unaControladora;
-        modelo.addColumn("Habitacion");
         modelo.addColumn("Descripcion");
         modelo.addColumn("Cantidad");
         modelo.addColumn("Subtotal");
         cargarComboCliente();
         cargarComboHabitacion();
+        cargarComboPlato();
     }
     
     public void cargarComboCliente(){
@@ -66,7 +68,17 @@ public class Factura extends javax.swing.JInternalFrame {
         
     }
     
-    
+    public void cargarComboPlato(){
+        
+        List<Plato> misPlatos = unaControladoraVisual.mostrarPlatos();
+        
+        for (Plato unPlato : misPlatos) {
+            comboPlato.addElement(unPlato.getNombre());
+        }
+        
+        cmbPlato.setModel(comboPlato);
+        
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -102,8 +114,15 @@ public class Factura extends javax.swing.JInternalFrame {
         lblMonto = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         lblCliente = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        cmbPlato = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
+        lblPlato = new javax.swing.JLabel();
+        btnAgregarPlato = new javax.swing.JButton();
+        btnModificarPlato = new javax.swing.JButton();
 
         setClosable(true);
+        setResizable(true);
 
         jLabel1.setText("FACTURA");
 
@@ -124,13 +143,13 @@ public class Factura extends javax.swing.JInternalFrame {
 
         tblDetalle.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Habitacion", "Descripcion", "Cantidad", "Subtotal"
+                "Descripcion", "Cantidad", "Subtotal"
             }
         ));
         tblDetalle.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -140,14 +159,14 @@ public class Factura extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tblDetalle);
 
-        btnAgregar.setText("Agregar");
+        btnAgregar.setText("AgregarHab");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarActionPerformed(evt);
             }
         });
 
-        btnModificar.setText("Modificar");
+        btnModificar.setText("ModificarHab");
         btnModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModificarActionPerformed(evt);
@@ -198,66 +217,108 @@ public class Factura extends javax.swing.JInternalFrame {
 
         lblCliente.setText("xxx");
 
+        jLabel2.setText("Plato:");
+
+        cmbPlato.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbPlato.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbPlatoActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Monto Plato :");
+
+        lblPlato.setText("xxx");
+
+        btnAgregarPlato.setText("AgregarPlato");
+        btnAgregarPlato.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarPlatoActionPerformed(evt);
+            }
+        });
+
+        btnModificarPlato.setText("ModificarPlato");
+        btnModificarPlato.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarPlatoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(409, 409, 409)
+                .addComponent(jLabel1)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnAgregar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnModificar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnBorrar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnCancelar))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 858, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 858, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cmbDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40)
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblCliente))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
+                                .addComponent(jLabel9))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnAgregar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnModificar)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmbHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblMonto)
+                        .addGap(89, 89, 89)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cmbPlato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblPlato)
+                                .addGap(18, 18, 18)
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(41, 41, 41)
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cmbHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(45, 45, 45)
-                                .addComponent(jLabel10)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblMonto))
+                                .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
+                                .addComponent(btnAgregarPlato)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(33, 33, 33)
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cmbDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(40, 40, 40)
-                                .addComponent(jLabel11)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblCliente)))
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnFacturar)
-                        .addGap(38, 38, 38)
-                        .addComponent(jButton1)
-                        .addGap(129, 129, 129)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblTotal)
-                        .addGap(75, 75, 75))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(409, 409, 409)
-                .addComponent(jLabel1)
-                .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(btnModificarPlato)))))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(97, 97, 97)
+                .addComponent(btnBorrar)
+                .addGap(18, 18, 18)
+                .addComponent(btnCancelar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnFacturar)
+                .addGap(38, 38, 38)
+                .addComponent(jButton1)
+                .addGap(129, 129, 129)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblTotal)
+                .addGap(75, 75, 75))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -275,28 +336,36 @@ public class Factura extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8)
-                    .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9)
-                    .addComponent(cmbHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10)
-                    .addComponent(lblMonto))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel8)
+                        .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel7)
+                        .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel9)
+                        .addComponent(cmbHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel10)
+                        .addComponent(lblMonto)
+                        .addComponent(jLabel2)
+                        .addComponent(cmbPlato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel6)
+                        .addComponent(lblPlato)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgregar)
                     .addComponent(btnModificar)
-                    .addComponent(btnBorrar)
-                    .addComponent(btnCancelar))
+                    .addComponent(btnAgregarPlato)
+                    .addComponent(btnModificarPlato))
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(lblTotal)
                     .addComponent(btnFacturar)
-                    .addComponent(jButton1))
-                .addContainerGap(30, Short.MAX_VALUE))
+                    .addComponent(jButton1)
+                    .addComponent(btnBorrar)
+                    .addComponent(btnCancelar))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         pack();
@@ -315,12 +384,11 @@ public class Factura extends javax.swing.JInternalFrame {
         
         subtotal = Double.parseDouble(cadena);
         
-        Object[] fila = new Object[4];
+        Object[] fila = new Object[3];
 
-        fila[0] = numHabitacion;
-        fila[1] = txtDescripcion.getText();
-        fila[2] = Integer.parseInt(txtCantidad.getText());
-        fila[3] = subtotal;
+        fila[0] = txtDescripcion.getText();
+        fila[1] = 1;
+        fila[2] = subtotal;
 
         modelo.addRow(fila);
         
@@ -332,7 +400,7 @@ public class Factura extends javax.swing.JInternalFrame {
         int filas = tblDetalle.getRowCount();
 
         for (int i = 0; i < filas; i++) {
-            total = total + Double.parseDouble(tblDetalle.getValueAt(i, 3).toString());
+            total = total + Double.parseDouble(tblDetalle.getValueAt(i, 2).toString());
         }
         
         lblTotal.setText(String.valueOf(total));
@@ -340,14 +408,14 @@ public class Factura extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void tblDetalleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDetalleMouseClicked
-        txtDescripcion.setText(tblDetalle.getValueAt(tblDetalle.getSelectedRow(), 1).toString());
-        txtCantidad.setText(tblDetalle.getValueAt(tblDetalle.getSelectedRow(), 2).toString());
+        txtDescripcion.setText(tblDetalle.getValueAt(tblDetalle.getSelectedRow(), 0).toString());
+        txtCantidad.setText(tblDetalle.getValueAt(tblDetalle.getSelectedRow(), 1).toString());
     }//GEN-LAST:event_tblDetalleMouseClicked
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         
         String descripcion = txtDescripcion.getText();
-        int cantidad = Integer.parseInt(txtCantidad.getText());
+        int cantidad = 1;
         Double subtotal;
         Double total = 0.0;
         
@@ -359,10 +427,9 @@ public class Factura extends javax.swing.JInternalFrame {
         
         subtotal = Double.parseDouble(cadena);
         
-        tblDetalle.setValueAt(numHabitacion, tblDetalle.getSelectedRow(), 0);
-        tblDetalle.setValueAt(descripcion, tblDetalle.getSelectedRow(), 1);
-        tblDetalle.setValueAt(cantidad, tblDetalle.getSelectedRow(), 2);
-        tblDetalle.setValueAt(subtotal, tblDetalle.getSelectedRow(), 3);
+        tblDetalle.setValueAt(descripcion, tblDetalle.getSelectedRow(), 0);
+        tblDetalle.setValueAt(cantidad, tblDetalle.getSelectedRow(), 1);
+        tblDetalle.setValueAt(subtotal, tblDetalle.getSelectedRow(), 2);
         
         txtDescripcion.setText(null);
         txtCantidad.setText(null);
@@ -370,7 +437,7 @@ public class Factura extends javax.swing.JInternalFrame {
         int filas = tblDetalle.getRowCount();
 
         for (int i = 0; i < filas; i++) {
-            total = total + Double.parseDouble(tblDetalle.getValueAt(i, 3).toString());
+            total = total + Double.parseDouble(tblDetalle.getValueAt(i, 2).toString());
         }
         
         lblTotal.setText(String.valueOf(total));
@@ -390,7 +457,7 @@ public class Factura extends javax.swing.JInternalFrame {
         int filas = tblDetalle.getRowCount();
 
         for (int i = 0; i < filas; i++) {
-            total = total + Double.parseDouble(tblDetalle.getValueAt(i, 3).toString());
+            total = total + Double.parseDouble(tblDetalle.getValueAt(i, 2).toString());
         }
         
         lblTotal.setText(String.valueOf(total));
@@ -434,15 +501,12 @@ public class Factura extends javax.swing.JInternalFrame {
         for (int i = 0; i < filas; i++) {
             
             
-            String descripcion = tblDetalle.getValueAt(i, 1).toString();
-            int cantidad = Integer.parseInt(tblDetalle.getValueAt(i, 2).toString());
-            Double subtotal = Double.parseDouble(tblDetalle.getValueAt(i, 3).toString());
+            String descripcion = tblDetalle.getValueAt(i, 0).toString();
+            int cantidad = Integer.parseInt(tblDetalle.getValueAt(i, 1).toString());
+            Double subtotal = Double.parseDouble(tblDetalle.getValueAt(i, 2).toString());
             
-            int numHabitacion = Integer.parseInt(tblDetalle.getValueAt(i, 0).toString());
-            Habitacion unaHabitacion = unaControladoraVisual.DameLaHabitacion(numHabitacion);
-            
-            DetalleFactura unDetalleFactura = new DetalleFactura(descripcion, cantidad, subtotal, unaHabitacion);
-            
+            DetalleFactura unDetalleFactura = new DetalleFactura(descripcion, cantidad, subtotal);
+           
             unosDetalles.add(unDetalleFactura);
             
         }
@@ -455,28 +519,106 @@ public class Factura extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_btnFacturarActionPerformed
 
+    private void btnAgregarPlatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPlatoActionPerformed
+        Double subtotal;
+        Double total = 0.0;
+        
+        String nombrePlato = (String)cmbPlato.getSelectedItem();
+        
+        Plato unPlato = unaControladoraVisual.DameElPlato(nombrePlato);
+        
+        String cadena = Integer.toString(unPlato.getPrecio());
+        
+        subtotal = Double.parseDouble(cadena);
+        
+        Object[] fila = new Object[3];
+
+        fila[0] = txtDescripcion.getText();
+        fila[1] = Integer.parseInt(txtCantidad.getText());
+        fila[2] = subtotal * Integer.parseInt(txtCantidad.getText());
+
+        modelo.addRow(fila);
+        
+        tblDetalle.setModel(modelo);
+        
+        txtDescripcion.setText(null);
+        txtCantidad.setText(null);
+
+        int filas = tblDetalle.getRowCount();
+
+        for (int i = 0; i < filas; i++) {
+            total = total + Double.parseDouble(tblDetalle.getValueAt(i, 2).toString());
+        }
+
+        lblTotal.setText(String.valueOf(total));
+    }//GEN-LAST:event_btnAgregarPlatoActionPerformed
+
+    private void btnModificarPlatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarPlatoActionPerformed
+        String descripcion = txtDescripcion.getText();
+        int cantidad = Integer.parseInt(txtCantidad.getText());
+        Double subtotal;
+        Double total = 0.0;
+        
+        String nombrePlato = (String)cmbPlato.getSelectedItem();
+        
+        Plato unPlato = unaControladoraVisual.DameElPlato(nombrePlato);
+        
+        String cadena = Integer.toString(unPlato.getPrecio());
+        
+        subtotal = Double.parseDouble(cadena);
+        
+        tblDetalle.setValueAt(descripcion, tblDetalle.getSelectedRow(), 0);
+        tblDetalle.setValueAt(cantidad, tblDetalle.getSelectedRow(), 1);
+        tblDetalle.setValueAt(subtotal * cantidad, tblDetalle.getSelectedRow(), 2);
+        
+        txtDescripcion.setText(null);
+        txtCantidad.setText(null);
+        
+        int filas = tblDetalle.getRowCount();
+
+        for (int i = 0; i < filas; i++) {
+            total = total + Double.parseDouble(tblDetalle.getValueAt(i, 2).toString());
+        }
+        
+        lblTotal.setText(String.valueOf(total));
+    }//GEN-LAST:event_btnModificarPlatoActionPerformed
+
+    private void cmbPlatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPlatoActionPerformed
+        String nombrePlato = (String)cmbPlato.getSelectedItem();
+        
+        Plato unPlato = unaControladoraVisual.DameElPlato(nombrePlato);
+        
+        lblPlato.setText(String.valueOf(unPlato.getPrecio()));
+    }//GEN-LAST:event_cmbPlatoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnAgregarPlato;
     private javax.swing.JButton btnBorrar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnFacturar;
     private javax.swing.JButton btnModificar;
+    private javax.swing.JButton btnModificarPlato;
     private javax.swing.JComboBox<String> cmbDNI;
     private javax.swing.JComboBox<String> cmbHabitacion;
+    private javax.swing.JComboBox<String> cmbPlato;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCliente;
     private javax.swing.JLabel lblMonto;
+    private javax.swing.JLabel lblPlato;
     private javax.swing.JLabel lblTotal;
     private javax.swing.JTable tblDetalle;
     private javax.swing.JTextField txtCantidad;

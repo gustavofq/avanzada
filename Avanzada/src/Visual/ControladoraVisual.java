@@ -210,12 +210,16 @@ public class ControladoraVisual {
     
     //PLATOS
     
-    public void altaPlato(int id, String nombre, String descripcion, int precio) throws Exception {
-        this.unHotel.altaPlato(id, nombre, descripcion, precio);
+    public void altaPlato(String nombre, String descripcion, int precio) throws Exception {
+        this.unHotel.altaPlato(nombre, descripcion, precio);
     }
     
     public Plato DameElPlato(int ID) {
         return this.unHotel.DameElPlato(ID);
+    }
+    
+    public Plato DameElPlato(String nombrePlato) {
+        return this.unHotel.DameElPlato(nombrePlato);
     }
 
     public void modificarPlato(int id, String nombre, String descripcion, int precio, Plato unPlato) throws Exception {
@@ -408,7 +412,9 @@ public class ControladoraVisual {
         this.unHotel.BorrarRHabitacion(numHabitacion);
     }
     
-    
+    public RHabitacion dameUnaReservaHabitacion(int numHabitacion) {
+        return this.unHotel.dameUnaReservaHabitacion(numHabitacion);
+    }
     
     
     
