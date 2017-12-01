@@ -25,6 +25,8 @@ public class Servicio implements Serializable {
     private String nombre;
     @Basic
     private String descripcion;
+    @Basic
+    private int precio;
 
     public Servicio() {
     }
@@ -35,10 +37,19 @@ public class Servicio implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public Servicio(String nombre, String descripcion){
+    public Servicio(String nombre, String descripcion, int precio) {
         this.nombre = nombre;
         this.descripcion = descripcion;
+        this.precio = precio;
     }
+
+    public int getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(int precio) {
+        this.precio = precio;
+    } 
     
     public int getId() {
         return id;

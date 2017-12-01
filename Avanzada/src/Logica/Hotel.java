@@ -837,12 +837,12 @@ public class Hotel {
     
     //Servicios
     
-    public void altaServicio(int id, String nombre, String descripcion) throws Exception {
-        if (comprobarServicio(id) == false) {
-            Servicio unServicio = new Servicio(id, nombre, descripcion);
+    public void altaServicio(String nombre, String descripcion, int precio) throws Exception {
+        
+            Servicio unServicio = new Servicio(nombre, descripcion, precio);
             misServicios.add(unServicio);
             miPersistencia.AltaServicio(unServicio);
-        }
+        
     }
     
     public Servicio DameElServicio(int ID) {
@@ -862,10 +862,11 @@ public class Hotel {
     }
     
 
-    public void modificarServicio(int id, String nombre, String descripcion, Servicio unServicio) throws Exception {
+    public void modificarServicio(String nombre, String descripcion, int precio, Servicio unServicio) throws Exception {
         misServicios.remove(unServicio);
         unServicio.setNombre(nombre);
         unServicio.setDescripcion(descripcion);
+        unServicio.setPrecio(precio);
         miPersistencia.EditarServicio(unServicio);
     }
 

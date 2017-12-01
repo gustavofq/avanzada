@@ -86,6 +86,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         Menu.add(Reservas);
 
         jMenu1.setText("Presupuesto");
+        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu1MouseClicked(evt);
+            }
+        });
         Menu.add(jMenu1);
 
         jMenu3.setText("Facturacion");
@@ -259,6 +264,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
         this.Escritorio.add(miRecepcion);
         miRecepcion.show();
     }//GEN-LAST:event_ReservaHabitacionActionPerformed
+
+    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+        Presupuesto miPresupuesto = new Presupuesto(unaControladora);
+        this.Escritorio.add(miPresupuesto);
+        miPresupuesto.show();
+    }//GEN-LAST:event_jMenu1MouseClicked
 
     /**
      * @param args the command line arguments

@@ -26,12 +26,10 @@ public class ServicioJpaController implements Serializable {
     public ServicioJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
-
+    
     public ServicioJpaController() {
         emf = Persistence.createEntityManagerFactory("AvanzadaPU");
     }
-    
-    
     
     private EntityManagerFactory emf = null;
 

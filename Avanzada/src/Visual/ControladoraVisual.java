@@ -344,16 +344,16 @@ public class ControladoraVisual {
     
     //Servicios
     
-    public void altaServicio(int id, String nombre, String descripcion) throws Exception {
-        this.unHotel.altaServicio(id, nombre, descripcion);
+    public void altaServicio(String nombre, String descripcion, int precio) throws Exception {
+        this.unHotel.altaServicio(nombre, descripcion, precio);
     }
     
     public Servicio DameElServicio(int ID) {
         return this.unHotel.DameElServicio(ID);
     }
 
-    public void modificarServicio(int id, String nombre, String descripcion, Servicio unServicio) throws Exception {
-        this.unHotel.modificarServicio(id, nombre, descripcion, unServicio);
+    public void modificarServicio(String nombre, String descripcion, int precio, Servicio unServicio) throws Exception {
+        this.unHotel.modificarServicio(nombre, descripcion, precio, unServicio);
     }
 
     public void borrarServicio(Servicio unServicio) throws Exception {
