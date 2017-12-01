@@ -33,20 +33,24 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         Escritorio = new javax.swing.JDesktopPane();
         Menu = new javax.swing.JMenuBar();
-        jMenu2 = new javax.swing.JMenu();
-        ABMCamarero = new javax.swing.JMenuItem();
-        ABMCliente = new javax.swing.JMenuItem();
-        ABMDepartamento = new javax.swing.JMenuItem();
+        Reservas = new javax.swing.JMenu();
+        ReservaMesa = new javax.swing.JMenuItem();
+        ReservaHabitacion = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu3 = new javax.swing.JMenu();
         ABMFactura = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        ABMCamarero = new javax.swing.JMenuItem();
+        ABMRecepcionista = new javax.swing.JMenuItem();
+        ABMDepartamento = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        ABMCliente = new javax.swing.JMenuItem();
         ABMHabitacion = new javax.swing.JMenuItem();
         ABMMesa = new javax.swing.JMenuItem();
         ABMPlato = new javax.swing.JMenuItem();
         ABMProveedor = new javax.swing.JMenuItem();
-        ABMRMesas = new javax.swing.JMenuItem();
-        ABMRecepcionista = new javax.swing.JMenuItem();
         ABMServicio = new javax.swing.JMenuItem();
         ABMTipo = new javax.swing.JMenuItem();
-        Recepcion = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -61,7 +65,42 @@ public class MenuPrincipal extends javax.swing.JFrame {
             .addGap(0, 603, Short.MAX_VALUE)
         );
 
-        jMenu2.setText("ABM");
+        Reservas.setText("Reservas");
+
+        ReservaMesa.setText("Reserva Mesa");
+        ReservaMesa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ReservaMesaActionPerformed(evt);
+            }
+        });
+        Reservas.add(ReservaMesa);
+
+        ReservaHabitacion.setText("Reserva Habitacion");
+        ReservaHabitacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ReservaHabitacionActionPerformed(evt);
+            }
+        });
+        Reservas.add(ReservaHabitacion);
+
+        Menu.add(Reservas);
+
+        jMenu1.setText("Presupuesto");
+        Menu.add(jMenu1);
+
+        jMenu3.setText("Facturacion");
+
+        ABMFactura.setText("Factura");
+        ABMFactura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ABMFacturaActionPerformed(evt);
+            }
+        });
+        jMenu3.add(ABMFactura);
+
+        Menu.add(jMenu3);
+
+        jMenu4.setText("RRHH");
 
         ABMCamarero.setText("Camarero");
         ABMCamarero.addActionListener(new java.awt.event.ActionListener() {
@@ -69,7 +108,27 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 ABMCamareroActionPerformed(evt);
             }
         });
-        jMenu2.add(ABMCamarero);
+        jMenu4.add(ABMCamarero);
+
+        ABMRecepcionista.setText("Recepcionista");
+        ABMRecepcionista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ABMRecepcionistaActionPerformed(evt);
+            }
+        });
+        jMenu4.add(ABMRecepcionista);
+
+        ABMDepartamento.setText("Departamento");
+        ABMDepartamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ABMDepartamentoActionPerformed(evt);
+            }
+        });
+        jMenu4.add(ABMDepartamento);
+
+        Menu.add(jMenu4);
+
+        jMenu2.setText("ABM");
 
         ABMCliente.setText("Cliente");
         ABMCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -78,22 +137,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu2.add(ABMCliente);
-
-        ABMDepartamento.setText("Departamento");
-        ABMDepartamento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ABMDepartamentoActionPerformed(evt);
-            }
-        });
-        jMenu2.add(ABMDepartamento);
-
-        ABMFactura.setText("Factura");
-        ABMFactura.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ABMFacturaActionPerformed(evt);
-            }
-        });
-        jMenu2.add(ABMFactura);
 
         ABMHabitacion.setText("Habitacion");
         ABMHabitacion.addActionListener(new java.awt.event.ActionListener() {
@@ -122,22 +165,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         ABMProveedor.setText("Proveedor");
         jMenu2.add(ABMProveedor);
 
-        ABMRMesas.setText("RMesas");
-        ABMRMesas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ABMRMesasActionPerformed(evt);
-            }
-        });
-        jMenu2.add(ABMRMesas);
-
-        ABMRecepcionista.setText("Recepcionista");
-        ABMRecepcionista.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ABMRecepcionistaActionPerformed(evt);
-            }
-        });
-        jMenu2.add(ABMRecepcionista);
-
         ABMServicio.setText("Servicio");
         jMenu2.add(ABMServicio);
 
@@ -150,14 +177,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu2.add(ABMTipo);
 
         Menu.add(jMenu2);
-
-        Recepcion.setText("Recepción");
-        Recepcion.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                RecepcionMouseClicked(evt);
-            }
-        });
-        Menu.add(Recepcion);
 
         setJMenuBar(Menu);
 
@@ -223,23 +242,23 @@ public class MenuPrincipal extends javax.swing.JFrame {
         miABMMesa.show();
     }//GEN-LAST:event_ABMMesaActionPerformed
 
-    private void ABMRMesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ABMRMesasActionPerformed
+    private void ReservaMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReservaMesaActionPerformed
         ReservaMesa miReservaMesa = new ReservaMesa(unaControladora);
         this.Escritorio.add(miReservaMesa);
         miReservaMesa.show();
-    }//GEN-LAST:event_ABMRMesasActionPerformed
-
-    private void RecepcionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RecepcionMouseClicked
-        Recepcion miRecepcion = new Recepcion(unaControladora);
-        this.Escritorio.add(miRecepcion);
-        miRecepcion.show();
-    }//GEN-LAST:event_RecepcionMouseClicked
+    }//GEN-LAST:event_ReservaMesaActionPerformed
 
     private void ABMPlatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ABMPlatoActionPerformed
         ABMPlato miABMPlato = new ABMPlato(unaControladora);
         this.Escritorio.add(miABMPlato);
         miABMPlato.show();
     }//GEN-LAST:event_ABMPlatoActionPerformed
+
+    private void ReservaHabitacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReservaHabitacionActionPerformed
+        Recepcion miRecepcion = new Recepcion(unaControladora);
+        this.Escritorio.add(miRecepcion);
+        miRecepcion.show();
+    }//GEN-LAST:event_ReservaHabitacionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -285,13 +304,17 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem ABMMesa;
     private javax.swing.JMenuItem ABMPlato;
     private javax.swing.JMenuItem ABMProveedor;
-    private javax.swing.JMenuItem ABMRMesas;
     private javax.swing.JMenuItem ABMRecepcionista;
     private javax.swing.JMenuItem ABMServicio;
     private javax.swing.JMenuItem ABMTipo;
     private javax.swing.JDesktopPane Escritorio;
     private javax.swing.JMenuBar Menu;
-    private javax.swing.JMenu Recepcion;
+    private javax.swing.JMenuItem ReservaHabitacion;
+    private javax.swing.JMenuItem ReservaMesa;
+    private javax.swing.JMenu Reservas;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     // End of variables declaration//GEN-END:variables
 }
