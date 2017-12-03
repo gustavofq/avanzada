@@ -5,6 +5,18 @@
  */
 package Visual;
 
+import Logica.Habitacion;
+import Logica.RHabitacion;
+import Logica.Servicio;
+import java.util.Calendar;
+import java.util.LinkedList;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+
 /**
  *
  * @author Facu
@@ -12,14 +24,94 @@ package Visual;
 public class Presupuesto extends javax.swing.JInternalFrame {
     
     ControladoraVisual unaControladoraVisual = null;
-    
+    DefaultTableModel modelo = new DefaultTableModel();
+    DefaultTableModel modelo1 = new DefaultTableModel();
+    DefaultComboBoxModel comboServicio = new DefaultComboBoxModel();
     /**
      * Creates new form Presupuesto
      */
     public Presupuesto(ControladoraVisual unaControladora) {
         initComponents();
         unaControladoraVisual = unaControladora;
+        modelo.addColumn("Numero Hab.");
+        modelo.addColumn("Tipo Hab.");
+        modelo.addColumn("Estado");
+        modelo.addColumn("Precio");
+        modelo1.addColumn("Servicio");
+        modelo1.addColumn("Descripcion");
+        modelo1.addColumn("Precio");
+        cargarComboServicio();
+        cargarTabla();
     }
+    
+    public void cargarComboServicio(){
+        
+        List<Servicio> misServicios = unaControladoraVisual.mostrarServicios();
+        
+        for (Servicio unServicio : misServicios) {
+            comboServicio.addElement(unServicio.getNombre());
+        }
+        
+        cmbServicio.setModel(comboServicio);
+        
+    }
+    
+    
+    private void cargarTabla() {
+        try {
+            
+            //ACA LIMPIAMOS LA TABLA ANTES DE CARGARLA
+            
+            DefaultTableModel modelo2 = (DefaultTableModel) tblHabitacion.getModel(); //GENERO UN NUEVO TABLE MODEL.. AL CUAL LE ASIGNO EL MODELO DE LA TABLA QUE CARGAMOS 																			CON ANTERIORIDAD
+
+            int filas = tblHabitacion.getRowCount(); ///GENERO UN INDICE PARA SABER CUANTAS FILAS TIENE MI TABLA
+
+            for (int i = 0; i < filas; i++) {    ////RECORRO EL INDICE A TRAVES DE UN CICLO FOR
+
+                modelo2.removeRow(0);   /////DE ESTA MANERA VOY QUITANDO EL SIEMPRE LA PRIMER FILA DEL MODELO...ESTO UNA VEZ FINALIZADO EL RECORRIDO DEL FOR NOS 								     ELIMINA TODOS LOS ELEMENTOS DE LA TABLA
+
+            }
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "HA OCURRIDO UN ERROR" + ex);
+        }
+
+        //ACA LA CARGAMOS
+        
+        List<Habitacion> misHabitaciones = new LinkedList();
+        
+        try {
+            
+            misHabitaciones = unaControladoraVisual.mostrarHabitaciones(); ///CARGO EN UNA COLECCION LOS ELEMENTOS QUE DESEO CARGAR; EN ESTE CASO LOS TRAIGO DESDE LA CONTROLADORA 													    VISUAL
+            
+            Object[] fila = new Object[4];  ///GENERO UN VECTOR DE TIPO OBJECT DADO QUE EN EL VOY A CARGAR DISTINTOS TIPOS DE DATOS
+
+            for (Habitacion unaHabitacion : misHabitaciones) { ///RECORRO LA LISTA UTILIZANDO UN FOR EACH
+                
+                ////AQUI LE ASIGNO A CADA ELEMENTO DE UN VECTOR LOS DATOS QUE QUIERO QUE SE MUESTREN
+                fila[0] = unaHabitacion.getId();
+                fila[1] = unaHabitacion.getUnTipo().getNombre();
+                fila[2] = unaHabitacion.getEstado();
+                fila[3] = unaHabitacion.getMontoPorNoche();
+
+                modelo.addRow(fila);  ////AGREGO A MI MODELO UNA FILA (ES IMPORTANTE SABER QUE CADA VECTOR ES UNA FILA DA LA TABLA)
+                
+            }
+            
+
+            tblHabitacion.setModel(modelo); ////UNA VEZ FINALIZADO LE ASIGNO A MI TABLA EL MODELO Y ESTO MOSTRARIA LOS DATOS 
+            
+            TableRowSorter <TableModel> ordenar = new TableRowSorter <TableModel> (modelo);
+            tblHabitacion.setRowSorter(ordenar);
+            
+            txtCantidad.setText(null);
+            
+            
+        } catch (Exception EX) {
+            JOptionPane.showMessageDialog(null, "HA OCURRIDO UN ERROR" + EX);
+        }
+}
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -40,13 +132,13 @@ public class Presupuesto extends javax.swing.JInternalFrame {
         tblHabitacion = new javax.swing.JTable();
         btnConsultar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cmbServicio = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        tblServicio = new javax.swing.JTable();
+        btnAgregar = new javax.swing.JButton();
+        btnBorrar = new javax.swing.JButton();
         lblTotal = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtCantidad = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
 
         jLabel1.setText("Fecha Entrada:");
@@ -71,12 +163,22 @@ public class Presupuesto extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(tblHabitacion);
 
         btnConsultar.setText("Consultar");
+        btnConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbServicio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblServicio.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -87,11 +189,16 @@ public class Presupuesto extends javax.swing.JInternalFrame {
                 "Servicio", "Descripcion", "Precio"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(tblServicio);
 
-        jButton1.setText("Agregar");
+        btnAgregar.setText("Agregar");
 
-        jButton3.setText("Borrar");
+        btnBorrar.setText("Borrar");
+        btnBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBorrarActionPerformed(evt);
+            }
+        });
 
         lblTotal.setText("xxx");
 
@@ -109,12 +216,12 @@ public class Presupuesto extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addGap(18, 18, 18)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(cmbServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton1)
+                                .addComponent(btnAgregar)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton3)))
+                                .addComponent(btnBorrar)))
                         .addGap(18, 18, Short.MAX_VALUE)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -131,7 +238,7 @@ public class Presupuesto extends javax.swing.JInternalFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jdcSalida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jdcEntrada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jTextField1)))
+                                    .addComponent(txtCantidad)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnConsultar)
                                 .addGap(26, 26, 26)
@@ -161,7 +268,7 @@ public class Presupuesto extends javax.swing.JInternalFrame {
                             .addComponent(jdcSalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -174,12 +281,12 @@ public class Presupuesto extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbServicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
-                            .addComponent(jButton3)))
+                            .addComponent(btnAgregar)
+                            .addComponent(btnBorrar)))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -191,13 +298,58 @@ public class Presupuesto extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+        Calendar fechaEntrada = jdcEntrada.getCalendar();
+        
+        List <RHabitacion> misRHabitaciones = unaControladoraVisual.mostrarRHabitaciones();
+              
+        Object[] fila = new Object[4];
+        
+        for (RHabitacion unaRHabitacion : misRHabitaciones) {
+            if(unaRHabitacion.getFechaSalida().before(fechaEntrada)){
+                fila[0] = unaRHabitacion.getUnaHabitacion().getId();
+                fila[1] = unaRHabitacion.getUnaHabitacion().getUnTipo().getNombre();
+                fila[2] = unaRHabitacion.getUnaHabitacion().getEstado();
+                fila[3] = unaRHabitacion.getUnaHabitacion().getMontoPorNoche();
+            }
+            modelo1.addRow(fila);
+        }
+        
+        tblHabitacion.setModel(modelo1);
+    }//GEN-LAST:event_btnConsultarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        jdcEntrada.setCalendar(null);
+        jdcSalida.setCalendar(null);
+        txtCantidad.setText(null);
+        tblHabitacion.clearSelection();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
+        Double total = 0.0;
+        
+        DefaultTableModel modelo3 = (DefaultTableModel) tblServicio.getModel();
+        
+        modelo3.removeRow(tblServicio.getSelectedRow());
+        
+        tblServicio.setModel(modelo3);
+        
+        int filas = tblServicio.getRowCount();
+
+        for (int i = 0; i < filas; i++) {
+            total = total + Double.parseDouble(tblServicio.getValueAt(i, 2).toString());
+        }
+        
+        lblTotal.setText(String.valueOf(total));
+    }//GEN-LAST:event_btnBorrarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnBorrar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnConsultar;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> cmbServicio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -205,11 +357,11 @@ public class Presupuesto extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
     private com.toedter.calendar.JDateChooser jdcEntrada;
     private com.toedter.calendar.JDateChooser jdcSalida;
     private javax.swing.JLabel lblTotal;
     private javax.swing.JTable tblHabitacion;
+    private javax.swing.JTable tblServicio;
+    private javax.swing.JTextField txtCantidad;
     // End of variables declaration//GEN-END:variables
 }

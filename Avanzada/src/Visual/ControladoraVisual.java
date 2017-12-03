@@ -351,6 +351,10 @@ public class ControladoraVisual {
     public Servicio DameElServicio(int ID) {
         return this.unHotel.DameElServicio(ID);
     }
+    
+    public Servicio DameElServicio(String nombre) {
+        return this.unHotel.DameElServicio(nombre);
+    }
 
     public void modificarServicio(String nombre, String descripcion, int precio, Servicio unServicio) throws Exception {
         this.unHotel.modificarServicio(nombre, descripcion, precio, unServicio);

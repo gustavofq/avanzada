@@ -848,6 +848,18 @@ public class Hotel {
     public Servicio DameElServicio(int ID) {
         return this.miPersistencia.dameUnServicio(ID);
     }
+    
+    public Servicio DameElServicio(String nombre) {
+        Servicio unServicio2 = null;
+        
+        for (Servicio unServicio : misServicios) {
+            if(unServicio.getNombre().equals(nombre)){
+                unServicio2 = unServicio;
+            }
+        }
+        
+        return unServicio2;
+    }
 
     public boolean comprobarServicio(int id) {
         boolean aux = false;

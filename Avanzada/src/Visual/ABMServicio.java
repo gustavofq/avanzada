@@ -88,7 +88,7 @@ public class ABMServicio extends javax.swing.JInternalFrame {
             
             txtNombre.setText(null);
             txtDescripcion.setText(null);
-            
+            txtPrecio.setText(null);
             
         } catch (Exception EX) {
             JOptionPane.showMessageDialog(null, "HA OCURRIDO UN ERROR" + EX);
