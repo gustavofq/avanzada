@@ -9,6 +9,7 @@ import Logica.Habitacion;
 import Logica.RHabitacion;
 import Logica.Servicio;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
@@ -37,7 +38,6 @@ public class Presupuesto extends javax.swing.JInternalFrame {
         unaControladoraVisual = unaControladora;
         modelo.addColumn("Numero Hab.");
         modelo.addColumn("Tipo Hab.");
-        modelo.addColumn("Estado");
         modelo.addColumn("Precio");
         modelo1.addColumn("Servicio");
         modelo1.addColumn("Descripcion");
@@ -61,6 +61,34 @@ public class Presupuesto extends javax.swing.JInternalFrame {
         
     }
     
+     public int calcularDias(Calendar fechaEntrada, Calendar fechaSalida){
+        int cantidadDias = 1;
+        boolean listo = false;
+        
+        int fecha1 = fechaEntrada.get(Calendar.DAY_OF_YEAR);
+        int fecha2 = fechaSalida.get(Calendar.DAY_OF_YEAR);
+        System.out.println("DEVUELVE:" +" "+ fecha1 +" "+ fecha2);
+        
+        
+        while(listo == false){
+            if(fecha1 == fecha2){
+                listo = true;
+                System.out.println("entro");
+            }else{
+                if(fecha1 == 365){
+                    fecha1 = 0;
+                    cantidadDias++;
+                }
+                else{
+                    
+                }
+                cantidadDias++;
+                System.out.println("NO HAY ERROR" +" "+ cantidadDias);
+            }
+        }
+        return cantidadDias;
+    }
+
     
     private void cargarTabla() {
         try {
@@ -89,15 +117,14 @@ public class Presupuesto extends javax.swing.JInternalFrame {
             
             misHabitaciones = unaControladoraVisual.mostrarHabitaciones(); ///CARGO EN UNA COLECCION LOS ELEMENTOS QUE DESEO CARGAR; EN ESTE CASO LOS TRAIGO DESDE LA CONTROLADORA 													    VISUAL
             
-            Object[] fila = new Object[4];  ///GENERO UN VECTOR DE TIPO OBJECT DADO QUE EN EL VOY A CARGAR DISTINTOS TIPOS DE DATOS
+            Object[] fila = new Object[3];  ///GENERO UN VECTOR DE TIPO OBJECT DADO QUE EN EL VOY A CARGAR DISTINTOS TIPOS DE DATOS
 
             for (Habitacion unaHabitacion : misHabitaciones) { ///RECORRO LA LISTA UTILIZANDO UN FOR EACH
                 
                 ////AQUI LE ASIGNO A CADA ELEMENTO DE UN VECTOR LOS DATOS QUE QUIERO QUE SE MUESTREN
                 fila[0] = unaHabitacion.getId();
                 fila[1] = unaHabitacion.getUnTipo().getNombre();
-                fila[2] = unaHabitacion.getEstado();
-                fila[3] = unaHabitacion.getMontoPorNoche();
+                fila[2] = unaHabitacion.getMontoPorNoche();
 
                 modelo.addRow(fila);  ////AGREGO A MI MODELO UNA FILA (ES IMPORTANTE SABER QUE CADA VECTOR ES UNA FILA DA LA TABLA)
                 
@@ -151,6 +178,8 @@ public class Presupuesto extends javax.swing.JInternalFrame {
         btnBorrarHab = new javax.swing.JButton();
         btnCalcular = new javax.swing.JButton();
         btnCancelarTotal = new javax.swing.JButton();
+        lblDias = new javax.swing.JLabel();
+        btnCalcularDias = new javax.swing.JButton();
 
         setClosable(true);
 
@@ -164,13 +193,13 @@ public class Presupuesto extends javax.swing.JInternalFrame {
 
         tblHabitacion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Numero Hab.", "Tipo Hab.", "Estado", "Precio"
+                "Numero Hab.", "Tipo Hab.", "Precio"
             }
         ));
         jScrollPane1.setViewportView(tblHabitacion);
@@ -263,6 +292,15 @@ public class Presupuesto extends javax.swing.JInternalFrame {
             }
         });
 
+        lblDias.setText("xxx");
+
+        btnCalcularDias.setText("Calcular Dias");
+        btnCalcularDias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCalcularDiasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -292,16 +330,22 @@ public class Presupuesto extends javax.swing.JInternalFrame {
                                         .addComponent(btnCancelar))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(21, 21, 21)
+                                        .addComponent(btnAgregar)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnBorrar))
+                                    .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(layout.createSequentialGroup()
-                                                .addComponent(btnAgregar)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(btnBorrar))
+                                                .addGap(50, 50, 50)
+                                                .addComponent(jLabel2))
                                             .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabel2)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(cmbServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)))
+                                                .addContainerGap()
+                                                .addComponent(btnCalcularDias)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(cmbServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(lblDias))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -327,10 +371,16 @@ public class Presupuesto extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(12, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(btnAgregarHab)
+                                    .addComponent(btnBorrarHab)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1)
@@ -346,12 +396,12 @@ public class Presupuesto extends javax.swing.JInternalFrame {
                                 .addGap(14, 14, 14)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(btnConsultar)
-                                    .addComponent(btnCancelar)))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnAgregarHab)
-                            .addComponent(btnBorrarHab))
+                                    .addComponent(btnCancelar))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(lblDias)
+                                    .addComponent(btnCalcularDias))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -372,7 +422,7 @@ public class Presupuesto extends javax.swing.JInternalFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnCalcular)
                         .addComponent(btnCancelarTotal)))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -383,14 +433,13 @@ public class Presupuesto extends javax.swing.JInternalFrame {
         Calendar fechaSalida = jdcSalida.getCalendar();
         List <RHabitacion> misRHabitaciones = unaControladoraVisual.mostrarRHabitaciones();
               
-        Object[] fila = new Object[4];
+        Object[] fila = new Object[2];
         
         for (RHabitacion unaRHabitacion : misRHabitaciones) {
             if(unaRHabitacion.getFechaSalida().before(fechaEntrada) || unaRHabitacion.getFechaEntrada().after(fechaSalida)){
                 fila[0] = unaRHabitacion.getUnaHabitacion().getId();
                 fila[1] = unaRHabitacion.getUnaHabitacion().getUnTipo().getNombre();
-                fila[2] = unaRHabitacion.getUnaHabitacion().getEstado();
-                fila[3] = unaRHabitacion.getUnaHabitacion().getMontoPorNoche();
+                fila[2] = unaRHabitacion.getUnaHabitacion().getMontoPorNoche();
             }
             modelo1.addRow(fila);
         }
@@ -446,7 +495,7 @@ public class Presupuesto extends javax.swing.JInternalFrame {
         fila[0] = tblHabitacion.getValueAt(tblHabitacion.getSelectedRow(), 1);
         fila[1] = txtCantidad.getText();
         int cant = Integer.parseInt(txtCantidad.getText());
-        Double precio = Double.parseDouble(tblHabitacion.getValueAt(tblHabitacion.getSelectedRow(), 3).toString());
+        Double precio = Double.parseDouble(tblHabitacion.getValueAt(tblHabitacion.getSelectedRow(), 2).toString());
         fila[2] = cant * precio;
         }
         else{
@@ -493,6 +542,16 @@ public class Presupuesto extends javax.swing.JInternalFrame {
         lblTotal.setText(String.valueOf(total + total1));
     }//GEN-LAST:event_btnCalcularActionPerformed
 
+    private void btnCalcularDiasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularDiasActionPerformed
+        Calendar entrada = jdcEntrada.getCalendar();
+        Calendar salida = jdcSalida.getCalendar();
+        
+        int dias = calcularDias(entrada, salida);
+        
+        lblDias.setText(String.valueOf(dias));
+        
+    }//GEN-LAST:event_btnCalcularDiasActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
@@ -500,6 +559,7 @@ public class Presupuesto extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnBorrar;
     private javax.swing.JButton btnBorrarHab;
     private javax.swing.JButton btnCalcular;
+    private javax.swing.JButton btnCalcularDias;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnCancelarTotal;
     private javax.swing.JButton btnConsultar;
@@ -514,6 +574,7 @@ public class Presupuesto extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private com.toedter.calendar.JDateChooser jdcEntrada;
     private com.toedter.calendar.JDateChooser jdcSalida;
+    private javax.swing.JLabel lblDias;
     private javax.swing.JLabel lblTotal;
     private javax.swing.JTable tblHabitacion;
     private javax.swing.JTable tblHabitacionTotal;
