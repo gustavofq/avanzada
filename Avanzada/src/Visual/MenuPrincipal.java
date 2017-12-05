@@ -168,6 +168,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu2.add(ABMPlato);
 
         ABMProveedor.setText("Proveedor");
+        ABMProveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ABMProveedorActionPerformed(evt);
+            }
+        });
         jMenu2.add(ABMProveedor);
 
         ABMServicio.setText("Servicio");
@@ -281,6 +286,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
        this.Escritorio.add(miABMServicio);
        miABMServicio.show();
     }//GEN-LAST:event_ABMServicioActionPerformed
+
+    private void ABMProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ABMProveedorActionPerformed
+       ABMProveedor miABMProveedor = new ABMProveedor(unaControladora);
+       this.Escritorio.add(miABMProveedor);
+       miABMProveedor.show();
+    }//GEN-LAST:event_ABMProveedorActionPerformed
 
     /**
      * @param args the command line arguments

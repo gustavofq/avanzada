@@ -82,7 +82,7 @@ public class ABMDepartamento extends javax.swing.JInternalFrame {
             TableRowSorter <TableModel> ordenar = new TableRowSorter <TableModel> (modelo);
             tblDepartamento.setRowSorter(ordenar);
             
-            txtID.setText(null);
+            
             txtNombre.setText(null);
             
             
@@ -110,8 +110,6 @@ public class ABMDepartamento extends javax.swing.JInternalFrame {
         btnCancelar = new javax.swing.JButton();
         txtNombre = new javax.swing.JTextField();
         btnAgregar = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        txtID = new javax.swing.JTextField();
 
         setClosable(true);
 
@@ -164,8 +162,6 @@ public class ABMDepartamento extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel1.setText("ID:");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -177,13 +173,9 @@ public class ABMDepartamento extends javax.swing.JInternalFrame {
                         .addComponent(jLabel4))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(66, 66, 66)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1))
+                        .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                            .addComponent(txtID)))
+                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(btnAgregar)
@@ -204,15 +196,11 @@ public class ABMDepartamento extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)
-                        .addGap(21, 21, 21)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addGap(34, 34, 34)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnAgregar)
                             .addComponent(btnModificar)
@@ -227,7 +215,7 @@ public class ABMDepartamento extends javax.swing.JInternalFrame {
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
 
-        int ID = Integer.parseInt(txtID.getText());
+        int ID = Integer.parseInt(tblDepartamento.getValueAt(tblDepartamento.getSelectedRow(), 0).toString());
         String nombre = txtNombre.getText();
 
         Departamento unDepartamento = unaControladoraVisual.DameElDepartamento(ID);
@@ -244,7 +232,7 @@ public class ABMDepartamento extends javax.swing.JInternalFrame {
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
 
-        int ID = Integer.parseInt(txtID.getText());
+        int ID = Integer.parseInt(tblDepartamento.getValueAt(tblDepartamento.getSelectedRow(), 0).toString());
 
         Departamento unDepartamento = unaControladoraVisual.DameElDepartamento(ID);
 
@@ -259,22 +247,20 @@ public class ABMDepartamento extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnBorrarActionPerformed
 
     private void tblDepartamentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDepartamentoMouseClicked
-        txtID.setText(tblDepartamento.getValueAt(tblDepartamento.getSelectedRow(), 0).toString());
         txtNombre.setText(tblDepartamento.getValueAt(tblDepartamento.getSelectedRow(), 1).toString());
     }//GEN-LAST:event_tblDepartamentoMouseClicked
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        txtID.setText(null);
         txtNombre.setText(null);
         cargarTabla();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        int ID = Integer.parseInt(txtID.getText());
+        
         String nombre = txtNombre.getText();
 
         try {
-            unaControladoraVisual.altaDepartamento(ID, nombre);
+            unaControladoraVisual.altaDepartamento(nombre);
         } catch (Exception ex) {
             Logger.getLogger(ABMDepartamento.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -289,12 +275,10 @@ public class ABMDepartamento extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnBorrar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnModificar;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblDepartamento;
-    private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }

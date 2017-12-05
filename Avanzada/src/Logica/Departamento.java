@@ -26,6 +26,8 @@ public class Departamento implements Serializable {
 
     public Departamento() {
     }
+    
+    
 
     public Departamento(int id, String nombre) {
         this.id = id;
@@ -35,7 +37,6 @@ public class Departamento implements Serializable {
     public Departamento(String nombre) {
         this.nombre = nombre;
     }
-    
 
     public int getId() {
         return id;

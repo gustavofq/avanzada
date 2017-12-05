@@ -99,16 +99,22 @@ public class Recepcion extends javax.swing.JInternalFrame {
                 ////AQUI LE ASIGNO A CADA ELEMENTO DE UN VECTOR LOS DATOS QUE QUIERO QUE SE MUESTREN
                 fila[0] = unaHabitacion.getId();
                 fila[1] = unaHabitacion.getUnTipo().getNombre();
-                fila[2] = unaHabitacion.getEstado();
+                boolean bandera = unaHabitacion.getEstado();
+                if(bandera == true){
+                fila[2] = "Ocupado";
+                }
+                else{
+                fila[2] = "Libre";    
+                }
 
-                modelo.addRow(fila);  ////AGREGO A MI MODELO UNA FILA (ES IMPORTANTE SABER QUE CADA VECTOR ES UNA FILA DA LA TABLA)
+                modelo1.addRow(fila);  ////AGREGO A MI MODELO UNA FILA (ES IMPORTANTE SABER QUE CADA VECTOR ES UNA FILA DA LA TABLA)
                 
             }
             
 
-            tblHabitaciones.setModel(modelo); ////UNA VEZ FINALIZADO LE ASIGNO A MI TABLA EL MODELO Y ESTO MOSTRARIA LOS DATOS 
+            tblHabitaciones.setModel(modelo1); ////UNA VEZ FINALIZADO LE ASIGNO A MI TABLA EL MODELO Y ESTO MOSTRARIA LOS DATOS 
             
-            TableRowSorter <TableModel> ordenar = new TableRowSorter <TableModel> (modelo);
+            TableRowSorter <TableModel> ordenar = new TableRowSorter <TableModel> (modelo1);
             tblHabitaciones.setRowSorter(ordenar);
             
             //txtID.setText(null);
@@ -437,6 +443,14 @@ public class Recepcion extends javax.swing.JInternalFrame {
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         int numHabitacion = Integer.parseInt(tblHabitaciones.getValueAt(tblHabitaciones.getSelectedRow(), 0).toString());
         
+        Habitacion unaHabitacion = unaControladoraVisual.DameLaHabitacion(numHabitacion);
+        
+        try {
+            unaControladoraVisual.cambiarEstadoHabitacion(unaHabitacion, false);
+        } catch (Exception ex) {
+            Logger.getLogger(Recepcion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         try {
             unaControladoraVisual.BorrarRHabitacion(numHabitacion);
         } catch (Exception ex) {
@@ -473,28 +487,30 @@ public class Recepcion extends javax.swing.JInternalFrame {
     private void btnConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultaActionPerformed
         Calendar fechaEntrada = jdcConsultaEntrada.getCalendar();
         Calendar fechaSalida = jdcConsultaSalida.getCalendar();
-        List <RHabitacion> misRHabitaciones = unaControladoraVisual.mostrarRHabitaciones();
+        List <RHabitacion> misRHabitaciones = unaControladoraVisual.filtrarReservas(fechaEntrada, fechaSalida);
                 
-        /*  int filas = tblConsulta.getRowCount(); ///GENERO UN INDICE PARA SABER CUANTAS FILAS TIENE MI TABLA
+        modelo = (DefaultTableModel) tblConsulta.getModel(); //GENERO UN NUEVO TABLE MODEL.. AL CUAL LE ASIGNO EL MODELO DE LA TABLA QUE CARGAMOS 																			CON ANTERIORIDAD
+
+            int filas = tblConsulta.getRowCount(); ///GENERO UN INDICE PARA SABER CUANTAS FILAS TIENE MI TABLA
 
             for (int i = 0; i < filas; i++) {    ////RECORRO EL INDICE A TRAVES DE UN CICLO FOR
 
-                modelo1.removeRow(0);   /////DE ESTA MANERA VOY QUITANDO EL SIEMPRE LA PRIMER FILA DEL MODELO...ESTO UNA VEZ FINALIZADO EL RECORRIDO DEL FOR NOS 								     ELIMINA TODOS LOS ELEMENTOS DE LA TABLA
+                modelo.removeRow(0);   /////DE ESTA MANERA VOY QUITANDO EL SIEMPRE LA PRIMER FILA DEL MODELO...ESTO UNA VEZ FINALIZADO EL RECORRIDO DEL FOR NOS 								     ELIMINA TODOS LOS ELEMENTOS DE LA TABLA
 
-            }*/
+            }
             
         Object[] fila = new Object[3];
         
         for (RHabitacion unaRHabitacion : misRHabitaciones) {
-            if(unaRHabitacion.getFechaSalida().before(fechaEntrada) || unaRHabitacion.getFechaEntrada().after(fechaSalida)){
+            
                 fila[0] = unaRHabitacion.getUnaHabitacion().getId();
                 fila[1] = unaRHabitacion.getUnaHabitacion().getUnTipo().getNombre();
                 fila[2] = unaRHabitacion.getUnaHabitacion().getEstado();
-            }
-            modelo1.addRow(fila);
+            
+                modelo.addRow(fila);
         }
         
-        tblConsulta.setModel(modelo1);
+        tblConsulta.setModel(modelo);
         
     }//GEN-LAST:event_btnConsultaActionPerformed
 

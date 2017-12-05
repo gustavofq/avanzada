@@ -105,6 +105,10 @@ public class ControladoraVisual {
         this.unHotel.altaDepartamento(id, nombre);
     }
     
+    public void altaDepartamento(String nombre) throws Exception {
+        this.unHotel.altaDepartamento(nombre);
+    }
+    
     public Departamento DameElDepartamento(int ID) {
         return this.unHotel.DameElDepartamento(ID);
     }
@@ -187,8 +191,8 @@ public class ControladoraVisual {
     
     //MESAS
     
-    public void altaMesa(int id, String Estado) throws Exception {
-        this.unHotel.altaMesa(id, Estado);
+    public void altaMesa(String Estado) throws Exception {
+        this.unHotel.altaMesa(Estado);
     }
     
     public Mesa DameLaMesa(int ID) {

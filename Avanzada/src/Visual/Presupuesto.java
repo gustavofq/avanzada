@@ -194,10 +194,7 @@ public class Presupuesto extends javax.swing.JInternalFrame {
 
         tblServicio.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Servicio", "Descripcion", "Precio"
@@ -225,10 +222,7 @@ public class Presupuesto extends javax.swing.JInternalFrame {
 
         tblHabitacionTotal.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Tipo Hab.", "Cantidad", "Total"
@@ -374,7 +368,6 @@ public class Presupuesto extends javax.swing.JInternalFrame {
                                     .addComponent(lblDias)
                                     .addComponent(btnCalcularDias))
                                 .addGap(0, 0, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -404,8 +397,9 @@ public class Presupuesto extends javax.swing.JInternalFrame {
         Calendar fechaEntrada = jdcEntrada.getCalendar();
         Calendar fechaSalida = jdcSalida.getCalendar();
         List <RHabitacion> misRHabitaciones = unaControladoraVisual.filtrarReservas(fechaEntrada, fechaSalida);
-              
-        modelo = (DefaultTableModel) tblHabitacion.getModel(); //GENERO UN NUEVO TABLE MODEL.. AL CUAL LE ASIGNO EL MODELO DE LA TABLA QUE CARGAMOS 																			CON ANTERIORIDAD
+        
+        
+            modelo = (DefaultTableModel) tblHabitacion.getModel(); //GENERO UN NUEVO TABLE MODEL.. AL CUAL LE ASIGNO EL MODELO DE LA TABLA QUE CARGAMOS 																			CON ANTERIORIDAD
 
             int filas = tblHabitacion.getRowCount(); ///GENERO UN INDICE PARA SABER CUANTAS FILAS TIENE MI TABLA
 
@@ -415,7 +409,7 @@ public class Presupuesto extends javax.swing.JInternalFrame {
 
             }
         
-        Object[] fila = new Object[3];
+            Object[] fila = new Object[3];
         
         for (RHabitacion unaRHabitacion : misRHabitaciones) {
             fila[0] = unaRHabitacion.getUnaHabitacion().getId();
@@ -435,14 +429,12 @@ public class Presupuesto extends javax.swing.JInternalFrame {
         jdcSalida.setCalendar(null);
         txtCantidad.setText(null);
         tblHabitacion.clearSelection();
-        lblDias.setText(null);
+        lblDias.setText("");
         cargarTabla();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
-        Double total = 0.0;
-        Double total1 = 0.0;
-        
+ 
         DefaultTableModel modelo3 = (DefaultTableModel) tblServicio.getModel();
         
         modelo3.removeRow(tblServicio.getSelectedRow());
@@ -475,19 +467,25 @@ public class Presupuesto extends javax.swing.JInternalFrame {
         
         
         if(unVerificador.campoVacio(txtCantidad)){
-        fila[0] = tblHabitacion.getValueAt(tblHabitacion.getSelectedRow(), 1);
-        fila[1] = txtCantidad.getText();
-        int cant = Integer.parseInt(txtCantidad.getText());
-        Double precio = Double.parseDouble(tblHabitacion.getValueAt(tblHabitacion.getSelectedRow(), 2).toString());
-        int dias = unaControladoraVisual.calcularDias(jdcEntrada.getCalendar(), jdcSalida.getCalendar());
-        fila[2] = cant * precio * dias;
+                if((!lblDias.getText().equals(""))){
+                    fila[0] = tblHabitacion.getValueAt(tblHabitacion.getSelectedRow(), 1);
+                    fila[1] = txtCantidad.getText();
+                    int cant = Integer.parseInt(txtCantidad.getText());
+                    Double precio = Double.parseDouble(tblHabitacion.getValueAt(tblHabitacion.getSelectedRow(), 2).toString());
+                    int dias = unaControladoraVisual.calcularDias(jdcEntrada.getCalendar(), jdcSalida.getCalendar());
+                    fila[2] = cant * precio * dias;
+                    
+                    modelo2.addRow(fila);
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "DEBE CALCULAR DIAS INGRESANDO FECHAS");
+                }
         }
         else{
-        JOptionPane.showMessageDialog(null, "DEBE INGRESAR UNA CANTIDAD EN CANTIDAD");
+        JOptionPane.showMessageDialog(null, "DEBE INGRESAR UNA CANTIDAD");
         }
-
-        modelo2.addRow(fila);
         
+
         tblHabitacionTotal.setModel(modelo2);
         
     }//GEN-LAST:event_btnAgregarHabActionPerformed
@@ -495,9 +493,9 @@ public class Presupuesto extends javax.swing.JInternalFrame {
     private void btnBorrarHabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarHabActionPerformed
  
         DefaultTableModel modelo3 = (DefaultTableModel) tblHabitacionTotal.getModel();
-        
+        if(tblHabitacionTotal.getSelectedRow() != -1){
         modelo3.removeRow(tblHabitacionTotal.getSelectedRow());
-        
+        }
         tblHabitacionTotal.setModel(modelo3);
         
     }//GEN-LAST:event_btnBorrarHabActionPerformed
@@ -514,13 +512,17 @@ public class Presupuesto extends javax.swing.JInternalFrame {
         
         int fila = tblHabitacionTotal.getRowCount();
         int fila2 = tblServicio.getRowCount();
-        
-        for (int i = 0; i < fila; i++) {
-            total = total + Double.parseDouble(tblHabitacionTotal.getValueAt(i, 2).toString());
+
+        if(fila != 0){
+            for (int i = 0; i < fila; i++) {
+                total = total + Double.parseDouble(tblHabitacionTotal.getValueAt(i, 2).toString());
+            }
         }
         
-        for (int i = 0; i < fila2; i++) {
-            total1 = total1 + Double.parseDouble(tblServicio.getValueAt(i, 2).toString());
+        if(fila2 != 0){
+            for (int i = 0; i < fila2; i++) {
+                total1 = total1 + Double.parseDouble(tblServicio.getValueAt(i, 2).toString());
+            }
         }
         
         lblTotal.setText(String.valueOf(total + total1));

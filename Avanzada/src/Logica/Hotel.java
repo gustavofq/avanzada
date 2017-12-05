@@ -514,12 +514,10 @@ public class Hotel {
     
     //MESAS
     
-    public void altaMesa(int id, String Estado) throws Exception {
-        if (comprobarMesa(id) == false) {
-            Mesa unaMesa = new Mesa(id, Estado);
+    public void altaMesa(String Estado) throws Exception {
+            Mesa unaMesa = new Mesa(Estado);
             misMesas.add(unaMesa);
             miPersistencia.AltaMesa(unaMesa);
-        }
     }
     
     public Mesa DameLaMesa(int ID) {

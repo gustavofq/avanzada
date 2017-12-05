@@ -82,7 +82,7 @@ public class ABMMesa extends javax.swing.JInternalFrame {
             TableRowSorter <TableModel> ordenar = new TableRowSorter <TableModel> (modelo);
             tblMesas.setRowSorter(ordenar);
             
-            txtID.setText(null);
+            
             txtEstado.setText(null);
             
             
@@ -102,8 +102,6 @@ public class ABMMesa extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         btnAgregar = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        txtID = new javax.swing.JTextField();
         btnModificar = new javax.swing.JButton();
         btnBorrar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -121,8 +119,6 @@ public class ABMMesa extends javax.swing.JInternalFrame {
                 btnAgregarActionPerformed(evt);
             }
         });
-
-        jLabel1.setText("ID:");
 
         btnModificar.setText("Modificar");
         btnModificar.addActionListener(new java.awt.event.ActionListener() {
@@ -172,31 +168,26 @@ public class ABMMesa extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel4)
+                        .addGap(138, 138, 138))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(66, 66, 66)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel1))
+                                .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtEstado, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                                    .addComponent(txtID)))
+                                .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
                                 .addComponent(btnAgregar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnModificar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnBorrar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnCancelar)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel4)
-                        .addGap(138, 138, 138)))
+                                .addComponent(btnBorrar)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCancelar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -207,15 +198,11 @@ public class ABMMesa extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)
-                        .addGap(21, 21, 21)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addGap(34, 34, 34)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnAgregar)
                             .addComponent(btnModificar)
@@ -229,11 +216,11 @@ public class ABMMesa extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        int ID = Integer.parseInt(txtID.getText());
+        
         String estado = txtEstado.getText();
 
         try {
-            unaControladoraVisual.altaMesa(ID, estado);
+            unaControladoraVisual.altaMesa(estado);
         } catch (Exception ex) {
             Logger.getLogger(ABMMesa.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -243,7 +230,7 @@ public class ABMMesa extends javax.swing.JInternalFrame {
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
 
-        int ID = Integer.parseInt(txtID.getText());
+        int ID = Integer.parseInt(tblMesas.getValueAt(tblMesas.getSelectedRow(), 0).toString());
         String estado = txtEstado.getText();
 
         Mesa unaMesa = unaControladoraVisual.DameLaMesa(ID);
@@ -259,7 +246,7 @@ public class ABMMesa extends javax.swing.JInternalFrame {
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
 
-        int ID = Integer.parseInt(txtID.getText());
+        int ID = Integer.parseInt(tblMesas.getValueAt(tblMesas.getSelectedRow(), 0).toString());
 
         Mesa unaMesa = unaControladoraVisual.DameLaMesa(ID);
 
@@ -273,12 +260,10 @@ public class ABMMesa extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnBorrarActionPerformed
 
     private void tblMesasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMesasMouseClicked
-        txtID.setText(tblMesas.getValueAt(tblMesas.getSelectedRow(), 0).toString());
         txtEstado.setText(tblMesas.getValueAt(tblMesas.getSelectedRow(), 1).toString());
     }//GEN-LAST:event_tblMesasMouseClicked
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        txtID.setText(null);
         txtEstado.setText(null);
         cargarTabla();
     }//GEN-LAST:event_btnCancelarActionPerformed
@@ -289,12 +274,10 @@ public class ABMMesa extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnBorrar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnModificar;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblMesas;
     private javax.swing.JTextField txtEstado;
-    private javax.swing.JTextField txtID;
     // End of variables declaration//GEN-END:variables
 }
