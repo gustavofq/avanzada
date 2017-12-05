@@ -997,11 +997,24 @@ public class Hotel {
     
     
     
+    public int calcularDias(Calendar fechaEntrada, Calendar fechaSalida){
+        RHabitacion unaRHabitacion = new RHabitacion();
+        return unaRHabitacion.calcularDias(fechaEntrada, fechaSalida);
+    }
     
     
     
-    
-    
+    public List<RHabitacion> filtrarReservas(Calendar fechaEntrada, Calendar fechaSalida){
+        List<RHabitacion> listaRHabitaciones = new LinkedList();
+        
+        for (RHabitacion unaRHabitacion : misRHabitaciones) {
+            if(unaRHabitacion.getFechaSalida().before(fechaEntrada) || unaRHabitacion.getFechaEntrada().after(fechaSalida)){
+                listaRHabitaciones.add(unaRHabitacion);
+            }
+        }
+        
+        return listaRHabitaciones;
+    }
     
     
     

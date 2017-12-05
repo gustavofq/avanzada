@@ -61,47 +61,19 @@ public class Presupuesto extends javax.swing.JInternalFrame {
         
     }
     
-     public int calcularDias(Calendar fechaEntrada, Calendar fechaSalida){
-        int cantidadDias = 1;
-        boolean listo = false;
-        
-        int fecha1 = fechaEntrada.get(Calendar.DAY_OF_YEAR);
-        int fecha2 = fechaSalida.get(Calendar.DAY_OF_YEAR);
-        System.out.println("DEVUELVE:" +" "+ fecha1 +" "+ fecha2);
-        
-        
-        while(listo == false){
-            if(fecha1 == fecha2){
-                listo = true;
-                System.out.println("entro");
-            }else{
-                if(fecha1 == 365){
-                    fecha1 = 0;
-                    cantidadDias++;
-                }
-                else{
-                    
-                }
-                cantidadDias++;
-                System.out.println("NO HAY ERROR" +" "+ cantidadDias);
-            }
-        }
-        return cantidadDias;
-    }
-
     
     private void cargarTabla() {
         try {
             
             //ACA LIMPIAMOS LA TABLA ANTES DE CARGARLA
             
-            DefaultTableModel modelo2 = (DefaultTableModel) tblHabitacion.getModel(); //GENERO UN NUEVO TABLE MODEL.. AL CUAL LE ASIGNO EL MODELO DE LA TABLA QUE CARGAMOS 																			CON ANTERIORIDAD
+            DefaultTableModel modelo4 = (DefaultTableModel) tblHabitacion.getModel(); //GENERO UN NUEVO TABLE MODEL.. AL CUAL LE ASIGNO EL MODELO DE LA TABLA QUE CARGAMOS 																			CON ANTERIORIDAD
 
             int filas = tblHabitacion.getRowCount(); ///GENERO UN INDICE PARA SABER CUANTAS FILAS TIENE MI TABLA
 
             for (int i = 0; i < filas; i++) {    ////RECORRO EL INDICE A TRAVES DE UN CICLO FOR
 
-                modelo2.removeRow(0);   /////DE ESTA MANERA VOY QUITANDO EL SIEMPRE LA PRIMER FILA DEL MODELO...ESTO UNA VEZ FINALIZADO EL RECORRIDO DEL FOR NOS 								     ELIMINA TODOS LOS ELEMENTOS DE LA TABLA
+                modelo4.removeRow(0);   /////DE ESTA MANERA VOY QUITANDO EL SIEMPRE LA PRIMER FILA DEL MODELO...ESTO UNA VEZ FINALIZADO EL RECORRIDO DEL FOR NOS 								     ELIMINA TODOS LOS ELEMENTOS DE LA TABLA
 
             }
 
@@ -431,20 +403,21 @@ public class Presupuesto extends javax.swing.JInternalFrame {
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
         Calendar fechaEntrada = jdcEntrada.getCalendar();
         Calendar fechaSalida = jdcSalida.getCalendar();
-        List <RHabitacion> misRHabitaciones = unaControladoraVisual.mostrarRHabitaciones();
+        List <RHabitacion> misRHabitaciones = unaControladoraVisual.filtrarReservas(fechaEntrada, fechaSalida);
               
         Object[] fila = new Object[2];
         
         for (RHabitacion unaRHabitacion : misRHabitaciones) {
-            if(unaRHabitacion.getFechaSalida().before(fechaEntrada) || unaRHabitacion.getFechaEntrada().after(fechaSalida)){
-                fila[0] = unaRHabitacion.getUnaHabitacion().getId();
-                fila[1] = unaRHabitacion.getUnaHabitacion().getUnTipo().getNombre();
-                fila[2] = unaRHabitacion.getUnaHabitacion().getMontoPorNoche();
-            }
+            fila[0] = unaRHabitacion.getUnaHabitacion().getId();
+            fila[1] = unaRHabitacion.getUnaHabitacion().getUnTipo().getNombre();
+            fila[2] = unaRHabitacion.getUnaHabitacion().getMontoPorNoche();
+            
             modelo1.addRow(fila);
-        }
+        }    
+            
         
         tblHabitacion.setModel(modelo1);
+        
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -496,7 +469,8 @@ public class Presupuesto extends javax.swing.JInternalFrame {
         fila[1] = txtCantidad.getText();
         int cant = Integer.parseInt(txtCantidad.getText());
         Double precio = Double.parseDouble(tblHabitacion.getValueAt(tblHabitacion.getSelectedRow(), 2).toString());
-        fila[2] = cant * precio;
+        int dias = unaControladoraVisual.calcularDias(jdcEntrada.getCalendar(), jdcSalida.getCalendar());
+        fila[2] = cant * precio * dias;
         }
         else{
         JOptionPane.showMessageDialog(null, "DEBE INGRESAR UNA CANTIDAD EN CANTIDAD");
@@ -546,7 +520,7 @@ public class Presupuesto extends javax.swing.JInternalFrame {
         Calendar entrada = jdcEntrada.getCalendar();
         Calendar salida = jdcSalida.getCalendar();
         
-        int dias = calcularDias(entrada, salida);
+        int dias = unaControladoraVisual.calcularDias(entrada, salida);
         
         lblDias.setText(String.valueOf(dias));
         
