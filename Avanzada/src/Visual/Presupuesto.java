@@ -405,18 +405,28 @@ public class Presupuesto extends javax.swing.JInternalFrame {
         Calendar fechaSalida = jdcSalida.getCalendar();
         List <RHabitacion> misRHabitaciones = unaControladoraVisual.filtrarReservas(fechaEntrada, fechaSalida);
               
-        Object[] fila = new Object[2];
+        modelo = (DefaultTableModel) tblHabitacion.getModel(); //GENERO UN NUEVO TABLE MODEL.. AL CUAL LE ASIGNO EL MODELO DE LA TABLA QUE CARGAMOS 																			CON ANTERIORIDAD
+
+            int filas = tblHabitacion.getRowCount(); ///GENERO UN INDICE PARA SABER CUANTAS FILAS TIENE MI TABLA
+
+            for (int i = 0; i < filas; i++) {    ////RECORRO EL INDICE A TRAVES DE UN CICLO FOR
+
+                modelo.removeRow(0);   /////DE ESTA MANERA VOY QUITANDO EL SIEMPRE LA PRIMER FILA DEL MODELO...ESTO UNA VEZ FINALIZADO EL RECORRIDO DEL FOR NOS 								     ELIMINA TODOS LOS ELEMENTOS DE LA TABLA
+
+            }
+        
+        Object[] fila = new Object[3];
         
         for (RHabitacion unaRHabitacion : misRHabitaciones) {
             fila[0] = unaRHabitacion.getUnaHabitacion().getId();
             fila[1] = unaRHabitacion.getUnaHabitacion().getUnTipo().getNombre();
             fila[2] = unaRHabitacion.getUnaHabitacion().getMontoPorNoche();
             
-            modelo1.addRow(fila);
+            modelo.addRow(fila);
         }    
             
         
-        tblHabitacion.setModel(modelo1);
+        tblHabitacion.setModel(modelo);
         
     }//GEN-LAST:event_btnConsultarActionPerformed
 
@@ -425,7 +435,7 @@ public class Presupuesto extends javax.swing.JInternalFrame {
         jdcSalida.setCalendar(null);
         txtCantidad.setText(null);
         tblHabitacion.clearSelection();
-        
+        lblDias.setText(null);
         cargarTabla();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
