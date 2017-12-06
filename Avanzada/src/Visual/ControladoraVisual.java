@@ -412,12 +412,12 @@ public class ControladoraVisual {
     }
 
     
-    public void modificarFechas(int numHabitacion, Calendar fechaEntrada, Calendar fechaSalida) throws Exception{
-        this.unHotel.modificarFechas(numHabitacion, fechaEntrada, fechaSalida);
+    public void modificarFechas(RHabitacion unaRHabitacion, Calendar fechaEntrada, Calendar fechaSalida) throws Exception{
+        this.unHotel.modificarFechas(unaRHabitacion, fechaEntrada, fechaSalida);
     }
     
-    public void BorrarRHabitacion(int numHabitacion) throws Exception{
-        this.unHotel.BorrarRHabitacion(numHabitacion);
+    public void BorrarRHabitacion(RHabitacion unaRHabitacion) throws Exception{
+        this.unHotel.BorrarRHabitacion(unaRHabitacion);
     }
     
     public RHabitacion dameUnaReservaHabitacion(int numHabitacion) {
