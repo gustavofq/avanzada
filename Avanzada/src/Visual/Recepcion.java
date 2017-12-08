@@ -137,9 +137,6 @@ public class Recepcion extends javax.swing.JInternalFrame {
             tblHabitaciones.setModel(modelo1); ////UNA VEZ FINALIZADO LE ASIGNO A MI TABLA EL MODELO Y ESTO MOSTRARIA LOS DATOS 
 
             
-            txtDni.setText(null);
-            lblCliente.setText(null);
-            
         } catch (Exception EX) {
             JOptionPane.showMessageDialog(null, "HA OCURRIDO UN ERROR" + EX);
         }
@@ -179,9 +176,7 @@ public class Recepcion extends javax.swing.JInternalFrame {
             
             tblReservas.setModel(modelo2); ////UNA VEZ FINALIZADO LE ASIGNO A MI TABLA EL MODELO Y ESTO MOSTRARIA LOS DATOS 
 
-            
-            txtDni.setText(null);
-            lblCliente.setText(null);
+
             
         } catch (Exception EX) {
             JOptionPane.showMessageDialog(null, "HA OCURRIDO UN ERROR" + EX);
@@ -273,11 +268,6 @@ public class Recepcion extends javax.swing.JInternalFrame {
                 "Número", "Tipo", "Estado"
             }
         ));
-        tblHabitaciones.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblHabitacionesMouseClicked(evt);
-            }
-        });
         jScrollPane1.setViewportView(tblHabitaciones);
 
         btnBuscar.setText("Buscar");
@@ -485,11 +475,53 @@ public class Recepcion extends javax.swing.JInternalFrame {
         Calendar fechaEntrada = jdcInicio.getCalendar();
         Calendar fechaSalida = jdcSalida.getCalendar();
         int cantidad = 1;
-        int dni = Integer.parseInt(txtDni.getText());
+        List<RHabitacion> misRHabitaciones = null;
+        boolean bandera = false;
+        
+        
         if(unVerificador.campoVacio(txtDni)){
+            
+           int dni = Integer.parseInt(txtDni.getText());
+            
            if(fechaEntrada != null && fechaSalida != null){
-               if(unaControladoraVisual.filtrarReservas(fechaEntrada, fechaSalida) != null){
-                   
+               
+               misRHabitaciones = unaControladoraVisual.filtrarReservas(fechaEntrada, fechaSalida);
+               
+               if(misRHabitaciones != null){
+                                    
+                    Habitacion unaHabitacion = unaControladoraVisual.DameLaHabitacion(Integer.parseInt(tblHabitaciones.getValueAt(tblHabitaciones.getSelectedRow(), 0).toString()));
+        
+                    for(RHabitacion unaRHabitacion : misRHabitaciones){
+                        
+                        if(unaRHabitacion.getUnaHabitacion().getId() == unaHabitacion.getId()){
+                            
+                            try {
+                                unaControladoraVisual.cambiarEstadoHabitacion(unaHabitacion, true);
+                            } catch (Exception ex) {
+                                Logger.getLogger(Recepcion.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+        
+                            Cliente unCliente = unaControladoraVisual.DameElCliente(dni);
+        
+                            try {
+                                unaControladoraVisual.altaRHabitacion(fechaEntrada, fechaSalida, cantidad, unaHabitacion, unCliente);
+                            } catch (Exception ex) {
+                                Logger.getLogger(Recepcion.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            
+                            bandera = true ;
+                            
+                        }
+                        
+                    }
+                    
+                    if(bandera == false){
+                        JOptionPane.showMessageDialog(null, "NO HAY RESERVA PARA ESTA HABITACION");
+                    }
+                    
+               }
+               else{
+                 JOptionPane.showMessageDialog(null, "NO HAY HABITACIONES DISPONIBLES");  
                }
            }
            else{
@@ -499,52 +531,9 @@ public class Recepcion extends javax.swing.JInternalFrame {
         else{
             JOptionPane.showMessageDialog(null, "FALTA BUSCAR UN DNI");
         }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        Habitacion unaHabitacion = unaControladoraVisual.DameLaHabitacion(Integer.parseInt(tblHabitaciones.getValueAt(tblHabitaciones.getSelectedRow(), 0).toString()));
-        
-        try {
-            unaControladoraVisual.cambiarEstadoHabitacion(unaHabitacion, true);
-        } catch (Exception ex) {
-            Logger.getLogger(Recepcion.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        Cliente unCliente = unaControladoraVisual.DameElCliente(dni);
-        
-        try {
-            unaControladoraVisual.altaRHabitacion(fechaEntrada, fechaSalida, cantidad, unaHabitacion, unCliente);
-        } catch (Exception ex) {
-            Logger.getLogger(Recepcion.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+
         cargarTabla();
     }//GEN-LAST:event_btnReservarActionPerformed
-
-    private void tblHabitacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHabitacionesMouseClicked
-        int numHabitacion = Integer.parseInt(tblHabitaciones.getValueAt(tblHabitaciones.getSelectedRow(), 0).toString());
-
-        RHabitacion unaRHabitacion = unaControladoraVisual.dameUnaReservaHabitacion(numHabitacion);
-        if(unaRHabitacion == null){
-        lblCliente.setText(null);
-        jdcInicio.setCalendar(null);
-        jdcSalida.setCalendar(null);
-        }
-        else{
-        txtDni.setText(String.valueOf(unaRHabitacion.getUnCliente().getDni()));
-        lblCliente.setText(unaRHabitacion.getUnCliente().getNombre() +""+ unaRHabitacion.getUnCliente().getApellido());
-        jdcInicio.setCalendar(unaRHabitacion.getFechaEntrada());
-        jdcSalida.setCalendar(unaRHabitacion.getFechaSalida());    
-        }
-        
-        
-    }//GEN-LAST:event_tblHabitacionesMouseClicked
 
     private void btnModficarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModficarActionPerformed
         int id = Integer.parseInt(tblReservas.getValueAt(tblReservas.getSelectedRow(), 0).toString());

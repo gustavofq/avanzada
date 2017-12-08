@@ -1062,7 +1062,4 @@ public class Hotel {
     
     
     
-    
-    
-    
 }
