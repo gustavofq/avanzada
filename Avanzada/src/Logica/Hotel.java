@@ -985,16 +985,51 @@ public class Hotel {
     
     
     
-    public List<RHabitacion> filtrarReservas(Calendar fechaEntrada, Calendar fechaSalida){
-        List<RHabitacion> listaRHabitaciones = new LinkedList();
+    public List<Habitacion> filtrarReservas(Calendar fechaEntrada, Calendar fechaSalida){
+        
+        List<Habitacion> listaHabitaciones = new LinkedList();
+        boolean bandera = false, encontre = false;
+        
+        
+        
+        for (Habitacion unaHab : misHabitaciones) {
+            for(RHabitacion unaRHabitacion : misRHabitaciones){
+                if(unaHab.getId() == unaRHabitacion.getUnaHabitacion().getId()){
+                    encontre = true;
+                }
+                
+            }
+            
+            if(encontre == false){
+                listaHabitaciones.add(unaHab);
+            }
+            
+            encontre = false;
+            
+        }
+        
         
         for (RHabitacion unaRHabitacion : misRHabitaciones) {
             if(unaRHabitacion.getFechaSalida().before(fechaEntrada) || unaRHabitacion.getFechaEntrada().after(fechaSalida)){
-                listaRHabitaciones.add(unaRHabitacion);
+                
+                Habitacion unaHabitacion1 = unaRHabitacion.getUnaHabitacion();
+                
+                for (Habitacion unaHabitacion : listaHabitaciones) {
+                    if(unaHabitacion.getId() == unaHabitacion1.getId()){
+                        bandera = true;
+                    }
+                    
+                }
+                
+                if(bandera == false){
+                   listaHabitaciones.add(unaHabitacion1); 
+                }
+                
+                bandera = false;
             }
         }
         
-        return listaRHabitaciones;
+        return listaHabitaciones;
     }
     
     

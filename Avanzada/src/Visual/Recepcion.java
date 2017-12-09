@@ -475,7 +475,6 @@ public class Recepcion extends javax.swing.JInternalFrame {
         Calendar fechaEntrada = jdcInicio.getCalendar();
         Calendar fechaSalida = jdcSalida.getCalendar();
         int cantidad = 1;
-        List<RHabitacion> misRHabitaciones = null;
         boolean bandera = false;
         
         
@@ -485,15 +484,16 @@ public class Recepcion extends javax.swing.JInternalFrame {
             
            if(fechaEntrada != null && fechaSalida != null){
                
-               misRHabitaciones = unaControladoraVisual.filtrarReservas(fechaEntrada, fechaSalida);
+               List<Habitacion> misHabitaciones = unaControladoraVisual.filtrarReservas(fechaEntrada, fechaSalida);
                
-               if(misRHabitaciones != null){
-                                    
-                    Habitacion unaHabitacion = unaControladoraVisual.DameLaHabitacion(Integer.parseInt(tblHabitaciones.getValueAt(tblHabitaciones.getSelectedRow(), 0).toString()));
+                if(misHabitaciones != null){
+                    
+                    int idHab = Integer.parseInt(tblHabitaciones.getValueAt(tblHabitaciones.getSelectedRow(), 0).toString());                
+                    Habitacion unaHabitacion = unaControladoraVisual.DameLaHabitacion(idHab);
         
-                    for(RHabitacion unaRHabitacion : misRHabitaciones){
+                    for(Habitacion unaHabitacion2 : misHabitaciones){
                         
-                        if(unaRHabitacion.getUnaHabitacion().getId() == unaHabitacion.getId()){
+                        if(unaHabitacion2.getId() == unaHabitacion.getId()){
                             
                             try {
                                 unaControladoraVisual.cambiarEstadoHabitacion(unaHabitacion, true);
@@ -519,10 +519,10 @@ public class Recepcion extends javax.swing.JInternalFrame {
                         JOptionPane.showMessageDialog(null, "NO HAY RESERVA PARA ESTA HABITACION");
                     }
                     
-               }
-               else{
+                }
+                else{
                  JOptionPane.showMessageDialog(null, "NO HAY HABITACIONES DISPONIBLES");  
-               }
+                }
            }
            else{
                JOptionPane.showMessageDialog(null, "FALTA PONER UNA FECHA DE ENTRADA O SALIDA");
@@ -605,7 +605,7 @@ public class Recepcion extends javax.swing.JInternalFrame {
     private void btnConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultaActionPerformed
         Calendar fechaEntrada = jdcConsultaEntrada.getCalendar();
         Calendar fechaSalida = jdcConsultaSalida.getCalendar();
-        List <RHabitacion> misRHabitaciones = unaControladoraVisual.filtrarReservas(fechaEntrada, fechaSalida);
+        List <Habitacion> misHabitaciones = unaControladoraVisual.filtrarReservas(fechaEntrada, fechaSalida);
                 
         modelo = (DefaultTableModel) tblConsulta.getModel(); //GENERO UN NUEVO TABLE MODEL.. AL CUAL LE ASIGNO EL MODELO DE LA TABLA QUE CARGAMOS 																			CON ANTERIORIDAD
 
@@ -619,11 +619,11 @@ public class Recepcion extends javax.swing.JInternalFrame {
             
         Object[] fila = new Object[3];
         
-        for (RHabitacion unaRHabitacion : misRHabitaciones) {
+        for (Habitacion unaHabitacion : misHabitaciones) {
             
-                fila[0] = unaRHabitacion.getUnaHabitacion().getId();
-                fila[1] = unaRHabitacion.getUnaHabitacion().getUnTipo().getNombre();
-                fila[2] = unaRHabitacion.getUnaHabitacion().getEstado();
+                fila[0] = unaHabitacion.getId();
+                fila[1] = unaHabitacion.getUnTipo().getNombre();
+                fila[2] = unaHabitacion.getEstado();
             
                 modelo.addRow(fila);
         }

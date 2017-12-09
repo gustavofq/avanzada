@@ -395,7 +395,7 @@ public class Presupuesto extends javax.swing.JInternalFrame {
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
         Calendar fechaEntrada = jdcEntrada.getCalendar();
         Calendar fechaSalida = jdcSalida.getCalendar();
-        List <RHabitacion> misRHabitaciones = unaControladoraVisual.filtrarReservas(fechaEntrada, fechaSalida);
+        List <Habitacion> misHabitaciones = unaControladoraVisual.filtrarReservas(fechaEntrada, fechaSalida);
         
         
             modelo = (DefaultTableModel) tblHabitacion.getModel(); //GENERO UN NUEVO TABLE MODEL.. AL CUAL LE ASIGNO EL MODELO DE LA TABLA QUE CARGAMOS 																			CON ANTERIORIDAD
@@ -410,10 +410,10 @@ public class Presupuesto extends javax.swing.JInternalFrame {
         
             Object[] fila = new Object[3];
         
-        for (RHabitacion unaRHabitacion : misRHabitaciones) {
-            fila[0] = unaRHabitacion.getUnaHabitacion().getId();
-            fila[1] = unaRHabitacion.getUnaHabitacion().getUnTipo().getNombre();
-            fila[2] = unaRHabitacion.getUnaHabitacion().getMontoPorNoche();
+        for (Habitacion unaHabitacion : misHabitaciones) {
+            fila[0] = unaHabitacion.getId();
+            fila[1] = unaHabitacion.getUnTipo().getNombre();
+            fila[2] = unaHabitacion.getMontoPorNoche();
             
             modelo.addRow(fila);
         }    

@@ -429,7 +429,7 @@ public class ControladoraVisual {
         return this.unHotel.calcularDias(fechaEntrada, fechaSalida);
     }
     
-    public List<RHabitacion> filtrarReservas(Calendar fechaEntrada, Calendar fechaSalida){
+    public List<Habitacion> filtrarReservas(Calendar fechaEntrada, Calendar fechaSalida){
         return this.unHotel.filtrarReservas(fechaEntrada, fechaSalida);
     }
     
