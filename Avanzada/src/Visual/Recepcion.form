@@ -91,6 +91,10 @@
                               <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="lblCliente" min="-2" pref="152" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="lblHabitacion" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
@@ -149,6 +153,8 @@
                           <Component id="txtDni" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel6" alignment="3" max="32767" attributes="0"/>
                           <Component id="lblCliente" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblHabitacion" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
@@ -289,6 +295,9 @@
               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblHabitacionesMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -429,5 +438,15 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JLabel" name="jLabel3">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Habitacion:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblHabitacion">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="xxx"/>
+      </Properties>
+    </Component>
   </SubComponents>
 </Form>

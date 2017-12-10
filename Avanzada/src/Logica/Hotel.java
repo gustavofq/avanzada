@@ -8,6 +8,8 @@ package Logica;
 import Persistencia.ControladoraPersistencia;
 import Persistencia.exceptions.NonexistentEntityException;
 import Visual.MenuPrincipal;
+import com.itextpdf.text.DocumentException;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -1034,7 +1036,10 @@ public class Hotel {
     
     
     
-    
+    public void imprimirFactura(String tipo, String cliente, Double total, List<DetalleFactura> unosDetalles) throws DocumentException, IOException{
+        ImprimirFactura imprimir = new ImprimirFactura();
+        imprimir.PDF(tipo, cliente, total, unosDetalles);
+    }
     
     
     

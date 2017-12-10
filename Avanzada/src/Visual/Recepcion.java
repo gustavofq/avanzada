@@ -220,6 +220,8 @@ public class Recepcion extends javax.swing.JInternalFrame {
         btnCancelarConsulta = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblReservas = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
+        lblHabitacion = new javax.swing.JLabel();
 
         setClosable(true);
         setMaximizable(true);
@@ -268,6 +270,11 @@ public class Recepcion extends javax.swing.JInternalFrame {
                 "Número", "Tipo", "Estado"
             }
         ));
+        tblHabitaciones.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblHabitacionesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblHabitaciones);
 
         btnBuscar.setText("Buscar");
@@ -326,6 +333,10 @@ public class Recepcion extends javax.swing.JInternalFrame {
         ));
         jScrollPane3.setViewportView(tblReservas);
 
+        jLabel3.setText("Habitacion:");
+
+        lblHabitacion.setText("xxx");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -376,7 +387,11 @@ public class Recepcion extends javax.swing.JInternalFrame {
                                 .addGap(32, 32, 32)
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(lblCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblHabitacion))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(32, 32, 32)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -420,7 +435,9 @@ public class Recepcion extends javax.swing.JInternalFrame {
                             .addComponent(jLabel5)
                             .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblCliente))
+                            .addComponent(lblCliente)
+                            .addComponent(jLabel3)
+                            .addComponent(lblHabitacion))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(7, 7, 7)
@@ -484,41 +501,49 @@ public class Recepcion extends javax.swing.JInternalFrame {
             
            if(fechaEntrada != null && fechaSalida != null){
                
-               List<Habitacion> misHabitaciones = unaControladoraVisual.filtrarReservas(fechaEntrada, fechaSalida);
+                List<Habitacion> misHabitaciones = unaControladoraVisual.filtrarReservas(fechaEntrada, fechaSalida);
                
                 if(misHabitaciones != null){
                     
-                    int idHab = Integer.parseInt(tblHabitaciones.getValueAt(tblHabitaciones.getSelectedRow(), 0).toString());                
-                    Habitacion unaHabitacion = unaControladoraVisual.DameLaHabitacion(idHab);
-        
-                    for(Habitacion unaHabitacion2 : misHabitaciones){
+                    if(tblHabitaciones.getSelectedRow() != -1){
                         
-                        if(unaHabitacion2.getId() == unaHabitacion.getId()){
-                            
-                            try {
-                                unaControladoraVisual.cambiarEstadoHabitacion(unaHabitacion, true);
-                            } catch (Exception ex) {
-                                Logger.getLogger(Recepcion.class.getName()).log(Level.SEVERE, null, ex);
-                            }
+                        int idHab = Integer.parseInt(tblHabitaciones.getValueAt(tblHabitaciones.getSelectedRow(), 0).toString());
+                          
+                        Habitacion unaHabitacion = unaControladoraVisual.DameLaHabitacion(idHab);
         
-                            Cliente unCliente = unaControladoraVisual.DameElCliente(dni);
+                            for(Habitacion unaHabitacion2 : misHabitaciones){
+                        
+                            if(unaHabitacion2.getId() == unaHabitacion.getId()){
+                            
+                                try {
+                                    unaControladoraVisual.cambiarEstadoHabitacion(unaHabitacion, true);
+                                } catch (Exception ex) {
+                                    Logger.getLogger(Recepcion.class.getName()).log(Level.SEVERE, null, ex);
+                                }
         
-                            try {
-                                unaControladoraVisual.altaRHabitacion(fechaEntrada, fechaSalida, cantidad, unaHabitacion, unCliente);
-                            } catch (Exception ex) {
-                                Logger.getLogger(Recepcion.class.getName()).log(Level.SEVERE, null, ex);
+                                Cliente unCliente = unaControladoraVisual.DameElCliente(dni);
+        
+                                try {
+                                    unaControladoraVisual.altaRHabitacion(fechaEntrada, fechaSalida, cantidad, unaHabitacion, unCliente);
+                                } catch (Exception ex) {
+                                    Logger.getLogger(Recepcion.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                            
+                                bandera = true ;
+                            
                             }
-                            
-                            bandera = true ;
-                            
+                        
                         }
-                        
-                    }
                     
-                    if(bandera == false){
-                        JOptionPane.showMessageDialog(null, "NO HAY RESERVA PARA ESTA HABITACION");
+                        if(bandera == false){
+                            JOptionPane.showMessageDialog(null, "NO HAY RESERVA PARA ESTA HABITACION");
+                        }
+
                     }
-                    
+                    else{
+                        JOptionPane.showMessageDialog(null, "SELECCIONE UNA HABITACION DE LA LISTA");
+                    }
+
                 }
                 else{
                  JOptionPane.showMessageDialog(null, "NO HAY HABITACIONES DISPONIBLES");  
@@ -536,17 +561,31 @@ public class Recepcion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnReservarActionPerformed
 
     private void btnModficarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModficarActionPerformed
-        int id = Integer.parseInt(tblReservas.getValueAt(tblReservas.getSelectedRow(), 0).toString());
-        RHabitacion unaRHabitacion = unaControladoraVisual.DameLaRHabitacion(id);
+        
         Calendar fechaEntrada = jdcInicio.getCalendar();
         Calendar fechaSalida = jdcSalida.getCalendar();
         
-        try {
-            unaControladoraVisual.modificarFechas(unaRHabitacion, fechaEntrada, fechaSalida);
-        } catch (Exception ex) {
-            Logger.getLogger(Recepcion.class.getName()).log(Level.SEVERE, null, ex);
+        if(fechaEntrada != null && fechaSalida != null){
+            if(tblReservas.getSelectedRow() != -1){
+                int id = Integer.parseInt(tblReservas.getValueAt(tblReservas.getSelectedRow(), 0).toString());
+                RHabitacion unaRHabitacion = unaControladoraVisual.DameLaRHabitacion(id);
+                
+                try {
+                    unaControladoraVisual.modificarFechas(unaRHabitacion, fechaEntrada, fechaSalida);
+                } catch (Exception ex) {
+                    Logger.getLogger(Recepcion.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "SELECCIONE UNA RESERVA A MODIFICAR");
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "SELECCIONE 2 FECHAS A MODIFICAR");
         }
         
+
         cargarTabla();
     }//GEN-LAST:event_btnModficarActionPerformed
 
@@ -583,6 +622,7 @@ public class Recepcion extends javax.swing.JInternalFrame {
         jdcSalida.setCalendar(null);
         tblHabitaciones.clearSelection();
         txtDni.setText(null);
+        lblHabitacion.setText(null);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnCancelarConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarConsultaActionPerformed
@@ -632,6 +672,10 @@ public class Recepcion extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_btnConsultaActionPerformed
 
+    private void tblHabitacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHabitacionesMouseClicked
+        lblHabitacion.setText(tblHabitaciones.getValueAt(tblHabitaciones.getSelectedRow(), 0).toString());
+    }//GEN-LAST:event_tblHabitacionesMouseClicked
+
     
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -646,6 +690,7 @@ public class Recepcion extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLFechaFin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
@@ -656,6 +701,7 @@ public class Recepcion extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JDateChooser jdcInicio;
     private com.toedter.calendar.JDateChooser jdcSalida;
     private javax.swing.JLabel lblCliente;
+    private javax.swing.JLabel lblHabitacion;
     private javax.swing.JTable tblConsulta;
     private javax.swing.JTable tblHabitaciones;
     private javax.swing.JTable tblReservas;

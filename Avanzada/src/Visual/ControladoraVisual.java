@@ -21,6 +21,8 @@ import Logica.Recepcionista;
 import Logica.Servicio;
 import Logica.Tipo;
 import Persistencia.exceptions.NonexistentEntityException;
+import com.itextpdf.text.DocumentException;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
 
@@ -432,5 +434,20 @@ public class ControladoraVisual {
     public List<Habitacion> filtrarReservas(Calendar fechaEntrada, Calendar fechaSalida){
         return this.unHotel.filtrarReservas(fechaEntrada, fechaSalida);
     }
+    
+    
+    
+    
+    public void imprimirFactura(String tipo, String cliente, Double total, List<DetalleFactura> unosDetalles) throws DocumentException, IOException{
+        this.unHotel.imprimirFactura(tipo, cliente, total, unosDetalles);
+    }
+    
+    
+    
+    
+    
+    
+    
+    
     
 }

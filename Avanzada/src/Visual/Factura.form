@@ -99,11 +99,11 @@
               <EmptySpace max="32767" attributes="0"/>
               <Component id="btnFacturar" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+              <Component id="btnImprimir" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="129" max="-2" attributes="0"/>
               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="lblTotal" min="-2" max="-2" attributes="0"/>
+              <Component id="lblTotal" min="-2" pref="61" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -155,11 +155,11 @@
                   <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lblTotal" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnFacturar" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnImprimir" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnBorrar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="38" max="32767" attributes="0"/>
+              <EmptySpace pref="42" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -182,7 +182,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lblTotal">
       <Properties>
-        <Property name="text" type="java.lang.String" value="xxxxxxxxxxxx"/>
+        <Property name="text" type="java.lang.String" value="xxx"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JComboBox" name="cmbDNI">
@@ -220,7 +220,7 @@
         <Component class="javax.swing.JTable" name="tblDetalle">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="3" rowCount="4">
+              <Table columnCount="3" rowCount="0">
                 <Column editable="true" title="Descripcion" type="java.lang.Object"/>
                 <Column editable="true" title="Cantidad" type="java.lang.Object"/>
                 <Column editable="true" title="Subtotal" type="java.lang.Object"/>
@@ -324,10 +324,13 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFacturarActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="btnImprimir">
       <Properties>
         <Property name="text" type="java.lang.String" value="Imprimir"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnImprimirActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnCancelar">
       <Properties>

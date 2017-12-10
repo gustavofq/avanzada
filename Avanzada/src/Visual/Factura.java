@@ -9,11 +9,14 @@ import Logica.Cliente;
 import Logica.DetalleFactura;
 import Logica.Habitacion;
 import Logica.Plato;
+import com.itextpdf.text.DocumentException;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -108,7 +111,7 @@ public class Factura extends javax.swing.JInternalFrame {
         jLabel9 = new javax.swing.JLabel();
         cmbHabitacion = new javax.swing.JComboBox<>();
         btnFacturar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnImprimir = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         lblMonto = new javax.swing.JLabel();
@@ -130,7 +133,7 @@ public class Factura extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Total:");
 
-        lblTotal.setText("xxxxxxxxxxxx");
+        lblTotal.setText("xxx");
 
         cmbDNI.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbDNI.addActionListener(new java.awt.event.ActionListener() {
@@ -143,10 +146,7 @@ public class Factura extends javax.swing.JInternalFrame {
 
         tblDetalle.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Descripcion", "Cantidad", "Subtotal"
@@ -200,7 +200,12 @@ public class Factura extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton1.setText("Imprimir");
+        btnImprimir.setText("Imprimir");
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -313,11 +318,11 @@ public class Factura extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnFacturar)
                 .addGap(38, 38, 38)
-                .addComponent(jButton1)
+                .addComponent(btnImprimir)
                 .addGap(129, 129, 129)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblTotal)
+                .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(75, 75, 75))
         );
         layout.setVerticalGroup(
@@ -362,10 +367,10 @@ public class Factura extends javax.swing.JInternalFrame {
                     .addComponent(jLabel4)
                     .addComponent(lblTotal)
                     .addComponent(btnFacturar)
-                    .addComponent(jButton1)
+                    .addComponent(btnImprimir)
                     .addComponent(btnBorrar)
                     .addComponent(btnCancelar))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         pack();
@@ -591,6 +596,38 @@ public class Factura extends javax.swing.JInternalFrame {
         lblPlato.setText(String.valueOf(unPlato.getPrecio()));
     }//GEN-LAST:event_cmbPlatoActionPerformed
 
+    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+        String tipo = txtTipo.getText();
+        String cliente = lblCliente.getText();
+        Double total = Double.parseDouble(lblTotal.getText());
+        
+        List <DetalleFactura> unosDetalles;
+        unosDetalles = new LinkedList();
+        
+        int filas = tblDetalle.getRowCount();
+         
+        for (int i = 0; i < filas; i++) {
+            
+        String descripcion = tblDetalle.getValueAt(i, 0).toString();
+        int cantidad = Integer.parseInt(tblDetalle.getValueAt(i, 1).toString());
+        Double subtotal = Double.parseDouble(tblDetalle.getValueAt(i, 2).toString());
+            
+        DetalleFactura unDetalleFactura = new DetalleFactura(descripcion, cantidad, subtotal);
+           
+        unosDetalles.add(unDetalleFactura);
+            
+        }
+        
+        
+        try {
+            unaControladoraVisual.imprimirFactura(tipo, cliente, total, unosDetalles);
+        } catch (DocumentException | IOException ex) {
+            Logger.getLogger(Factura.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+
+        
+    }//GEN-LAST:event_btnImprimirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
@@ -598,12 +635,12 @@ public class Factura extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnBorrar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnFacturar;
+    private javax.swing.JButton btnImprimir;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnModificarPlato;
     private javax.swing.JComboBox<String> cmbDNI;
     private javax.swing.JComboBox<String> cmbHabitacion;
     private javax.swing.JComboBox<String> cmbPlato;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
