@@ -37,7 +37,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         ReservaMesa = new javax.swing.JMenuItem();
         ReservaHabitacion = new javax.swing.JMenuItem();
         Presupuesto = new javax.swing.JMenu();
-        jMenu3 = new javax.swing.JMenu();
+        Facturacion = new javax.swing.JMenu();
         ABMFactura = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         ABMCamarero = new javax.swing.JMenuItem();
@@ -93,7 +93,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         Menu.add(Presupuesto);
 
-        jMenu3.setText("Facturacion");
+        Facturacion.setText("Facturacion");
 
         ABMFactura.setText("Factura");
         ABMFactura.addActionListener(new java.awt.event.ActionListener() {
@@ -101,9 +101,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 ABMFacturaActionPerformed(evt);
             }
         });
-        jMenu3.add(ABMFactura);
+        Facturacion.add(ABMFactura);
 
-        Menu.add(jMenu3);
+        Menu.add(Facturacion);
 
         jMenu4.setText("RRHH");
 
@@ -245,12 +245,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         miABMHabitacion.show();
     }//GEN-LAST:event_ABMHabitacionActionPerformed
 
-    private void ABMFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ABMFacturaActionPerformed
-       Factura miFactura = new Factura(unaControladora);
-       this.Escritorio.add(miFactura);
-       miFactura.show();
-    }//GEN-LAST:event_ABMFacturaActionPerformed
-
     private void ABMMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ABMMesaActionPerformed
         ABMMesa miABMMesa = new ABMMesa(unaControladora);
         this.Escritorio.add(miABMMesa);
@@ -292,6 +286,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
        this.Escritorio.add(miABMProveedor);
        miABMProveedor.show();
     }//GEN-LAST:event_ABMProveedorActionPerformed
+
+    private void ABMFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ABMFacturaActionPerformed
+        Facturador miFacturador = new Facturador(unaControladora);
+        this.Escritorio.add(miFacturador);
+        miFacturador.show();
+    }//GEN-LAST:event_ABMFacturaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -341,13 +341,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem ABMServicio;
     private javax.swing.JMenuItem ABMTipo;
     private javax.swing.JDesktopPane Escritorio;
+    private javax.swing.JMenu Facturacion;
     private javax.swing.JMenuBar Menu;
     private javax.swing.JMenu Presupuesto;
     private javax.swing.JMenuItem ReservaHabitacion;
     private javax.swing.JMenuItem ReservaMesa;
     private javax.swing.JMenu Reservas;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     // End of variables declaration//GEN-END:variables
 }

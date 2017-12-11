@@ -65,7 +65,7 @@ public class ImprimirFactura {
         PdfPTable tabla = new PdfPTable(3);
         
         //Añadimos los títulos a la tabla. 
-        Paragraph columna1 = new Paragraph("Descripcion");
+        Paragraph columna1 = new Paragraph("Reserva Habitacion");
         columna1.getFont().setStyle(Font.BOLD);
         columna1.getFont().setSize(15);
         tabla.addCell(columna1);

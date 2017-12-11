@@ -35,7 +35,7 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="PresupuestoMouseClicked"/>
           </Events>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenu3">
+        <Menu class="javax.swing.JMenu" name="Facturacion">
           <Properties>
             <Property name="text" type="java.lang.String" value="Facturacion"/>
           </Properties>

@@ -308,7 +308,8 @@ public class Factura extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnAgregarPlato)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnModificarPlato)))))
+                                .addComponent(btnModificarPlato))
+                            .addComponent(btnImprimir))))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(97, 97, 97)
@@ -317,9 +318,7 @@ public class Factura extends javax.swing.JInternalFrame {
                 .addComponent(btnCancelar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnFacturar)
-                .addGap(38, 38, 38)
-                .addComponent(btnImprimir)
-                .addGap(129, 129, 129)
+                .addGap(245, 245, 245)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -370,7 +369,7 @@ public class Factura extends javax.swing.JInternalFrame {
                     .addComponent(btnImprimir)
                     .addComponent(btnBorrar)
                     .addComponent(btnCancelar))
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         pack();

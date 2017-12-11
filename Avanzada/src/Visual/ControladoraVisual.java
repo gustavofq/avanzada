@@ -435,7 +435,9 @@ public class ControladoraVisual {
         return this.unHotel.filtrarReservas(fechaEntrada, fechaSalida);
     }
     
-    
+    public List<RHabitacion> filtrarReservas(int dni){
+        return this.unHotel.filtrarReservas(dni);
+    }
     
     
     public void imprimirFactura(String tipo, String cliente, Double total, List<DetalleFactura> unosDetalles) throws DocumentException, IOException{
@@ -443,7 +445,9 @@ public class ControladoraVisual {
     }
     
     
-    
+    public void borrarReservas(int dni) throws NonexistentEntityException{
+        this.unHotel.borrarReservas(dni);
+    }
     
     
     

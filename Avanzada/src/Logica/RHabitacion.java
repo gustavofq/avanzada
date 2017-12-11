@@ -84,30 +84,6 @@ public class RHabitacion extends Reservas implements Serializable{
     public void setUnCliente(Cliente unCliente) {
         this.unCliente = unCliente;
     }
-
-    public int calcularDias(Calendar fechaEntrada, Calendar fechaSalida){
-        int cantidadDias = 0;
-        boolean listo = false;
-        
-        int fecha1 = fechaEntrada.get(Calendar.DAY_OF_YEAR);
-        int fecha2 = fechaSalida.get(Calendar.DAY_OF_YEAR);
-        
-        while(listo == false){
-            if(fecha1 == fecha2){
-                listo = true;
-            }else{
-                if(fecha1 == 365){
-                    fecha1 = 0;
-                    cantidadDias++;
-                }
-                else{
-                    fecha1++;
-                    cantidadDias++;
-                }
-            }
-        }
-        return cantidadDias;
-    }
-    
+  
     
 }

@@ -981,8 +981,33 @@ public class Hotel {
     
     
     public int calcularDias(Calendar fechaEntrada, Calendar fechaSalida){
-        RHabitacion unaRHabitacion = new RHabitacion();
-        return unaRHabitacion.calcularDias(fechaEntrada, fechaSalida);
+        int cantidadDias = 1;
+        boolean listo = false;
+        int fecha1 = fechaEntrada.get(Calendar.DAY_OF_YEAR);
+        int fecha2 = fechaSalida.get(Calendar.DAY_OF_YEAR);
+        if(fecha1 <= fecha2){
+            while(listo == false){
+                if(fecha1 == fecha2){
+                    listo = true;
+                }else{
+                    if(fecha1 == 365){
+                        fecha1 = 0;
+                        cantidadDias++;
+                    }
+                    else{
+                        fecha1++;
+                        cantidadDias++;
+                    }
+                }
+            }
+        }else{
+            if(fechaSalida.get(Calendar.YEAR) > fechaEntrada.get(Calendar.YEAR)){
+                cantidadDias = 1 + (365 - fecha1) + fecha2;                
+            }else{
+                cantidadDias =0;
+            }
+        }
+        return cantidadDias;
     }
     
     
@@ -1035,6 +1060,20 @@ public class Hotel {
     }
     
     
+    public List<RHabitacion> filtrarReservas(int dni){
+        
+        List<RHabitacion> listaRHabitaciones = new LinkedList();
+        
+        for (RHabitacion unaRHabitacion : misRHabitaciones) {
+            if(unaRHabitacion.getUnCliente().getDni() == dni){
+                listaRHabitaciones.add(unaRHabitacion);
+            }
+        }
+        
+        return listaRHabitaciones;
+    }
+    
+    
     
     public void imprimirFactura(String tipo, String cliente, Double total, List<DetalleFactura> unosDetalles) throws DocumentException, IOException{
         ImprimirFactura imprimir = new ImprimirFactura();
@@ -1043,7 +1082,16 @@ public class Hotel {
     
     
     
-    
+    public void borrarReservas(int dni) throws NonexistentEntityException{
+        
+        for(RHabitacion unaRHabitacion : misRHabitaciones){
+            
+            if(unaRHabitacion.getUnCliente().getDni() == dni){
+                misHabitaciones.remove(unaRHabitacion);
+                miPersistencia.BajaRHabitacion(unaRHabitacion);
+            }
+        }
+    }
     
     
     
