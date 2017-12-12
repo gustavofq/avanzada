@@ -33,6 +33,7 @@ public class Facturador extends javax.swing.JInternalFrame {
     /**
      * Creates new form Facturador
      */
+    
     public Facturador(ControladoraVisual unaControladora) {
         initComponents();
         unaControladoraVisual = unaControladora;
